@@ -129,7 +129,7 @@ nixos*)
   LOGO[5]="     $c//$r  $b\\\\\\\\$r$c====//:::::$r"
   LOGO[6]="        $b//\\\\\\\\$r    $c\\\\\\\\$r"
   LOGO[7]="       $b//  \\\\\\\\$r    $c\\\\\\\\$r"
-  PACKAGES=$(nix-env -q | wc -l)
+  PACKAGES=$(nix-store -q --requisites ~/.nix-profile | wc -l)
   ;;
 opensuse*)
   motif="\x1B[92m$l"
