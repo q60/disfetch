@@ -1,0 +1,214 @@
+#!/usr/bin/env bash
+
+# MIT License
+#
+# Copyright (c) 2020 veleth
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+###########################################
+# global stuff needed everywhere          #
+###########################################
+INFO=()     # info array
+r="\x1B[0m" # reset color
+l="\x1B[1m" # bold text
+
+###########################################
+# getting needed information              #
+###########################################
+# TODO:
+# + refactor and prettify uptime value
+# + wayland support?
+# getting OS name
+if [ -f /etc/os-release ];
+then
+  . /etc/os-release
+  OS=$(echo $PRETTY_NAME | awk '{print tolower($0)}')
+elif type lsb_release &>/dev/null;
+then
+  OS=$(lsb_release -si | awk '{print tolower($0)}')
+fi
+# getting kernel version
+KERNEL=$(uname -r)
+# getting kernel architecture
+ARCH=$(uname -m | awk '{print tolower($0)}')
+# finding out if OS has uptime with prerrifying option
+# hardcoding prettified uptime
+uptime -p >/dev/null 2>&1
+[ $? -eq 0 ] && UPTIME=$(uptime -p | awk '{ $1=""; print }' | tr -d "," | xargs) \
+             || UPTIME=$(uptime | cut -f1 -d "," | sed -E 's/^[^,]*up *//; s/, *[[:digit:]]* users.*//; s/min/minutes/; s/([[:digit:]]+):0?([[:digit:]]+)/\1 hours \2 minutes/' | xargs)
+# getting current shell name
+SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF }')
+# getting DE and WM
+# firstly getting root window id (WM)
+wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK)
+# getting WM name, ignoring unimportant stuff
+wm=$(xprop -id ${wm_id##* } -notype -f _NET_WM_NAME 8t | xargs | awk '{ print $3 }')
+# trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
+# DESKTOP_SESSION is a full path so removing garbage
+de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | tr "/" " " | awk '{ print $NF }')
+if [[ ! -z $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]];
+then
+  DESKTOP=$wm
+else
+  DESKTOP="$de $wm"
+fi
+
+###########################################
+# defining distro logo and packages count #
+###########################################
+# note for nixos: display only current user installed
+# packages with no dependencies
+case $OS in
+astra*)
+  motif="\x1B[34m$l"
+  b="\x1B[94m$l"
+  LOGO[0]="          $b.$r            "
+  LOGO[1]="        $b.'$r.$b'.$r   "
+  LOGO[2]="  $b.....<$r.$b:::$r.$b>.....$r"
+  LOGO[3]="   $b'<$r,'$b:::::::$r',$b>'$r"
+  LOGO[4]="      $b<$r,$b':::'$r,$b>$r "
+  LOGO[5]="     $b<$r,$b'$r,$b>^<$r,$b'$r,$b>$r"
+  LOGO[6]="    $b<,>       <,>$r"
+  LOGO[7]="   $b\`             \`$r"
+  PACKAGES=$(dpkg --list | wc -l)
+  ;;
+arc*)
+  motif="\x1B[94m$l"
+  b="\x1B[34m$l"
+  c="\x1B[36m"
+  LOGO[0]="         $b.$r          "
+  LOGO[1]="        $b/^\\\\$r      "
+  LOGO[2]="       $b/, ,\\\\$r     "
+  LOGO[3]="      $b/,$c$l v$r$b ,\\\\   $r"
+  LOGO[4]="     $b/,$c$l ( )$r$b ,\\\\  $r"
+  LOGO[5]="    $b/, >   < ,\\\\$r  "
+  LOGO[6]="   $b/.>       <.\\\\$r "
+  LOGO[7]="  $b/>           <\\\\$r"
+  PACKAGES=$(pacman -Qq | wc -l)
+  ;;
+*mint*)
+  motif="\x1B[92m$l"
+  g="\x1B[32m"
+  LOGO[0]="  ${g}MM$r   $g.*^*..*^*.$r"
+	LOGO[1]="  $g\$\$$r  $g\$\$'$r $g'\$\$'$r $g'\$\$"
+	LOGO[2]="  $g\$\$$r  $g\$\$$r   $g\$\$$r   $g\$\$$r"
+	LOGO[3]="  $g\$\$$r  $g\$\$$r   $g\$\$$r   $g\$\$$r"
+	LOGO[4]="  $g\$\$$r  $g\$\$$r   $g\$\$$r   $g\$\$$r"
+	LOGO[5]="  $g\$\$.$r $g\`\`$r   $g\`\`$r  $g.\$\$$r"
+	LOGO[6]="  $g'Q\$\$\$\$\$\$\$\$\$\$\$\$Q'$r"
+ 	LOGO[7]="    $g\`\`\`\`\`\`\`\`\`\`\`\`$r"
+  PACKAGES=$(dpkg --list | wc -l)
+  ;;
+nixos*)
+  motif="\x1B[94m$l"
+  b="\x1B[34m$l"
+  c="\x1B[96m"
+  LOGO[0]="       $b\\\\\\\\$r    $c\\\\\\\\  //$r"
+  LOGO[1]="        $b\\\\\\\\$r    $c\\\\\\\\//$r"
+  LOGO[2]="    $b::::://====$r$c\\\\\\\\$r  $b//$r"
+  LOGO[3]="       $c///$r      $c\\\\\\\\$r$b//$r"
+  LOGO[4]="  $c\"\"\"\"//$r$b\\\\\\\\$r      $b///\"\"\"\"$r"
+  LOGO[5]="     $c//$r  $b\\\\\\\\$r$c====//:::::$r"
+  LOGO[6]="        $b//\\\\\\\\$r    $c\\\\\\\\$r"
+  LOGO[7]="       $b//  \\\\\\\\$r    $c\\\\\\\\$r"
+  PACKAGES=$(nix-env -q | wc -l)
+  ;;
+opensuse*)
+  motif="\x1B[92m$l"
+  g="\x1B[32m$l"
+  c="\x1B[36m"
+  LOGO[0]="        $g.,*,.$r     "
+  LOGO[1]="     $g.'\` ___ \`'.$r"
+  LOGO[2]="   $g.'--<'($r${c}o$r$g)\`,  '.$r"
+  LOGO[3]="  ${g}4$r     $c'_____$r$g\`   L$r"
+  LOGO[4]="  ${g}V       ___'    7$r"
+  LOGO[5]="   $g\`,---->      ,\`$r"
+  LOGO[6]="     $g\`,.     .,\`$r"
+  LOGO[7]="        $g\`'*'\`$r   "
+  PACKAGES=$(zypper se --installed-only | wc -l)
+  ;;
+qubes*)
+  motif="\x1B[94m$l"
+  b="\x1B[34m$l"
+  LOGO[0]="       $b.<>.$r           "
+  LOGO[1]="    $b.<^>''<^>.$r        "
+  LOGO[2]="  $b<^><$r      $b><^>$r  "
+  LOGO[3]="  $b[:]$r        $b[:]$r  "
+  LOGO[4]="  $b[:]$r        $b[:]$r  "
+  LOGO[5]="  $b<:><$r      $b><:>$r  "
+  LOGO[6]="     $b<.>..<.>>$r        "
+  LOGO[7]="       $b\`<>\`$r  $b</>$r"
+  PACKAGES=$(rpm -qa | wc -l)
+  ;;
+ubuntu*)
+  motif="\x1B[93m$l"
+  y="\x1B[93m$l"
+  rd="\x1B[91m$l"
+  LOGO[0]="         $y.,*,.$r  $rd/**\\\\$r"
+  LOGO[1]="        $y\`.\`=\`.\`$r $rd\\\\**/$r"
+  LOGO[2]="    $y.'.$r        $y'. .$r"
+  LOGO[3]="$rd/**\\\\$r $y'$r            $y'\`$r"
+  LOGO[4]="$rd\\\\**/$r $y.$r            $y.,$r"
+  LOGO[5]="    $y\`,\`$r        $y,\` \`$r"
+  LOGO[6]="        $y.\`'='\`$r $rd/**\\\\$r"
+  LOGO[7]="         $y\`'*'\`$r $rd\\\\**/$r"
+  PACKAGES=$(dpkg --list | wc -l)
+  ;;
+*)
+  motif="\x1B[93m$l"
+  b="\x1B[90m"
+  y="\x1B[33m$l"
+  LOGO[0]="        $b####$r    "
+  LOGO[1]="       $b#$r${l}^$r$b##$r${l}^$r$b#$r    "
+  LOGO[2]="       $b#$r${y}<##>$r$b#$r    "
+  LOGO[3]="     $b##$r#$b####$r#$b##$r  "
+  LOGO[4]="    $b##$r########$b##$r "
+  LOGO[5]="   $b##$r##########$b##$r"
+  LOGO[6]="  ${y}I$r$b###$r########$b###$r${y}I$r"
+  LOGO[7]="  ${y}IL>$r$b##$r######$r$b##$r${y}<JI$r"
+  ;;
+esac
+
+###########################################
+# adding only existing variables to info  #
+###########################################
+[[ ! -z $OS ]]        && INFO+=("${motif}OS:$r        $OS")
+[[ ! -z $KERNEL ]]    && INFO+=("${motif}KERNEL:$r    $KERNEL")
+[[ ! -z $ARCH ]]      && INFO+=("${motif}ARCH:$r      $ARCH")
+[[ ! -z $UPTIME ]]    && INFO+=("${motif}UPTIME:$r    $UPTIME")
+[[ ! -z $PACKAGES ]]  &&
+[[ 0 -ne $PACKAGES ]] && INFO+=("${motif}PACKAGES:$r  $PACKAGES")
+[[ ! -z $SHELL ]]     && INFO+=("${motif}SHELL:$r     $SHELL")
+[[ ! -z $DESKTOP ]]   && INFO+=("${motif}DESKTOP:$r   $DESKTOP")
+
+###########################################
+# yielding everything                     #
+###########################################
+printf "${LOGO[0]}\t $motif$(whoami)$r @ $motif$(hostname)$r\n"
+printf "${LOGO[1]}\t ${INFO[0]}\n" # OS
+printf "${LOGO[2]}\t ${INFO[1]}\n" # kernel
+printf "${LOGO[3]}\t ${INFO[2]}\n" # arch
+printf "${LOGO[4]}\t ${INFO[3]}\n" # uptime
+printf "${LOGO[5]}\t ${INFO[4]}\n" # packages
+printf "${LOGO[6]}\t ${INFO[5]}\n" # shell
+printf "${LOGO[7]}\t ${INFO[6]}\n" # desktop
+# terminal color scheme
+printf "\t\t\t \x1B[41mRD$r \x1B[42mGR$r \x1B[43mYE$r \x1B[44mBL$r \x1B[45mMA$r \x1B[46mCY$r\n"
