@@ -76,6 +76,7 @@ fi
 ###########################################
 # note for nixos: display only current user installed
 # packages with no dependencies
+OS=fggg
 case $OS in
 astra*)
   motif="\x1B[34m$l"
@@ -176,14 +177,14 @@ ubuntu*)
   motif="\x1B[93m$l"
   b="\x1B[90m"
   y="\x1B[33m$l"
-  LOGO[0]="        $b####$r    "
-  LOGO[1]="       $b#$r${l}^$r$b##$r${l}^$r$b#$r    "
-  LOGO[2]="       $b#$r${y}<##>$r$b#$r    "
-  LOGO[3]="     $b##$r#$b####$r#$b##$r  "
-  LOGO[4]="    $b##$r########$b##$r "
-  LOGO[5]="   $b##$r##########$b##$r"
-  LOGO[6]="  ${y}I$r$b###$r########$b###$r${y}I$r"
-  LOGO[7]="  ${y}IL>$r$b##$r######$r$b##$r${y}<JI$r"
+  LOGO[0]="        ${b}XXXX$r    "
+  LOGO[1]="       ${b}X$r${l}^$r${b}XX$r${l}^$r${b}X$r    "
+  LOGO[2]="       ${b}X$r${y}<XX>$r${b}X$r    "
+  LOGO[3]="     ${b}XX${r}X${b}XXXX${r}X${b}XX$r  "
+  LOGO[4]="    ${b}XX${r}XXXXXXXX${b}XX$r "
+  LOGO[5]="   ${b}XX${r}XXXXXXXXXX${b}XX$r"
+  LOGO[6]="  ${y}I$r${b}XXX${r}XXXXXXXX${b}XXX$r${y}I$r"
+  LOGO[7]="  ${y}IL>$r${b}XX${r}XXXXXX$r${b}XX$r${y}<JI$r"
   ;;
 esac
 
