@@ -58,9 +58,9 @@ uptime -p >/dev/null 2>&1
 SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF }')
 # getting DE and WM
 # firstly getting root window id (WM)
-wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK)
+wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null)
 # getting WM name, ignoring unimportant stuff
-wm=$(xprop -id ${wm_id##* } -notype -f _NET_WM_NAME 8t | xargs | awk '{ print $3 }')
+wm=$(xprop -id ${wm_id##* } -notype -f _NET_WM_NAME 8t 2>/dev/null | xargs | awk '{ print $3 }')
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
 # DESKTOP_SESSION is a full path so removing garbage
 de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | tr "/" " " | awk '{ print $NF }')
