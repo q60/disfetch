@@ -51,9 +51,52 @@ KERNEL=$(uname -r)
 # getting kernel architecture
 ARCH=$(uname -m | awk '{print tolower($0)}')
 # finding out if OS has uptime with prerrifying option
-# hardcoding prettified uptime
+# or hardcoding prettified uptime
 uptime -p >/dev/null 2>&1
 [ $? -eq 0 ] && UPTIME=$(uptime -p | awk '{ $1=""; print }' | tr -d "," | xargs) \
+             || UPTIME=$(
+  awk '{
+    uptime = $1;
+    if (uptime >= 604800) {
+      if (uptime >= 1209600) {
+        printf "%s weeks ", int(uptime/604800);
+      } else {
+        printf "1 week ";
+      }
+    }
+    if (uptime >= 86400) {
+      if (uptime >= 172800) {
+        printf "%s days ", int(uptime/86400);
+      } else {
+        printf "1 day ";
+      }
+    }
+    if (uptime >= 3600) {
+      if (uptime >= 7200) {
+        printf "%s hours ", int(uptime/3600);
+      } else {
+        printf "1 hour ";
+      }
+    }
+    if (uptime >= 60) {
+      if (int((uptime%3600)/60) > 0) {
+        if (int((uptime%3600)/60) >= 2) {
+          printf "%s minutes ", int((uptime%3600)/60);
+        } else {
+          printf "1 minute ";
+        }
+      }
+    }
+    if (uptime >= 1) {
+      if (int(uptime%60) > 0) {
+        if (int(uptime%60) >= 2) {
+          printf "%s seconds", int(uptime%60);
+        } else {
+          printf "1 second";
+        }
+      }
+    }
+  }' /proc/uptime | xargs) \
              || UPTIME=$(uptime | cut -f1 -d "," | sed -E 's/^[^,]*up *//; s/, *[[:digit:]]* users.*//; s/min/minutes/; s/([[:digit:]]+):0?([[:digit:]]+)/\1 hours \2 minutes/' | xargs)
 # getting current shell name
 SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF }')
