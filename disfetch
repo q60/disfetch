@@ -165,6 +165,19 @@ arc*)
   LOGO[7]="  $b/>           <\\\\$r"
   PACKAGES=$(pacman -Qq | wc -l)
   ;;
+elementary*)
+  motif="\x1B[96m$l"
+  b="\x1B[94m$l"
+  LOGO[0]="        $b.,*,.$r   "
+  LOGO[1]="     $b.'$r eeeee$r $b'.$r"
+  LOGO[2]="   $b.'$r e$r       e$r $b'.$r"
+  LOGO[3]="  ${b}4$r  e_________e$r  ${b}L$r"
+  LOGO[4]="  ${b}V$r  e\"\"\"\"\"\"\"\"\"\`$r  ${b}7$r"
+  LOGO[5]="   $b\`,$r e$r       ,$r $b,\`$r"
+  LOGO[6]="     $b\`, ${r}eeeee$r $b,\`$r"
+  LOGO[7]="        $b\`'*'\`$r   "
+  PACKAGES=$(dpkg --list | wc -l)
+  ;;
 *mint*)
   motif="\x1B[92m$l"
   g="\x1B[32m"
