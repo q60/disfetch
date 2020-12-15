@@ -233,6 +233,19 @@ ubuntu*)
   LOGO[7]="         $y\`'*'\`$r $rd\\\\**/$r"
   PACKAGES=$(dpkg --list | wc -l)
   ;;
+zorin*)
+  motif="\x1B[94m$l"
+  b="\x1B[94m"
+  LOGO[0]="     $b//ZZZZZZZZZZZ\\\\\\\\$r"
+  LOGO[1]="    $l//\`\`\`\`\`\`\`\`\`\`\`\`\`\\\\\\\\$r"
+  LOGO[2]="   $l//......$r$l.     ...\\\\\\\\$r"
+  LOGO[3]="  $b//ZZZZZZZ$r$l>    <$r${b}ZZZZ\\\\\\\\$r"
+  LOGO[4]="  $b\\\\\\\\ZZZZ$r$l>    <$r${b}ZZZZZZZ//$r"
+  LOGO[5]="   $l\\\\\\\\\`\`$r$l\`     \`\`\`\`\`\`\`//$r"
+  LOGO[6]="    $l\\\\\\\\.............//$r"
+  LOGO[7]="     $b\\\\\\\\ZZZZZZZZZZZ//$r"
+  PACKAGES=$(dpkg --list | wc -l)
+  ;;
 *)
   motif="\x1B[93m$l"
   b="\x1B[90m"
