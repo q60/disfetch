@@ -165,6 +165,22 @@ arc*)
   LOGO[7]="  $b/>           <\\\\$r"
   PACKAGES=$(pacman -Qq | wc -l)
   ;;
+cent*)
+  motif="\x1B[93m$l"
+  g="\x1B[32m"
+  p="\x1B[35m"
+  y="\x1B[33m"
+  b="\x1B[34m"
+  LOGO[0]="        $y$l/-\\\\$r     "
+  LOGO[1]="    ${g}F44N$r $y$l#$r ${p}F11N$r "
+  LOGO[2]="    ${g}L44X$r $y$l#$r ${p}L11X$r "
+  LOGO[3]="  $p$l/_____$r $r~ $r$b${l}_____\\\\$r"
+  LOGO[4]="  $p$l\\\\\"\"\"\"\"$r $r~ $r$b${l}\"\"\"\"\"/$r"
+  LOGO[5]="    ${b}F33N$r $g$l#$r ${y}F22N$r "
+  LOGO[6]="    ${b}L33X$r $g$l#$r ${y}L22X$r "
+  LOGO[7]="        $g$l\-/$r     "
+  PACKAGES=$(rpm -qa | wc -l)
+  ;;
 elementary*)
   motif="\x1B[96m$l"
   b="\x1B[94m$l"
