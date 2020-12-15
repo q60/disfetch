@@ -39,11 +39,12 @@ l="\x1B[1m" # bold text
 # getting OS name
 if [ -f /etc/os-release ];
 then
-  . /etc/os-release
-  OS=$(echo $PRETTY_NAME | awk '{print tolower($0)}')
+  OS=$(cat /etc/os-release | grep "PRETTY_NAME" | tr '"' " " | awk '{ $1=""; print tolower($0) }' | xargs)
 elif type lsb_release &>/dev/null;
 then
   OS=$(lsb_release -si | awk '{print tolower($0)}')
+else
+  OS=$(uname -o | awk '{ print tolower($0) }')
 fi
 # getting kernel version
 KERNEL=$(uname -r)
@@ -76,7 +77,6 @@ fi
 ###########################################
 # note for nixos: display only current user installed
 # packages with no dependencies
-OS=fggg
 case $OS in
 astra*)
   motif="\x1B[34m$l"
