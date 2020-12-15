@@ -65,17 +65,21 @@ uptime -p >/dev/null 2>&1
       }
     }
     if (uptime >= 86400) {
-      if (uptime >= 172800) {
-        printf "%s days ", int(uptime/86400);
-      } else {
-        printf "1 day ";
+      if (int((uptime%604800)/86400) > 0) {
+        if (int((uptime%604800)/86400) >= 2) {
+          printf "%s days ", int((uptime%604800)/86400);
+        } else {
+          printf "1 day ";
+        }
       }
     }
     if (uptime >= 3600) {
-      if (uptime >= 7200) {
-        printf "%s hours ", int(uptime/3600);
-      } else {
-        printf "1 hour ";
+      if (int((uptime%86400)/3600) > 0) {
+        if (int((uptime%86400)/3600) >= 2) {
+          printf "%s hours ", int((uptime%86400)/3600);
+        } else {
+          printf "1 hour ";
+        }
       }
     }
     if (uptime >= 60) {
