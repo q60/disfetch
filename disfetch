@@ -126,8 +126,8 @@ fi
 # packages with no dependencies
 case $OS in
 astra*)
-  motif="\x1B[34m$l"
-  b="\x1B[94m$l"
+  motif="\x1B[94m$l"
+  b="\x1B[34m$l"
   LOGO[0]="          $b.$r            "
   LOGO[1]="        $b.'$r.$b'.$r   "
   LOGO[2]="  $b.....<$r.$b:::$r.$b>.....$r"
