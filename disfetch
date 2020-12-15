@@ -124,7 +124,21 @@ fi
 ###########################################
 # note for nixos: display only current user installed
 # packages with no dependencies
+OS=android
 case $OS in
+android*)
+  motif="\x1B[92m$l"
+  g="\x1B[32m$l"
+  LOGO[0]="     $g\..../$r"
+  LOGO[1]="     ${g}d${r}o${g}HH${r}o${g}b$r"
+  LOGO[2]="    $g''''''''$r"
+  LOGO[3]="  $g.$r ${g}GHHHHHHB$r $g.$r"
+  LOGO[4]="  ${g}H$r ${g}H######H$r ${g}H$r"
+  LOGO[5]="  ${g}U$r ${g}H######H$r ${g}U$r"
+  LOGO[6]="    ${g}GHHHHHHB$r"
+  LOGO[7]="      ${g}U$r  ${g}U$r"
+  PACKAGES=$(pkg list-installed | wc -l)
+  ;;
 astra*)
   motif="\x1B[94m$l"
   b="\x1B[34m$l"
