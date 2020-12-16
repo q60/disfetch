@@ -91,7 +91,7 @@ uptime -p >/dev/null 2>&1
         }
       }
     }
-    if (uptime >= 1) {
+    if (uptime >= 1 && 59 >= uptime) {
       if (int(uptime%60) > 0) {
         if (int(uptime%60) >= 2) {
           printf "%s seconds", int(uptime%60);
