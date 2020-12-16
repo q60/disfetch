@@ -305,11 +305,11 @@ esac
 ###########################################
 # yielding everything                     #
 ###########################################
-printf "${LOGO[0]}\t\x1B[37mW\x1B[97mE$r | $motif$(whoami)$r @ $motif$(hostname)$r\n"
-printf "${LOGO[1]}\t\x1B[31mR\x1B[91mD$r | ${INFO[0]}\n" # OS
-printf "${LOGO[2]}\t\x1B[32mG\x1B[92mN$r | ${INFO[1]}\n" # kernel
-printf "${LOGO[3]}\t\x1B[33mY\x1B[93mW$r | ${INFO[2]}\n" # arch
-printf "${LOGO[4]}\t\x1B[34mB\x1B[94mE$r | ${INFO[3]}\n" # uptime
-printf "${LOGO[5]}\t\x1B[35mM\x1B[95mA$r | ${INFO[4]}\n" # packages
-printf "${LOGO[6]}\t\x1B[36mC\x1B[96mN$r | ${INFO[5]}\n" # shell
-printf "${LOGO[7]}\t\x1B[30mB\x1B[90mK$r | ${INFO[6]}\n" # desktop
+printf "${LOGO[0]}\t \x1B[37mW\x1B[97mE$r | $motif$(whoami)$r @ $motif$(hostname)$r\n"
+printf "${LOGO[1]}\t \x1B[31mR\x1B[91mD$r | ${INFO[0]}\n" # OS
+printf "${LOGO[2]}\t \x1B[32mG\x1B[92mN$r | ${INFO[1]}\n" # kernel
+printf "${LOGO[3]}\t \x1B[33mY\x1B[93mW$r | ${INFO[2]}\n" # arch
+printf "${LOGO[4]}\t \x1B[34mB\x1B[94mE$r | ${INFO[3]}\n" # uptime
+printf "${LOGO[5]}\t \x1B[35mM\x1B[95mA$r | ${INFO[4]}\n" # packages
+printf "${LOGO[6]}\t \x1B[36mC\x1B[96mN$r | ${INFO[5]}\n" # shell
+printf "${LOGO[7]}\t \x1B[30mB\x1B[90mK$r | ${INFO[6]}\n" # desktop
