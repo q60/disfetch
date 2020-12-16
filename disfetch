@@ -148,7 +148,7 @@ astra*)
   LOGO[5]="     $b<$r,$b'$r,$b>^<$r,$b'$r,$b>$r"
   LOGO[6]="    $b<,>       <,>$r"
   LOGO[7]="   $b\`             \`$r"
-  PACKAGES=$(dpkg --list | wc -l)
+  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 arc*)
   motif="\x1B[94m$l"
@@ -191,7 +191,7 @@ elementary*)
   LOGO[5]="   $b\`,$r e$r       ,$r $b,\`$r"
   LOGO[6]="     $b\`, ${r}eeeee$r $b,\`$r"
   LOGO[7]="        $b\`'*'\`$r   "
-  PACKAGES=$(dpkg --list | wc -l)
+  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 *mint*)
   motif="\x1B[92m$l"
@@ -204,7 +204,7 @@ elementary*)
   LOGO[5]="  $g\$\$.$r $g\`\`$r   $g\`\`$r  $g.\$\$$r"
   LOGO[6]="  $g'Q\$\$\$\$\$\$\$\$\$\$\$\$Q'$r"
   LOGO[7]="    $g\`\`\`\`\`\`\`\`\`\`\`\`$r"
-  PACKAGES=$(dpkg --list | wc -l)
+  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 nixos*)
   motif="\x1B[94m$l"
@@ -259,7 +259,7 @@ ubuntu*)
   LOGO[5]="    $y\`,\`$r        $y,\` \`$r"
   LOGO[6]="        $y.\`'='\`$r $rd/**\\\\$r"
   LOGO[7]="         $y\`'*'\`$r $rd\\\\**/$r"
-  PACKAGES=$(dpkg --list | wc -l)
+  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 zorin*)
   motif="\x1B[94m$l"
@@ -272,7 +272,7 @@ zorin*)
   LOGO[5]="   $l\\\\\\\\\`\`$r$l\`     \`\`\`\`\`\`\`//$r"
   LOGO[6]="    $l\\\\\\\\.............//$r"
   LOGO[7]="     $b\\\\\\\\ZZZZZZZZZZZ//$r"
-  PACKAGES=$(dpkg --list | wc -l)
+  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 *)
   motif="\x1B[93m$l"
