@@ -34,7 +34,6 @@ l="\x1B[1m" # bold text
 # getting needed information              #
 ###########################################
 # TODO:
-# + refactor and prettify uptime value
 # + wayland support?
 # getting OS name
 if [ -f /etc/os-release ];
