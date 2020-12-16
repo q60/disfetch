@@ -135,7 +135,7 @@ android*)
   LOGO[5]="  ${g}U$r ${g}H######H$r ${g}U$r"
   LOGO[6]="    ${g}GHHHHHHB$r   "
   LOGO[7]="      ${g}U$r  ${g}U$r    "
-  PACKAGES=$(pkg list-installed | wc -l)
+  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 astra*)
   motif="\x1B[94m$l"
