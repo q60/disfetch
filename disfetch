@@ -225,14 +225,14 @@ opensuse*)
   motif="\x1B[92m$l"
   g="\x1B[32m$l"
   c="\x1B[36m"
-  LOGO[0]="        $g.,*,.$r     "
-  LOGO[1]="     $g.'$r  ${g}___$r  $g'.$r"
-  LOGO[2]="   $g.'--<'($r${c}o$r$g)\`,$r  $g'.$r"
+  LOGO[0]="        $g.,*,.$r      "
+  LOGO[1]="     $g.'$r  ${g}___$r  $g'.$r   "
+  LOGO[2]="   $g.'--<'($r${c}o$r$g)\`,$r  $g'.$r "
   LOGO[3]="  ${g}4$r     $c'_____$r$g\`$r   ${g}L$r"
   LOGO[4]="  ${g}V$r       ${g}___'$r    ${g}7$r"
-  LOGO[5]="   $g\`,---->$r      $g,\`$r"
-  LOGO[6]="     $g\`,$r       $g,\`$r"
-  LOGO[7]="        $g\`'*'\`$r   "
+  LOGO[5]="   $g\`,---->$r      $g,\`$r "
+  LOGO[6]="     $g\`,$r       $g,\`$r   "
+  LOGO[7]="        $g\`'*'\`$r      "
   PACKAGES=$(zypper se --installed-only | wc -l)
   ;;
 qubes*)
