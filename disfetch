@@ -184,14 +184,14 @@ cent*)
 elementary*)
   motif="\x1B[96m$l"
   b="\x1B[94m$l"
-  LOGO[0]="        $b.,*,.$r   "
-  LOGO[1]="     $b.'$r eeeee$r $b'.$r"
-  LOGO[2]="   $b.'$r e$r       e$r $b'.$r"
+  LOGO[0]="        $b.,*,.$r      "
+  LOGO[1]="     $b.'$r eeeee$r $b'.$r   "
+  LOGO[2]="   $b.'$r e$r       e$r $b'.$r "
   LOGO[3]="  ${b}4${r} ,e_________e$r  ${b}L$r"
   LOGO[4]="  ${b}V$r  e\"\"\"\"\"\"\"\"\"\`$r  ${b}7$r"
-  LOGO[5]="   $b\`,$r e$r       ,$r $b,\`$r"
-  LOGO[6]="     $b\`, ${r}eeeee$r $b,\`$r"
-  LOGO[7]="        $b\`'*'\`$r   "
+  LOGO[5]="   $b\`,$r e$r       ,$r $b,\`$r "
+  LOGO[6]="     $b\`, ${r}eeeee$r $b,\`$r   "
+  LOGO[7]="        $b\`'*'\`$r      "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 *mint*)
