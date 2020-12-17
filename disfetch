@@ -158,10 +158,10 @@ arc*)
   LOGO[1]="        $b/^\\\\$r      "
   LOGO[2]="       $b/, ,\\\\$r     "
   LOGO[3]="      $b/, $c${l}v$r$b ,\\\\$r   "
-  LOGO[4]="     $b/, $c$l( )$r$b ,\\\\$r  "
-  LOGO[5]="    $b/, >   < ,\\\\$r  "
-  LOGO[6]="   $b/.>       <.\\\\$r "
-  LOGO[7]="  $b/>           <\\\\$r"
+  LOGO[4]="     $b/, $c$l($r $c$l)$r$b ,\\\\$r  "
+  LOGO[5]="    $b/,$r $b>   $b<$r $b,\\\\$r  "
+  LOGO[6]="   $b/.>$r       $b<.\\\\$r "
+  LOGO[7]="  $b/>$r           $b<\\\\$r"
   PACKAGES=$(pacman -Qq | wc -l)
   ;;
 cent*)
