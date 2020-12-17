@@ -125,180 +125,180 @@ fi
 # packages with no dependencies
 case $OS in
 android*)
-  motif="\x1B[92m$l"
-  g="\x1B[32m$l"
-  LOGO[0]="     $g\..../$r   "
-  LOGO[1]="     ${g}d${r}o${g}HH${r}o${g}b$r   "
-  LOGO[2]="    $g''''''''$r  "
-  LOGO[3]="  $g.$r ${g}GHHHHHHB$r $g.$r"
-  LOGO[4]="  ${g}H$r ${g}H######H$r ${g}H$r"
-  LOGO[5]="  ${g}U$r ${g}H######H$r ${g}U$r"
-  LOGO[6]="    ${g}GHHHHHHB$r  "
-  LOGO[7]="      ${g}U$r  ${g}U$r    "
+  motif="\x1B[92m$l" # bright green
+  a="\x1B[32m$l"     # green
+  LOGO[0]="     $a\..../$r   "
+  LOGO[1]="     ${a}d${r}o${a}HH${r}o${a}b$r   "
+  LOGO[2]="    $a''''''''$r  "
+  LOGO[3]="  $a.$r ${a}GHHHHHHB$r $a.$r"
+  LOGO[4]="  ${a}H$r ${a}H######H$r ${a}H$r"
+  LOGO[5]="  ${a}U$r ${a}H######H$r ${a}U$r"
+  LOGO[6]="    ${a}GHHHHHHB$r  "
+  LOGO[7]="      ${a}U$r  ${a}U$r    "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 astra*)
-  motif="\x1B[94m$l"
-  b="\x1B[34m$l"
-  LOGO[0]="          $b.$r        "
-  LOGO[1]="        $b.'$r.$b'.$r      "
-  LOGO[2]="  $b.....<$r.$b:::$r.$b>.....$r"
-  LOGO[3]="   $b'<$r,'$b:::::::$r',$b>'$r "
-  LOGO[4]="      $b<$r,$b':::'$r,$b>$r    "
-  LOGO[5]="     $b<$r,$b'$r,$b>^<$r,$b'$r,$b>$r   "
-  LOGO[6]="    $b<,>       <,>$r  "
-  LOGO[7]="   $b\`             \`$r "
+  motif="\x1B[94m$l" # bright blue
+  a="\x1B[34m$l"     # blue
+  LOGO[0]="          $a.$r        "
+  LOGO[1]="        $a.'$r.$a'.$r      "
+  LOGO[2]="  $a.....<$r.$a:::$r.$a>.....$r"
+  LOGO[3]="   $a'<$r,'$a:::::::$r',$a>'$r "
+  LOGO[4]="      $a<$r,$a':::'$r,$a>$r    "
+  LOGO[5]="     $a<$r,$a'$r,$a>^<$r,$a'$r,$a>$r   "
+  LOGO[6]="    $a<,>       <,>$r  "
+  LOGO[7]="   $a\`             \`$r "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 arc*)
-  motif="\x1B[94m$l"
-  b="\x1B[34m$l"
-  c="\x1B[36m"
-  LOGO[0]="         $b.$r       "
-  LOGO[1]="        $b/^\\\\$r      "
-  LOGO[2]="       $b/, ,\\\\$r     "
-  LOGO[3]="      $b/, $c${l}v$r$b ,\\\\$r    "
-  LOGO[4]="     $b/, $c$l($r $c$l)$r$b ,\\\\$r   "
-  LOGO[5]="    $b/,$r $b>   $b<$r $b,\\\\$r  "
-  LOGO[6]="   $b/.>$r       $b<.\\\\$r "
-  LOGO[7]="  $b/>$r           $b<\\\\$r"
+  motif="\x1B[94m$l" # bright blue
+  a="\x1B[34m$l"     # blue
+  b="\x1B[36m"       # cyan
+  LOGO[0]="         $a.$r       "
+  LOGO[1]="        $a/^\\\\$r      "
+  LOGO[2]="       $a/, ,\\\\$r     "
+  LOGO[3]="      $a/, $b${l}v$r$a ,\\\\$r    "
+  LOGO[4]="     $a/, $b$l($r $b$l)$r$a ,\\\\$r   "
+  LOGO[5]="    $a/,$r $a>   $a<$r $a,\\\\$r  "
+  LOGO[6]="   $a/.>$r       $a<.\\\\$r "
+  LOGO[7]="  $a/>$r           $a<\\\\$r"
   PACKAGES=$(pacman -Qq | wc -l)
   ;;
 cent*)
-  motif="\x1B[93m$l"
-  g="\x1B[32m"
-  p="\x1B[35m"
-  y="\x1B[33m"
-  b="\x1B[34m"
-  LOGO[0]="        $y$l/-\\\\$r      "
-  LOGO[1]="    ${g}F44N$r $y$l#$r ${p}F11N$r  "
-  LOGO[2]="    ${g}L44X$r $y$l#$r ${p}L11X$r  "
-  LOGO[3]="  $p$l/_____$r $r~ $r$b${l}_____\\\\$r"
-  LOGO[4]="  $p$l\\\\\"\"\"\"\"$r $r~ $r$b${l}\"\"\"\"\"/$r"
-  LOGO[5]="    ${b}F33N$r $g$l#$r ${y}F22N$r  "
-  LOGO[6]="    ${b}L33X$r $g$l#$r ${y}L22X$r  "
-  LOGO[7]="        $g$l\-/$r      "
+  motif="\x1B[93m$l" # bright yellow
+  a="\x1B[32m"       # green
+  b="\x1B[35m"       # magenta
+  c="\x1B[33m"       # yellow
+  d="\x1B[34m"       # blue
+  LOGO[0]="        $c$l/-\\\\$r      "
+  LOGO[1]="    ${a}F44N$r $c$l#$r ${b}F11N$r  "
+  LOGO[2]="    ${a}L44X$r $c$l#$r ${b}L11X$r  "
+  LOGO[3]="  $b$l/_____$r $r~ $r$d${l}_____\\\\$r"
+  LOGO[4]="  $b$l\\\\\"\"\"\"\"$r $r~ $r$d${l}\"\"\"\"\"/$r"
+  LOGO[5]="    ${d}F33N$r $a$l#$r ${c}F22N$r  "
+  LOGO[6]="    ${d}L33X$r $a$l#$r ${c}L22X$r  "
+  LOGO[7]="        $a$l\-/$r      "
   PACKAGES=$(rpm -qa | wc -l)
   ;;
 debian*)
-  motif="\x1B[95m$l"
-  rd="\x1B[95m$l"
-  LOGO[0]="      $rd,6tt6,$r  "
-  LOGO[1]="    $rd,6$r      ${rd}6$r "
-  LOGO[2]="   ${rd}6$r    $rd,6.$r  ${rd}6$r"
-  LOGO[3]="  $rd'6$r   ${rd}6$r    ${rd}6'$r"
-  LOGO[4]="    ${rd}6$r   $rd'6''$r  "
-  LOGO[5]="    $rd'6$r        "
-  LOGO[6]="      $rd'6$r      "
-  LOGO[7]="        $rd'6.$r   "
+  motif="\x1B[95m$l" # bright magenta
+  a="\x1B[95m$l"     # bright magenta
+  LOGO[0]="      $a,6tt6,$r  "
+  LOGO[1]="    $a,6$r      ${a}6$r "
+  LOGO[2]="   ${a}6$r    $a,6.$r  ${a}6$r"
+  LOGO[3]="  $a'6$r   ${a}6$r    ${a}6'$r"
+  LOGO[4]="    ${a}6$r   $a'6''$r  "
+  LOGO[5]="    $a'6$r        "
+  LOGO[6]="      $a'6$r      "
+  LOGO[7]="        $a'6.$r   "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 elementary*)
-  motif="\x1B[96m$l"
-  b="\x1B[94m$l"
-  LOGO[0]="        $b.,*,.$r      "
-  LOGO[1]="     $b.'$r eeeee$r $b'.$r   "
-  LOGO[2]="   $b.'$r e$r       e$r $b'.$r "
-  LOGO[3]="  ${b}4${r} ,e_________e$r  ${b}L$r"
-  LOGO[4]="  ${b}V$r  e\"\"\"\"\"\"\"\"\"\`$r  ${b}7$r"
-  LOGO[5]="   $b\`,$r e$r       ,$r $b,\`$r "
-  LOGO[6]="     $b\`, ${r}eeeee$r $b,\`$r   "
-  LOGO[7]="        $b\`'*'\`$r      "
+  motif="\x1B[96m$l" # bright cyan
+  a="\x1B[94m$l"     # bright blue
+  LOGO[0]="        $a.,*,.$r      "
+  LOGO[1]="     $a.'$r eeeee$r $a'.$r   "
+  LOGO[2]="   $a.'$r e$r       e$r $a'.$r "
+  LOGO[3]="  ${a}4${r} ,e_________e$r  ${a}L$r"
+  LOGO[4]="  ${a}V$r  e\"\"\"\"\"\"\"\"\"\`$r  ${a}7$r"
+  LOGO[5]="   $a\`,$r e$r       ,$r $a,\`$r "
+  LOGO[6]="     $a\`, ${r}eeeee$r $a,\`$r   "
+  LOGO[7]="        $a\`'*'\`$r      "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 *mint*)
-  motif="\x1B[92m$l"
-  g="\x1B[32m"
-  LOGO[0]="  ${g}MM$r   $g.*^*..*^*.$r "
-  LOGO[1]="  $g\$\$$r  $g\$\$'$r $g'\$\$'$r $g'\$\$$r"
-  LOGO[2]="  $g\$\$$r  $g\$\$$r   $g\$\$$r   $g\$\$$r"
-  LOGO[3]="  $g\$\$$r  $g\$\$$r   $g\$\$$r   $g\$\$$r"
-  LOGO[4]="  $g\$\$$r  $g\$\$$r   $g\$\$$r   $g\$\$$r"
-  LOGO[5]="  $g\$\$.$r $g\`\`$r   $g\`\`$r  $g.\$\$$r"
-  LOGO[6]="  $g'Q\$\$\$\$\$\$\$\$\$\$\$\$Q'$r"
-  LOGO[7]="    $g\`\`\`\`\`\`\`\`\`\`\`\`$r  "
+  motif="\x1B[92m$l" # bright green
+  a="\x1B[32m"       # green
+  LOGO[0]="  ${a}MM$r   $a.*^*..*^*.$r "
+  LOGO[1]="  $a\$\$$r  $a\$\$'$r $a'\$\$'$r $a'\$\$$r"
+  LOGO[2]="  $a\$\$$r  $a\$\$$r   $a\$\$$r   $a\$\$$r"
+  LOGO[3]="  $a\$\$$r  $a\$\$$r   $a\$\$$r   $a\$\$$r"
+  LOGO[4]="  $a\$\$$r  $a\$\$$r   $a\$\$$r   $a\$\$$r"
+  LOGO[5]="  $a\$\$.$r $a\`\`$r   $a\`\`$r  $a.\$\$$r"
+  LOGO[6]="  $a'Q\$\$\$\$\$\$\$\$\$\$\$\$Q'$r"
+  LOGO[7]="    $a\`\`\`\`\`\`\`\`\`\`\`\`$r  "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 nixos*)
-  motif="\x1B[94m$l"
-  b="\x1B[34m$l"
-  c="\x1B[96m"
-  LOGO[0]="       $b\\\\\\\\$r    $c\\\\\\\\  //$r    "
-  LOGO[1]="        $b\\\\\\\\$r    $c\\\\\\\\//$r     "
-  LOGO[2]="    $b::::://====$r$c\\\\\\\\$r  $b//$r  "
-  LOGO[3]="       $c///$r      $c\\\\\\\\$r$b//$r   "
-  LOGO[4]="  $c\"\"\"\"//$r$b\\\\\\\\$r      $b///\"\"\"\"$r"
-  LOGO[5]="     $c//$r  $b\\\\\\\\$r$c====//:::::$r "
-  LOGO[6]="        $b//\\\\\\\\$r    $c\\\\\\\\$r     "
-  LOGO[7]="       $b//  \\\\\\\\$r    $c\\\\\\\\$r    "
+  motif="\x1B[94m$l" # bright blue
+  a="\x1B[34m$l"     # blue
+  b="\x1B[96m"       # bright cyan
+  LOGO[0]="       $a\\\\\\\\$r    $b\\\\\\\\  //$r    "
+  LOGO[1]="        $a\\\\\\\\$r    $b\\\\\\\\//$r     "
+  LOGO[2]="    $a::::://====$r$b\\\\\\\\$r  $a//$r  "
+  LOGO[3]="       $b///$r      $b\\\\\\\\$r$a//$r   "
+  LOGO[4]="  $b\"\"\"\"//$r$a\\\\\\\\$r      $a///\"\"\"\"$r"
+  LOGO[5]="     $b//$r  $a\\\\\\\\$r$b====//:::::$r "
+  LOGO[6]="        $a//\\\\\\\\$r    $b\\\\\\\\$r     "
+  LOGO[7]="       $a//  \\\\\\\\$r    $b\\\\\\\\$r    "
   PACKAGES=$(nix-store -q --requisites ~/.nix-profile | wc -l)
   ;;
 opensuse*)
-  motif="\x1B[92m$l"
-  g="\x1B[32m$l"
-  c="\x1B[36m"
-  LOGO[0]="        $g.,*,.$r      "
-  LOGO[1]="     $g.'$r  ${g}___$r  $g'.$r   "
-  LOGO[2]="   $g.'--<'($r${c}o$r$g)\`,$r  $g'.$r "
-  LOGO[3]="  ${g}4$r     $c'_____$r$g\`$r   ${g}L$r"
-  LOGO[4]="  ${g}V$r       ${g}___'$r    ${g}7$r"
-  LOGO[5]="   $g\`,---->$r      $g,\`$r "
-  LOGO[6]="     $g\`,$r       $g,\`$r   "
-  LOGO[7]="        $g\`'*'\`$r      "
+  motif="\x1B[92m$l" # bright green
+  a="\x1B[32m$l"     # green
+  b="\x1B[36m"       # cyan
+  LOGO[0]="        $a.,*,.$r      "
+  LOGO[1]="     $a.'$r  ${a}___$r  $a'.$r   "
+  LOGO[2]="   $a.'--<'($r${b}o$r$a)\`,$r  $a'.$r "
+  LOGO[3]="  ${a}4$r     $b'_____$r$a\`$r   ${a}L$r"
+  LOGO[4]="  ${a}V$r       ${a}___'$r    ${a}7$r"
+  LOGO[5]="   $a\`,---->$r      $a,\`$r "
+  LOGO[6]="     $a\`,$r       $a,\`$r   "
+  LOGO[7]="        $a\`'*'\`$r      "
   PACKAGES=$(zypper se --installed-only | wc -l)
   ;;
 qubes*)
-  motif="\x1B[94m$l"
-  b="\x1B[34m$l"
-  LOGO[0]="       $b.<>.$r     "
-  LOGO[1]="    $b.<^>''<^>.$r  "
-  LOGO[2]="  $b<^><$r      $b><^>$r"
-  LOGO[3]="  $b[:]$r        $b[:]$r"
-  LOGO[4]="  $b[:]$r        $b[:]$r"
-  LOGO[5]="  $b<:><$r      $b><:>$r"
-  LOGO[6]="     $b<.>..<.>>$r  "
-  LOGO[7]="       $b\`<>\`$r  $b</>$r"
+  motif="\x1B[94m$l" # bright blue
+  a="\x1B[34m$l"     # blue
+  LOGO[0]="       $a.<>.$r     "
+  LOGO[1]="    $a.<^>''<^>.$r  "
+  LOGO[2]="  $a<^><$r      $a><^>$r"
+  LOGO[3]="  $a[:]$r        $a[:]$r"
+  LOGO[4]="  $a[:]$r        $a[:]$r"
+  LOGO[5]="  $a<:><$r      $a><:>$r"
+  LOGO[6]="     $a<.>..<.>>$r  "
+  LOGO[7]="       $a\`<>\`$r  $a</>$r"
   PACKAGES=$(rpm -qa | wc -l)
   ;;
 ubuntu*)
-  motif="\x1B[93m$l"
-  y="\x1B[93m$l"
-  rd="\x1B[91m$l"
-  LOGO[0]="         $y.,*,.$r  $rd/**\\\\$r"
-  LOGO[1]="        $y\`.\`=\`.\`$r $rd\\\\**/$r"
-  LOGO[2]="    $y.'.$r        $y'. .$r "
-  LOGO[3]="$rd/**\\\\$r $y'$r            $y'\`$r"
-  LOGO[4]="$rd\\\\**/$r $y.$r            $y.,$r"
-  LOGO[5]="    $y\`,\`$r        $y,\` \`$r "
-  LOGO[6]="        $y.\`'='\`$r $rd/**\\\\$r "
-  LOGO[7]="         $y\`'*'\`$r $rd\\\\**/$r "
+  motif="\x1B[93m$l" # bright yellow
+  a="\x1B[93m$l"     # bright yellow
+  b="\x1B[91m$l"     # bright red
+  LOGO[0]="         $a.,*,.$r  $b/**\\\\$r"
+  LOGO[1]="        $a\`.\`=\`.\`$r $b\\\\**/$r"
+  LOGO[2]="    $a.'.$r        $a'. .$r "
+  LOGO[3]="$b/**\\\\$r $a'$r            $a'\`$r"
+  LOGO[4]="$b\\\\**/$r $a.$r            $a.,$r"
+  LOGO[5]="    $a\`,\`$r        $a,\` \`$r "
+  LOGO[6]="        $a.\`'='\`$r $b/**\\\\$r "
+  LOGO[7]="         $a\`'*'\`$r $b\\\\**/$r "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 zorin*)
-  motif="\x1B[94m$l"
-  b="\x1B[94m"
-  LOGO[0]="     $b//ZZZZZZZZZZZ\\\\\\\\$r   "
+  motif="\x1B[94m$l" # bright blue
+  a="\x1B[94m"       # bright blue
+  LOGO[0]="     $a//ZZZZZZZZZZZ\\\\\\\\$r   "
   LOGO[1]="    $l//\`\`\`\`\`\`\`\`\`\`\`\`\`\\\\\\\\$r  "
   LOGO[2]="   $l//......$r$l.     ...\\\\\\\\$r "
-  LOGO[3]="  $b//ZZZZZZZ$r$l>    <$r${b}ZZZZ\\\\\\\\$r"
-  LOGO[4]="  $b\\\\\\\\ZZZZ$r$l>    <$r${b}ZZZZZZZ//$r"
+  LOGO[3]="  $a//ZZZZZZZ$r$l>    <$r${a}ZZZZ\\\\\\\\$r"
+  LOGO[4]="  $a\\\\\\\\ZZZZ$r$l>    <$r${a}ZZZZZZZ//$r"
   LOGO[5]="   $l\\\\\\\\\`\`$r$l\`     \`\`\`\`\`\`\`//$r "
   LOGO[6]="    $l\\\\\\\\.............//$r  "
-  LOGO[7]="     $b\\\\\\\\ZZZZZZZZZZZ//$r   "
+  LOGO[7]="     $a\\\\\\\\ZZZZZZZZZZZ//$r   "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 *)
-  motif="\x1B[93m$l"
-  b="\x1B[90m"
-  y="\x1B[33m$l"
-  LOGO[0]="        ${b}XXXX$r      "
-  LOGO[1]="       ${b}X$r${l}^$r${b}XX$r${l}^$r${b}X$r     "
-  LOGO[2]="       ${b}X$r${y}<XX>$r${b}X$r     "
-  LOGO[3]="     ${b}XX${r}X${b}XXXX${r}X${b}XX$r   "
-  LOGO[4]="    ${b}XX${r}XXXXXXXX${b}XX$r  "
-  LOGO[5]="   ${b}XX${r}XXXXXXXXXX${b}XX$r "
-  LOGO[6]="  ${y}I$r${b}XXX${r}XXXXXXXX${b}XXX$r${y}I$r"
-  LOGO[7]="  ${y}IL>$r${b}XX${r}XXXXXX$r${b}XX$r${y}<JI$r"
+  motif="\x1B[93m$l" # bright yellow
+  a="\x1B[90m"       # bright black
+  b="\x1B[33m$l"     # yellow
+  LOGO[0]="        ${a}XXXX$r      "
+  LOGO[1]="       ${a}X$r${l}^$r${a}XX$r${l}^$r${a}X$r     "
+  LOGO[2]="       ${a}X$r${b}<XX>$r${a}X$r     "
+  LOGO[3]="     ${a}XX${r}X${a}XXXX${r}X${a}XX$r   "
+  LOGO[4]="    ${a}XX${r}XXXXXXXX${a}XX$r  "
+  LOGO[5]="   ${a}XX${r}XXXXXXXXXX${a}XX$r "
+  LOGO[6]="  ${b}I$r${a}XXX${r}XXXXXXXX${a}XXX$r${b}I$r"
+  LOGO[7]="  ${b}IL>$r${a}XX${r}XXXXXX$r${a}XX$r${b}<JI$r"
   ;;
 esac
 
