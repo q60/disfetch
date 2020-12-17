@@ -238,13 +238,13 @@ opensuse*)
 qubes*)
   motif="\x1B[94m$l"
   b="\x1B[34m$l"
-  LOGO[0]="       $b.<>.$r           "
-  LOGO[1]="    $b.<^>''<^>.$r        "
-  LOGO[2]="  $b<^><$r      $b><^>$r  "
-  LOGO[3]="  $b[:]$r        $b[:]$r  "
-  LOGO[4]="  $b[:]$r        $b[:]$r  "
-  LOGO[5]="  $b<:><$r      $b><:>$r  "
-  LOGO[6]="     $b<.>..<.>>$r        "
+  LOGO[0]="       $b.<>.$r     "
+  LOGO[1]="    $b.<^>''<^>.$r  "
+  LOGO[2]="  $b<^><$r      $b><^>$r"
+  LOGO[3]="  $b[:]$r        $b[:]$r"
+  LOGO[4]="  $b[:]$r        $b[:]$r"
+  LOGO[5]="  $b<:><$r      $b><:>$r"
+  LOGO[6]="     $b<.>..<.>>$r  "
   LOGO[7]="       $b\`<>\`$r  $b</>$r"
   PACKAGES=$(rpm -qa | wc -l)
   ;;
