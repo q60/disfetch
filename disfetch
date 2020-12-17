@@ -123,17 +123,18 @@ fi
 ###########################################
 # note for nixos: display only current user installed
 # packages with no dependencies
+OS=$1
 case $OS in
 android*)
   motif="\x1B[92m$l"
   g="\x1B[32m$l"
-  LOGO[0]="     $g\..../$r    "
-  LOGO[1]="     ${g}d${r}o${g}HH${r}o${g}b$r    "
-  LOGO[2]="    $g'''''''$r   "
+  LOGO[0]="     $g\..../$r   "
+  LOGO[1]="     ${g}d${r}o${g}HH${r}o${g}b$r   "
+  LOGO[2]="    $g''''''''$r  "
   LOGO[3]="  $g.$r ${g}GHHHHHHB$r $g.$r"
   LOGO[4]="  ${g}H$r ${g}H######H$r ${g}H$r"
   LOGO[5]="  ${g}U$r ${g}H######H$r ${g}U$r"
-  LOGO[6]="    ${g}GHHHHHHB$r   "
+  LOGO[6]="    ${g}GHHHHHHB$r  "
   LOGO[7]="      ${g}U$r  ${g}U$r    "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
@@ -305,11 +306,11 @@ esac
 ###########################################
 # yielding everything                     #
 ###########################################
-printf "${LOGO[0]}\t \x1B[37mW\x1B[97mE$r | ${INFO[0]}\n" # user@hostname
-printf "${LOGO[1]}\t \x1B[31mR\x1B[91mD$r | ${INFO[1]}\n" # OS
-printf "${LOGO[2]}\t \x1B[32mG\x1B[92mN$r | ${INFO[2]}\n" # kernel
-printf "${LOGO[3]}\t \x1B[33mY\x1B[93mW$r | ${INFO[3]}\n" # arch
-printf "${LOGO[4]}\t \x1B[34mB\x1B[94mE$r | ${INFO[4]}\n" # uptime
-printf "${LOGO[5]}\t \x1B[35mM\x1B[95mA$r | ${INFO[5]}\n" # packages
-printf "${LOGO[6]}\t \x1B[36mC\x1B[96mN$r | ${INFO[6]}\n" # shell
-printf "${LOGO[7]}\t \x1B[30mB\x1B[90mK$r | ${INFO[7]}\n" # desktop
+printf "${LOGO[0]}  \x1B[37mW\x1B[97mE$r | ${INFO[0]}\n" # user@hostname
+printf "${LOGO[1]}  \x1B[31mR\x1B[91mD$r | ${INFO[1]}\n" # OS
+printf "${LOGO[2]}  \x1B[32mG\x1B[92mN$r | ${INFO[2]}\n" # kernel
+printf "${LOGO[3]}  \x1B[33mY\x1B[93mW$r | ${INFO[3]}\n" # arch
+printf "${LOGO[4]}  \x1B[34mB\x1B[94mE$r | ${INFO[4]}\n" # uptime
+printf "${LOGO[5]}  \x1B[35mM\x1B[95mA$r | ${INFO[5]}\n" # packages
+printf "${LOGO[6]}  \x1B[36mC\x1B[96mN$r | ${INFO[6]}\n" # shell
+printf "${LOGO[7]}  \x1B[30mB\x1B[90mK$r | ${INFO[7]}\n" # desktop
