@@ -180,6 +180,19 @@ cent*)
   LOGO[7]="        $g$l\-/$r      "
   PACKAGES=$(rpm -qa | wc -l)
   ;;
+debian*)
+  motif="\x1B[95m$l"
+  rd="\x1B[95m$l"
+  LOGO[0]="      $rd,6tt6,$r  "
+  LOGO[1]="    $rd,6$r      ${rd}6$r "
+  LOGO[2]="   ${rd}6$r    $rd,6.$r  ${rd}6$r"
+  LOGO[3]="  $rd'6$r   ${rd}6$r    ${rd}6'$r"
+  LOGO[4]="    ${rd}6$r   $rd'6''$r  "
+  LOGO[5]="    $rd'6$r        "
+  LOGO[6]="      $rd'6$r      "
+  LOGO[7]="        $rd'6.$r   "
+  PACKAGES=$(dpkg -l | grep -c "^ii")
+  ;;
 elementary*)
   motif="\x1B[96m$l"
   b="\x1B[94m$l"
