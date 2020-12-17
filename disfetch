@@ -123,7 +123,6 @@ fi
 ###########################################
 # note for nixos: display only current user installed
 # packages with no dependencies
-OS=$1
 case $OS in
 android*)
   motif="\x1B[92m$l"
