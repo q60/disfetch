@@ -254,12 +254,12 @@ ubuntu*)
   rd="\x1B[91m$l"
   LOGO[0]="         $y.,*,.$r  $rd/**\\\\$r"
   LOGO[1]="        $y\`.\`=\`.\`$r $rd\\\\**/$r"
-  LOGO[2]="    $y.'.$r        $y'. .$r"
+  LOGO[2]="    $y.'.$r        $y'. .$r "
   LOGO[3]="$rd/**\\\\$r $y'$r            $y'\`$r"
   LOGO[4]="$rd\\\\**/$r $y.$r            $y.,$r"
-  LOGO[5]="    $y\`,\`$r        $y,\` \`$r"
-  LOGO[6]="        $y.\`'='\`$r $rd/**\\\\$r"
-  LOGO[7]="         $y\`'*'\`$r $rd\\\\**/$r"
+  LOGO[5]="    $y\`,\`$r        $y,\` \`$r "
+  LOGO[6]="        $y.\`'='\`$r $rd/**\\\\$r "
+  LOGO[7]="         $y\`'*'\`$r $rd\\\\**/$r "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 zorin*)
