@@ -270,8 +270,8 @@ ubuntu*)
   LOGO[3]="$b/**\\\\$r $a'$r            $a'\`$r"
   LOGO[4]="$b\\\\**/$r $a.$r            $a.,$r"
   LOGO[5]="    $a\`,\`$r        $a,\` \`$r "
-  LOGO[6]="        $a.\`'='\`$r $b/**\\\\$r "
-  LOGO[7]="         $a\`'*'\`$r $b\\\\**/$r "
+  LOGO[6]="        $a,\`,=,\`,$r $b/**\\\\$r"
+  LOGO[7]="         $a\`'*'\`$r  $b\\\\**/$r"
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 zorin*)
