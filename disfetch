@@ -103,7 +103,7 @@ uptime -p >/dev/null 2>&1
 SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF }')
 # getting DE and WM
 # firstly getting root window id (WM)
-if [[ ! -z $WAYLAND_DISPLAY ]];
+if [[ $WAYLAND_DISPLAY ]];
 then
   wm=$(ps -A | grep -m 1 -F -o -e "cage"       -e "cagebreak"     -e "cardboard" \
                                -e "dwl"        -e "enlightenment" -e "grefsen"   \
@@ -314,14 +314,14 @@ esac
 # adding only existing variables to info  #
 ###########################################
                          INFO+=("$motif$(whoami)$r @ $motif$(hostname)$r")
-[[ ! -z $OS ]]        && INFO+=("${motif}OS:$r        $OS")
-[[ ! -z $KERNEL ]]    && INFO+=("${motif}KERNEL:$r    $KERNEL")
-[[ ! -z $ARCH ]]      && INFO+=("${motif}ARCH:$r      $ARCH")
-[[ ! -z $UPTIME ]]    && INFO+=("${motif}UPTIME:$r    $UPTIME")
-[[ ! -z $PACKAGES ]]  &&
+[[ $OS ]]             && INFO+=("${motif}OS:$r        $OS")
+[[ $KERNEL ]]         && INFO+=("${motif}KERNEL:$r    $KERNEL")
+[[ $ARCH ]]           && INFO+=("${motif}ARCH:$r      $ARCH")
+[[ $UPTIME ]]         && INFO+=("${motif}UPTIME:$r    $UPTIME")
+[[ $PACKAGES ]]       &&
 [[ 0 -ne $PACKAGES ]] && INFO+=("${motif}PACKAGES:$r  $PACKAGES")
-[[ ! -z $SHELL ]]     && INFO+=("${motif}SHELL:$r     $SHELL")
-[[ ! -z $DESKTOP ]]   && INFO+=("${motif}DESKTOP:$r   $DESKTOP")
+[[ $SHELL ]]          && INFO+=("${motif}SHELL:$r     $SHELL")
+[[ $DESKTOP ]]        && INFO+=("${motif}DESKTOP:$r   $DESKTOP")
 
 ###########################################
 # yielding everything                     #
