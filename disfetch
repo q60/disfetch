@@ -102,28 +102,28 @@ uptime -p >/dev/null 2>&1
 # getting current shell name
 SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF }')
 # getting DE and WM
-# firstly getting root window id (WM)
-if [[ $WAYLAND_DISPLAY ]];
-then
-  wm=$(ps -A | grep -m 1 -F -o -e "cage"       -e "cagebreak"     -e "cardboard" \
-                               -e "dwl"        -e "enlightenment" -e "grefsen"   \
-                               -e "hikari"     -e "kwin"          -e "labwc"     \
-                               -e "liri-shell" -e "mutter"        -e "river"     \
-                               -e "sway"       -e "velox"         -e "wayfire"   \
-                               -e "waymonad"   -e "weston"        -e "wio")
-else
-  wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null)
-  # getting WM name, ignoring unimportant stuff
-  wm=$(xprop -id ${wm_id##* } -notype -f _NET_WM_NAME 8t 2>/dev/null | xargs | awk '{ print $3 }')
-fi
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
 # DESKTOP_SESSION is a full path so removing garbage
 de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | tr "/" " " | awk '{ print $NF }')
 if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]];
 then
+  if [[ $WAYLAND_DISPLAY ]];
+  then
+    wm=$(ps -A | grep -m 1 -F -o -e "cage"       -e "cagebreak"     -e "cardboard" \
+                                 -e "dwl"        -e "enlightenment" -e "grefsen"   \
+                                 -e "hikari"     -e "kwin"          -e "labwc"     \
+                                 -e "liri-shell" -e "mutter"        -e "river"     \
+                                 -e "sway"       -e "velox"         -e "wayfire"   \
+                                 -e "waymonad"   -e "weston"        -e "wio")
+  else
+    # firstly getting root window id (WM)
+    wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null)
+    # getting WM name, ignoring unimportant stuff
+    wm=$(xprop -id ${wm_id##* } -notype -f _NET_WM_NAME 8t 2>/dev/null | xargs | awk '{ print $3 }')
+  fi
   DESKTOP="$wm"
 else
-  DESKTOP="$de $wm"
+  DESKTOP="$de"
 fi
 
 ###########################################
