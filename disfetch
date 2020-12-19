@@ -311,7 +311,7 @@ zorin*)
 esac
 
 ###########################################
-# adding only existing variables to info  #
+# adding only existing layers to info     #
 ###########################################
                          INFO+=("$motif$(whoami)$r @ $motif$(hostname)$r")
 [[ $OS ]]             && INFO+=("${motif}OS:$r        $OS")
