@@ -119,7 +119,7 @@ fi
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
 # DESKTOP_SESSION is a full path so removing garbage
 de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | tr "/" " " | awk '{ print $NF }')
-if [[ ! -z $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]];
+if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]];
 then
   DESKTOP="$wm"
 else
