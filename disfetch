@@ -132,6 +132,19 @@ fi
 # note for nixos: display only current user installed
 # packages with no dependencies
 case $OS in
+alpine*)
+  motif="\x1B[34m$l" # blue
+  a="\x1B[34m$l"     # blue
+  LOGO[0]="     $a//AAAAAAAAAAA\\\\\\\\$r   "
+  LOGO[1]="    $a//$r             $a\\\\\\\\$r  "
+  LOGO[2]="   $a//$r    $l<^>$r        $a\\\\\\\\$r "
+  LOGO[3]="  $a//$r   $l,</$r $l\>,,$l<^>,$r  $a\\\\\\\\$r"
+  LOGO[4]="  $a\\\\\\\\$r  $l</$r     $l\>$r   $l\>$r $a//$r"
+  LOGO[5]="   $a\\\\\\\\$r$l</$r $l/J$r    $l\>$r   $l\\\\$r$a//$r "
+  LOGO[6]="    $a\\\\\\\\$r             $a//$r  "
+  LOGO[7]="     $a\\\\\\\\AAAAAAAAAAA//$r   "
+  PACKAGES=$(apk info | wc -l)
+  ;;
 android*)
   motif="\x1B[92m$l" # bright green
   a="\x1B[32m$l"     # green
