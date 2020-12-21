@@ -242,8 +242,8 @@ fedora*)
   PACKAGES=$(rpm -qa | wc -l)
   ;;
 manjaro*)
-  motif="\x1B[32m$l"
-  a="\x1B[32m$l"
+  motif="\x1B[32m$l" # green
+  a="\x1B[32m$l"     # green
   LOGO[0]="  $a[][][][][][][$r $a][][][$r"
   LOGO[1]="  $a[][][][][][][$r $a][][][$r"
   LOGO[2]="  $a[][][]\"\"\"\"\"\"\"$r $a[][][]$r"
