@@ -215,9 +215,9 @@ elementary*)
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 endeavour*)
-  motif="\x1B[94m$l"
-  a="\x1B[93m$l"
-  b="\x1B[95m"
+  motif="\x1B[94m$l" # bright blue
+  a="\x1B[93m$l"     # bright yellow
+  b="\x1B[95m"       # bright magenta
   LOGO[0]="            $a,<\`$r$b^<\\\\$r     "
   LOGO[1]="          $a,<@$r$b,<$r${a}E\\\\$r$b%%\\\\.$r   "
   LOGO[2]="        $a,<@$r$b,<$r${a}ENDE\\\\$r$b%%\\\\\\\\$r  "
