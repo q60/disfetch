@@ -214,6 +214,20 @@ elementary*)
   LOGO[7]="        $a\`'*'\`$r      "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
+endeavour*)
+  motif="\x1B[94m$l"
+  a="\x1B[93m$l"
+  b="\x1B[95m"
+  LOGO[0]="            $a,<\`$r$b^<\\\\$r     "
+  LOGO[1]="          $a,<@$r$b,<$r${a}E\\\\$r$b%%\\\\.$r   "
+  LOGO[2]="        $a,<@$r$b,<$r${a}ENDE\\\\$r$b%%\\\\\\\\$r  "
+  LOGO[3]="      $a,<@$r$b,<$r${a}ENDEAVO\\\\$r$b%%\\\\\\\\$r "
+  LOGO[4]="    $a,<@$r$b,<$r${a}ENDEAVOUR:D$r$b%%\\\\\`$r"
+  LOGO[5]="   $a.__$r$b<$r${a}____#####_,P$r$b%%%%%%D$r"
+  LOGO[6]="    $b<EFGJKX\`\`\`\`\`%%H%%_,P$r "
+  LOGO[7]="  $b<-------------\`\`\`$r    "
+  PACKAGES=$(pacman -Qq | wc -l)
+  ;;
 *mint*)
   motif="\x1B[92m$l" # bright green
   a="\x1B[32m"       # green
