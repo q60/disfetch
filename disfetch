@@ -228,6 +228,19 @@ endeavour*)
   LOGO[7]="  $b<-------------\`\`\`$r    "
   PACKAGES=$(pacman -Qq | wc -l)
   ;;
+manjaro*)
+  motif="\x1B[32m$l"
+  a="\x1B[32m$l"
+  LOGO[0]="  $a[][][][][][][$r $a][][][$r"
+  LOGO[1]="  $a[][][][][][][$r $a][][][$r"
+  LOGO[2]="  $a[][][]\"\"\"\"\"\"\"$r $a[][][]$r"
+  LOGO[3]="  $a[][][]$r $a[][][]$r $a[][][]$r"
+  LOGO[4]="  $a[][][]$r $a[][][]$r $a[][][]$r"
+  LOGO[5]="  $a[][][]$r $a[][][]$r $a[][][]$r"
+  LOGO[6]="  $a[][][]$r $a[][][]$r $a[][][]$r"
+  LOGO[7]="  $a[][][]$r $a[][][]$r $a[][][]$r"
+  PACKAGES=$(pacman -Qq | wc -l)
+  ;;
 *mint*)
   motif="\x1B[92m$l" # bright green
   a="\x1B[32m"       # green
