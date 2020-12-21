@@ -229,8 +229,8 @@ endeavour*)
   PACKAGES=$(pacman -Qq | wc -l)
   ;;
 fedora*)
-  motif="\x1B[34m$l"
-  a="\x1B[34m$l"
+  motif="\x1B[34m$l" # blue
+  a="\x1B[34m$l"     # blue
   LOGO[0]="        $a.,*,.$r      "
   LOGO[1]="     $a.'$r   $l,fff$r$a'.$r   "
   LOGO[2]="   $a.'$r     ${l}H$r     $a'.$r "
