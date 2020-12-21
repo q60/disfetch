@@ -228,6 +228,19 @@ endeavour*)
   LOGO[7]="  $b<-------------\`\`\`$r    "
   PACKAGES=$(pacman -Qq | wc -l)
   ;;
+fedora*)
+  motif="\x1B[34m$l"
+  a="\x1B[34m$l"
+  LOGO[0]="        $a.,*,.$r      "
+  LOGO[1]="     $a.'$r   $l,fff$r$a'.$r   "
+  LOGO[2]="   $a.'$r     ${l}H$r     $a'.$r "
+  LOGO[3]="  ${a}4$r   $l....H....$r   ${a}L$r"
+  LOGO[4]="  ${a}h$r   $l\`\`\`\`H\`\`\`\`$r   ${a}7$r"
+  LOGO[5]="  ${a}h$r       ${l}H$r     $a,\`$r "
+  LOGO[6]="  ${a}c$r    ${l}fff'$r   $a,\`$r   "
+  LOGO[7]="   $a\`zxjklfo'\`$r      "
+  PACKAGES=$(rpm -qa | wc -l)
+  ;;
 manjaro*)
   motif="\x1B[32m$l"
   a="\x1B[32m$l"
