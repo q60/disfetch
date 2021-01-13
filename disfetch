@@ -279,6 +279,19 @@ manjaro*)
   LOGO[7]="    $a\`\`\`\`\`\`\`\`\`\`\`\`$r  "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
+mx*)
+  motif="\x1B[90m$l" # bright black
+  a="\x1B[90m"       # bright black
+  LOGO[0]="         \\\\\\\\\\\\    //      "
+  LOGO[1]="          \\\\\\\\\\\\  //       "
+  LOGO[2]="           \\\\\\\\\\\\//        "
+  LOGO[3]="            \\\\\\\\\\\\         "
+  LOGO[4]="       *    /\\\\\\\\\\\\        "
+  LOGO[5]="     <\`$a~$r\`> // \\\\\\\\\\\\  *    "
+  LOGO[6]="   <\`$a~~~~~$r//   \\\\\\\\\\\\\`$a~$r\`>  "
+  LOGO[7]=" <\`$a~~~~~~$r//$a~$r\`> <\\\\\\\\\\\\$a~~~$r\`>"
+  PACKAGES=$(dpkg -l | grep -c "^ii")
+  ;;
 nixos*)
   motif="\x1B[94m$l" # bright blue
   a="\x1B[34m$l"     # blue
