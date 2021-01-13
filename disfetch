@@ -129,8 +129,7 @@ fi
 ###########################################
 # defining distro logo and packages count #
 ###########################################
-# note for nixos: display only current user installed
-# packages with no dependencies
+# note for nixos: display only current user installed packages
 case $OS in
 alpine*)
   motif="\x1B[34m$l" # blue
