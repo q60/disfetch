@@ -333,6 +333,19 @@ qubes*)
   LOGO[7]="       $a\`<>\`$r  $a</>$r"
   PACKAGES=$(rpm -qa | wc -l)
   ;;
+slack*)
+  motif="\x1B[94m$l" # bright blue
+  a="\x1B[34m$l"     # blue
+  LOGO[0]="     $a,sSSSSSs,$r $a##$r"
+  LOGO[1]="    ${a}SS$r       ${a}SS##$r"
+  LOGO[2]="    ${a}Ss$r         $a\"\"$r"
+  LOGO[3]="     $a\`sSS,.$r      "
+  LOGO[4]="         $a\"SSs,$r   "
+  LOGO[5]="  $a##$r         ${a}sS$r  "
+  LOGO[6]="  $a##Ss$r       ${a}SS$r  "
+  LOGO[7]="  $a\"\"$r $a\`sSSSSSs\`$r   "
+  PACKAGES=$(ls /var/log/packages | wc -l)
+  ;;
 ubuntu*)
   motif="\x1B[93m$l" # bright yellow
   a="\x1B[93m$l"     # bright yellow
