@@ -333,6 +333,20 @@ qubes*)
   LOGO[7]="       $a\`<>\`$r  $a</>$r"
   PACKAGES=$(rpm -qa | wc -l)
   ;;
+raspbian*)
+  motif="\x1B[31m$l" # red
+  a="\x1B[31m$l"     # red
+  b="\x1B[32m"       # green
+  LOGO[0]="  ${b}_,_$r       ${b}_,_$r  "
+  LOGO[1]="  $b\_$r $b,\\\\$r   $b/,$r ${b}_/$r  "
+  LOGO[2]="    $b\\\\$r $b,\Y/,$r $b/$r    "
+  LOGO[3]="      $a($r $a.$r $a)      "
+  LOGO[4]="   $a(.$r $a($r $a.$r $a)$r $a.)$r   "
+  LOGO[5]="  $a(.$r $a(.)x(.)$r $a.)$r  "
+  LOGO[6]="   $a(.$r $a($r $a.$r $a)$r $a.)$r   "
+  LOGO[7]="      $a($r $a.$r $a)$r      "
+  PACKAGES=$(dpkg -l | grep -c "^ii")
+  ;;
 slack*)
   motif="\x1B[94m$l" # bright blue
   a="\x1B[34m$l"     # blue
