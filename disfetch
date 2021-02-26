@@ -405,7 +405,7 @@ esac
 ###########################################
 # adding only existing layers to info     #
 ###########################################
-                         INFO+=("$motif$(whoami)$r @ $motif$(hostnamectl | awk 'NR == 1 { print $3; }')$r")
+                         INFO+=("$motif$(whoami)$r @ $motif$(cat /etc/hostname)$r")
 [[ $OS ]]             && INFO+=("${motif}OS:$r        $OS")
 [[ $KERNEL ]]         && INFO+=("${motif}KERNEL:$r    $KERNEL")
 [[ $ARCH ]]           && INFO+=("${motif}ARCH:$r      $ARCH")
