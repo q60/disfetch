@@ -170,7 +170,7 @@ astra*)
   LOGO[7]="   $a\`             \`$r "
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
-arc*)
+arc*|artix*)
   motif="\x1B[94m$l" # bright blue
   a="\x1B[34m$l"     # blue
   b="\x1B[36m"       # cyan
