@@ -2,4 +2,4 @@
 
 Yet another **\*nix** distro fetching program, but less complex.
 
-![Screenshot](https://i.imgur.com/5wRgqs9.png)
+![Screenshot](https://i.imgur.com/uVJk702.png)
