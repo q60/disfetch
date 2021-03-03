@@ -374,6 +374,19 @@ ubuntu*)
   LOGO[7]="           $a\`'*'\`$r  $b\\\\**/$r"
   PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
+void*)
+  motif="\x1B[32m$l" # green
+  a="\x1B[32m$l"     # green
+  b="\x1B[92m$l"     # bright green
+  LOGO[0]="        $b.,*,.$r      "
+  LOGO[1]="          $b'$r $b','.$r   "
+  LOGO[2]="   $a.'.$r        $b\`.'.$r "
+  LOGO[3]="  ${a}4$r $a/$r   $b/:+:\\\\$r   $b\\\\$r ${b}L$r"
+  LOGO[4]="  ${a}V$r $a\\\\$r   $b\:+:/$r   $b/$r ${b}7$r"
+  LOGO[5]="   $a\`,',$r        $b',\`$r "
+  LOGO[6]="     $a\`,\`.$r $a.$r        "
+  LOGO[7]="        $a\`'*'\`$r      "
+  ;;
 zorin*)
   motif="\x1B[94m$l" # bright blue
   a="\x1B[94m"       # bright blue
