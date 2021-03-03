@@ -100,11 +100,11 @@ uptime -p >/dev/null 2>&1
   }' /proc/uptime | xargs) \
              || UPTIME=$(uptime | cut -f1 -d "," | sed -E 's/^[^,]*up *//; s/, *[[:digit:]]* users.*//; s/min/minutes/; s/([[:digit:]]+):0?([[:digit:]]+)/\1 hours \2 minutes/' | xargs)
 # getting current shell name
-SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF }')
+SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF; }')
 # getting DE and WM
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
 # DESKTOP_SESSION is a full path so removing garbage
-de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | tr "/" " " | awk '{ print tolower($NF) }')
+de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | tr "/" " " | awk '{ print tolower($NF); }')
 if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]];
 then
   if [[ $WAYLAND_DISPLAY ]];
@@ -120,11 +120,11 @@ then
     # some WM do not have proper set atoms like _NET_SUPPORTING_WM_CHECK and _NET_WM_NAME
     # this workaround allows to detect such WM
     wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null) &&
-    wm=$(xprop -id ${wm_id##* } -notype -f _NET_WM_NAME 8t 2>/dev/null | xargs | awk '{ print tolower($3) }') ||
+    wm=$(xprop -id ${wm_id##* } -notype -f _NET_WM_NAME 8t 2>/dev/null | xargs | awk '{ print tolower($3); }') ||
     wm=$(ps -A | grep -m 1 -F -o -e "2bwm"      -e "catwm" \
                                  -e "dwm"       -e "fvwm"  \
                                  -e "monsterwm" -e "sowm"  \
-                                 -e "tinywm"    -e "wmaker")
+                                 -e "tinywm"    -e "wmaker" | awk '{ print tolower($1); }')
   fi
   DESKTOP="$wm"
 else
