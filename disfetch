@@ -391,6 +391,7 @@ void*)
   LOGO[5]="   $a\`,',$r        $b',\`$r "
   LOGO[6]="     $a\`,\`.$r $a.$r        "
   LOGO[7]="        $a\`'*'\`$r      "
+  PACKAGES=$(xbps-query -l | wc -l)
   ;;
 zorin*)
   motif="\x1B[94m$l" # bright blue
