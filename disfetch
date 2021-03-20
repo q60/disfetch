@@ -120,7 +120,7 @@ then
     # some WM do not have proper set atoms like _NET_SUPPORTING_WM_CHECK and _NET_WM_NAME
     # this workaround allows to detect such WM
     wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null) &&
-    wm=$(xprop -id ${wm_id##* } -notype -f _NET_WM_NAME 8t 2>/dev/null | xargs | awk '{ print tolower($3); }') ||
+    wm=$(xprop -id ${wm_id##* } _NET_WM_NAME | awk '{ print tolower($NF); }' | xargs) ||
     wm=$(ps -A | grep -m 1 -F -o -e "2bwm"      -e "catwm" \
                                  -e "dwm"       -e "fvwm"  \
                                  -e "monsterwm" -e "sowm"  \
