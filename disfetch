@@ -261,8 +261,8 @@ fedora*)
 manjaro*)
   motif="\x1B[32m$l" # green
   a="\x1B[32m$l"     # green
-  LOGO[0]="  $a[][][][][][][$r $a][][][$r"
-  LOGO[1]="  $a[][][][][][][$r $a][][][$r"
+  LOGO[0]="  $a[][][][][][]|$r $a[][][]$r"
+  LOGO[1]="  $a[][][][][][]|$r $a[][][]$r"
   LOGO[2]="  $a[][][]\"\"\"\"\"\"\"$r $a[][][]$r"
   LOGO[3]="  $a[][][]$r $a[][][]$r $a[][][]$r"
   LOGO[4]="  $a[][][]$r $a[][][]$r $a[][][]$r"
@@ -324,6 +324,20 @@ opensuse*)
   LOGO[6]="     $a\`,$r       $a,\`$r   "
   LOGO[7]="        $a\`'*'\`$r      "
   PACKAGES=$(zypper se --installed-only | wc -l)
+  ;;
+postmarket*)
+  motif="\x1B[92m$l" # bright green
+  a="\x1B[32m$l"     # green
+  b="\x1B[90m"       # bright black
+  LOGO[0]="         $a,/^\,$r       "
+  LOGO[1]="         $a\L$r $a\\\\\\\\\\\\$r      "
+  LOGO[2]="       $a>_$r    $a\\\\\\\\\\\\$r     "
+  LOGO[3]="      $a///$r $b/$r $b\\\\$r $a\\\\\\\\\\\\$r    "
+  LOGO[4]="     $a///$r $b/_$r ${b}_\\\\$r $a\KL$r   "
+  LOGO[5]="    $a///$r        $a/$r ${a}__$r  "
+  LOGO[6]="   $a///__\\\\$r $a\_____/\\\\\\\\\\\\$r "
+  LOGO[7]="  $a/=====/$r $a/=========\\\\$r"
+  PACKAGES=$(apk info | wc -l)
   ;;
 qubes*)
   motif="\x1B[94m$l" # bright blue
