@@ -33,6 +33,13 @@ l="\x1B[1m" # bold text
 ###########################################
 # getting needed information              #
 ###########################################
+# getting hostname
+if [ -f /etc/hostname ];
+then
+  HOSTNAME=$(cat /etc/hostname)
+else
+  HOSTNAME=$(uname -n)
+fi
 # getting OS name
 if [ -f /etc/os-release ];
 then
@@ -438,7 +445,7 @@ esac
 ###########################################
 # adding only existing layers to info     #
 ###########################################
-                         INFO+=("$motif$(whoami)$r @ $motif$(cat /etc/hostname)$r")
+                         INFO+=("$motif$(whoami)$r @ $motif$HOSTNAME$r")
 [[ $OS ]]             && INFO+=("${motif}OS:$r        $OS")
 [[ $KERNEL ]]         && INFO+=("${motif}KERNEL:$r    $KERNEL")
 [[ $ARCH ]]           && INFO+=("${motif}ARCH:$r      $ARCH")
