@@ -22,29 +22,31 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Help message
 
-Help() {
-  echo "Disfetcg is a CLI system information tool written in BASH"
+# help message
+help() {
+  echo "disfetch is a CLI system information tool written in bash"
   echo
-  echo "Syntax: scriptTemplate [options]"
+  echo "syntax: disfetch [options]"
   echo "options:"
-  echo "-h, --help                    Print this message"
-  echo "-l, --logo                    Set distro logo to print"
-  echo "-m, --mono, --monochrome      Enable monochrome mode"
+  echo -e "\t-h, --help                    prints this message"
+  echo -e "\t-l, --logo                    sets distro logo to print"
+  echo -e "\t-m, --mono, --monochrome      enables monochrome mode"
   echo
 }
 
 # parse arguments
-
 while [[ -n $1 && ! $1 == '--' ]]; do
   case $1 in
     -h | --help)
-      Help; exit 0 ;;
+      help; exit 0
+      ;;
     -l | --logo)
-      OS_LOGO=$2 ;;
+      OS_LOGO=$2
+      ;;
     -m | --mono | --monochrome)
-      MONOCHROME=1 ;;
+      MONO=1
+      ;;
   esac
   shift
 done
@@ -53,27 +55,42 @@ done
 # global stuff needed everywhere          #
 ###########################################
 
-INFO=()     # info array
+# info array
+INFO=()
 
-declare -A colors
-r="\x1B[0m" # reset color
-l="\x1B[1m" # bold text
+if [ -e $MONO ]; then
+  # all colors
+  declare -A colors
+  colors[b]="\x1B[34m$zz"  # blue
+  colors[bb]="\x1B[94m$zz" # bright blue
+  colors[c]="\x1B[36m"     # cyan
+  colors[cc]="\x1B[96m$zz" # bright cyan
+  colors[d]="\x1B[30m$zz"  # black
+  colors[dd]="\x1B[90m$zz" # bright black
+  colors[r]="\x1B[31m$zz"  # red
+  colors[rr]="\x1B[91m$zz" # bright red
+  colors[y]="\x1B[33m"     # yellow
+  colors[yy]="\x1B[93m$zz" # bright yellow
+  colors[m]="\x1B[35m"     # magenta
+  colors[mm]="\x1B[95m$zz" # bright magenta
+  colors[g]="\x1B[32m$zz"  # green
+  colors[gg]="\x1B[92m$zz" # brignt green
+  colors[xx]="\x1B[0m"     # reset
+  colors[zz]="\x1B[1m"     # bold
+  xx=${colors[xx]}
+  zz=${colors[zz]}
 
-# all colors
-colors[b]="\x1B[34m$l"  # blue
-colors[bb]="\x1B[94m$l" # bright blue
-colors[c]="\x1B[36m"    # cyan
-colors[cc]="\x1B[96m$l" # bright cyan
-colors[d]="\x1B[30m$l"  # black
-colors[dd]="\x1B[90m$l" # bright black
-colors[r]="\x1B[31m$l"  # red
-colors[rr]="\x1B[91m$l" # bright red
-colors[y]="\x1B[33m"    # yellow
-colors[yy]="\x1B[93m$l" # bright yellow
-colors[m]="\x1B[35m"    # magenta
-colors[mm]="\x1B[95m$l" # bright magenta
-colors[g]="\x1B[32m$l"  # green
-colors[gg]="\x2B[92m$l" # brignt green
+  # system colors palette
+  PALETTE=()
+  PALETTE[0]="\x1B[37mW\x1B[97mE$xx "
+  PALETTE[1]="\x1B[31mR\x1B[91mD$xx "
+  PALETTE[2]="\x1B[32mG\x1B[92mN$xx "
+  PALETTE[3]="\x1B[33mY\x1B[93mW$xx "
+  PALETTE[4]="\x1B[34mB\x1B[94mE$xx "
+  PALETTE[5]="\x1B[35mM\x1B[95mA$xx "
+  PALETTE[6]="\x1B[36mC\x1B[96mN$xx "
+  PALETTE[7]="\x1B[30mB\x1B[90mK$xx "
+fi
 
 ###########################################
 # getting needed information              #
@@ -192,7 +209,6 @@ fi
 # defining distro logo and packages count #
 ###########################################
 # note for nixos: display only current user installed packages
-
 declare -A packages
 packages[android]='apk info | wc -l'
 packages[astra]='dpkg -l | grep -c "^ii"'
@@ -222,51 +238,51 @@ case $OS_LOGO in
   alpine*)
     motif=${colors[b]} # blue
     a=${colors[b]}     # blue
-    LOGO[0]="     $a//AAAAAAAAAAA\\\\\\\\$r   "
-    LOGO[1]="    $a//$r             $a\\\\\\\\$r  "
-    LOGO[2]="   $a//$r    $l<^>$r        $a\\\\\\\\$r "
-    LOGO[3]="  $a//$r   $l,</$r $l\>,,$l<^>,$r  $a\\\\\\\\$r"
-    LOGO[4]="  $a\\\\\\\\$r  $l</$r     $l\>$r   $l\>$r $a//$r"
-    LOGO[5]="   $a\\\\\\\\$r$l</$r $l/J$r    $l\>$r   $l\\\\$r$a//$r "
-    LOGO[6]="    $a\\\\\\\\$r             $a//$r  "
-    LOGO[7]="     $a\\\\\\\\AAAAAAAAAAA//$r   "
+    LOGO[0]="     $a//AAAAAAAAAAA\\\\\\\\$xx   "
+    LOGO[1]="    $a//$xx             $a\\\\\\\\$xx  "
+    LOGO[2]="   $a//$xx    $zz<^>$xx        $a\\\\\\\\$xx "
+    LOGO[3]="  $a//$xx   $zz,</$xx $zz\>,,$zz<^>,$xx  $a\\\\\\\\$xx"
+    LOGO[4]="  $a\\\\\\\\$xx  $zz</$xx     $zz\>$xx   $zz\>$xx $a//$xx"
+    LOGO[5]="   $a\\\\\\\\$xx$zz</$xx $zz/J$xx    $zz\>$xx   $zz\\\\$xx$a//$xx "
+    LOGO[6]="    $a\\\\\\\\$xx             $a//$xx  "
+    LOGO[7]="     $a\\\\\\\\AAAAAAAAAAA//$xx   "
     ;;
   android*)
     motif=${colors[gg]} # bright green
     a=${colors[g]}      # green
-    LOGO[0]="     $a\..../$r   "
-    LOGO[1]="     ${a}d${r}o${a}HH${r}o${a}b$r   "
-    LOGO[2]="    $a''''''''$r  "
-    LOGO[3]="  $a.$r ${a}GHHHHHHB$r $a.$r"
-    LOGO[4]="  ${a}H$r ${a}H######H$r ${a}H$r"
-    LOGO[5]="  ${a}U$r ${a}H######H$r ${a}U$r"
-    LOGO[6]="    ${a}GHHHHHHB$r  "
-    LOGO[7]="      ${a}U$r  ${a}U$r    "
+    LOGO[0]="     $a\..../$xx   "
+    LOGO[1]="     ${a}d${xx}o${a}HH${xx}o${a}b$xx   "
+    LOGO[2]="    $a''''''''$xx  "
+    LOGO[3]="  $a.$xx ${a}GHHHHHHB$xx $a.$xx"
+    LOGO[4]="  ${a}H$xx ${a}H######H$xx ${a}H$xx"
+    LOGO[5]="  ${a}U$xx ${a}H######H$xx ${a}U$xx"
+    LOGO[6]="    ${a}GHHHHHHB$xx  "
+    LOGO[7]="      ${a}U$xx  ${a}U$xx    "
     ;;
   astra*)
     motif=${colors[bb]} # bright blue
     a=${colors[b]}      # blue
-    LOGO[0]="          $a.$r        "
-    LOGO[1]="        $a.'$r.$a'.$r      "
-    LOGO[2]="  $a.....<$r.$a:::$r.$a>.....$r"
-    LOGO[3]="   $a'<$r,'$a:::::::$r',$a>'$r "
-    LOGO[4]="      $a<$r,$a':::'$r,$a>$r    "
-    LOGO[5]="     $a<$r,$a'$r,$a>^<$r,$a'$r,$a>$r   "
-    LOGO[6]="    $a<,>       <,>$r  "
-    LOGO[7]="   $a\`             \`$r "
+    LOGO[0]="          $a.$xx        "
+    LOGO[1]="        $a.'$xx.$a'.$xx      "
+    LOGO[2]="  $a.....<$xx.$a:::$xx.$a>.....$xx"
+    LOGO[3]="   $a'<$xx,'$a:::::::$xx',$a>'$xx "
+    LOGO[4]="      $a<$xx,$a':::'$xx,$a>$xx    "
+    LOGO[5]="     $a<$xx,$a'$xx,$a>^<$xx,$a'$xx,$a>$xx   "
+    LOGO[6]="    $a<,>       <,>$xx  "
+    LOGO[7]="   $a\`             \`$xx "
     ;;
   arc*|artix*)
     motif=${colors[bb]}  # bright blue
     a=${colors[b]}       # blue
     b=${colors[c]}       # cyan
-    LOGO[0]="         $a.$r       "
-    LOGO[1]="        $a/^\\\\$r      "
-    LOGO[2]="       $a/, ,\\\\$r     "
-    LOGO[3]="      $a/, $b${l}v$r$a ,\\\\$r    "
-    LOGO[4]="     $a/, $b$l($r $b$l)$r$a ,\\\\$r   "
-    LOGO[5]="    $a/,$r $a>   $a<$r $a,\\\\$r  "
-    LOGO[6]="   $a/.>$r       $a<.\\\\$r "
-    LOGO[7]="  $a/>$r           $a<\\\\$r"
+    LOGO[0]="         $a.$xx       "
+    LOGO[1]="        $a/^\\\\$xx      "
+    LOGO[2]="       $a/, ,\\\\$xx     "
+    LOGO[3]="      $a/, $b${zz}v$xx$a ,\\\\$xx    "
+    LOGO[4]="     $a/, $b$zz($xx $b$zz)$xx$a ,\\\\$xx   "
+    LOGO[5]="    $a/,$xx $a>   $a<$xx $a,\\\\$xx  "
+    LOGO[6]="   $a/.>$xx       $a<.\\\\$xx "
+    LOGO[7]="  $a/>$xx           $a<\\\\$xx"
     ;;
   cent*)
     motif=${colors[yy]}  # bright yellow
@@ -274,87 +290,87 @@ case $OS_LOGO in
     b=${colors[m]}       # magenta
     c=${colors[y]}       # yellow
     d=${colors[b]}       # blue
-    LOGO[0]="        $c$l/-\\\\$r      "
-    LOGO[1]="    ${a}F44N$r $c$l#$r ${b}F11N$r  "
-    LOGO[2]="    ${a}L44X$r $c$l#$r ${b}L11X$r  "
-    LOGO[3]="  $b$l/_____$r $r~ $r$d${l}_____\\\\$r"
-    LOGO[4]="  $b$l\\\\\"\"\"\"\"$r $r~ $r$d${l}\"\"\"\"\"/$r"
-    LOGO[5]="    ${d}F33N$r $a$l#$r ${c}F22N$r  "
-    LOGO[6]="    ${d}L33X$r $a$l#$r ${c}L22X$r  "
-    LOGO[7]="        $a$l\-/$r      "
+    LOGO[0]="        $c$zz/-\\\\$xx      "
+    LOGO[1]="    ${a}F44N$xx $c$zz#$xx ${b}F11N$xx  "
+    LOGO[2]="    ${a}L44X$xx $c$zz#$xx ${b}L11X$xx  "
+    LOGO[3]="  $b$zz/_____$xx $xx~ $xx$d${zz}_____\\\\$xx"
+    LOGO[4]="  $b$zz\\\\\"\"\"\"\"$xx $xx~ $xx$d${zz}\"\"\"\"\"/$xx"
+    LOGO[5]="    ${d}F33N$xx $a$zz#$xx ${c}F22N$xx  "
+    LOGO[6]="    ${d}L33X$xx $a$zz#$xx ${c}L22X$xx  "
+    LOGO[7]="        $a$zz\-/$xx      "
     ;;
   debian*)
     motif=${colors[mm]} # bright magenta
     a=${colors[mm]}     # bright magenta
-    LOGO[0]="      $a,6tt6,$r  "
-    LOGO[1]="    $a,6$r      ${a}6$r "
-    LOGO[2]="   ${a}6$r    $a,6.$r  ${a}6$r"
-    LOGO[3]="  $a'6$r   ${a}6$r    ${a}6'$r"
-    LOGO[4]="    ${a}6$r   $a'6''$r  "
-    LOGO[5]="    $a'6$r        "
-    LOGO[6]="      $a'6$r      "
-    LOGO[7]="        $a'6.$r   "
+    LOGO[0]="      $a,6tt6,$xx  "
+    LOGO[1]="    $a,6$xx      ${a}6$xx "
+    LOGO[2]="   ${a}6$xx    $a,6.$xx  ${a}6$xx"
+    LOGO[3]="  $a'6$xx   ${a}6$xx    ${a}6'$xx"
+    LOGO[4]="    ${a}6$xx   $a'6''$xx  "
+    LOGO[5]="    $a'6$xx        "
+    LOGO[6]="      $a'6$xx      "
+    LOGO[7]="        $a'6.$xx   "
     ;;
   elementary*)
     motif=${colors[cc]} # bright cyan
     a=${colors[bb]}     # bright blue
-    LOGO[0]="        $a.,*,.$r      "
-    LOGO[1]="     $a.'$r eeeee$r $a'.$r   "
-    LOGO[2]="   $a.'$r e$r       e$r $a'.$r "
-    LOGO[3]="  ${a}4${r} ,e_________e$r  ${a}L$r"
-    LOGO[4]="  ${a}V$r  e\"\"\"\"\"\"\"\"\"\`$r  ${a}7$r"
-    LOGO[5]="   $a\`,$r e$r       ,$r $a,\`$r "
-    LOGO[6]="     $a\`, ${r}eeeee$r $a,\`$r   "
-    LOGO[7]="        $a\`'*'\`$r      "
+    LOGO[0]="        $a.,*,.$xx      "
+    LOGO[1]="     $a.'$xx eeeee$xx $a'.$xx   "
+    LOGO[2]="   $a.'$xx e$xx       e$xx $a'.$xx "
+    LOGO[3]="  ${a}4${xx} ,e_________e$xx  ${a}L$xx"
+    LOGO[4]="  ${a}V$xx  e\"\"\"\"\"\"\"\"\"\`$xx  ${a}7$xx"
+    LOGO[5]="   $a\`,$xx e$xx       ,$xx $a,\`$xx "
+    LOGO[6]="     $a\`, ${xx}eeeee$xx $a,\`$xx   "
+    LOGO[7]="        $a\`'*'\`$xx      "
     ;;
   endeavour*)
     motif=${colors[bb]} # bright blue
     a=${colors[yy]}     # bright yellow
     b=${colors[mm]}       # bright magenta
-    LOGO[0]="            $a,<\`$r$b^<\\\\$r     "
-    LOGO[1]="          $a,<@$r$b,<$r${a}E\\\\$r$b%%\\\\.$r   "
-    LOGO[2]="        $a,<@$r$b,<$r${a}ENDE\\\\$r$b%%\\\\\\\\$r  "
-    LOGO[3]="      $a,<@$r$b,<$r${a}ENDEAVO\\\\$r$b%%\\\\\\\\$r "
-    LOGO[4]="    $a,<@$r$b,<$r${a}ENDEAVOUR:D$r$b%%\\\\\`$r"
-    LOGO[5]="   $a.__$r$b<$r${a}____#####_,P$r$b%%%%%%D$r"
-    LOGO[6]="    $b<EFGJKX\`\`\`\`\`%%H%%_,P$r "
-    LOGO[7]="  $b<-------------\`\`\`$r    "
+    LOGO[0]="            $a,<\`$xx$b^<\\\\$xx     "
+    LOGO[1]="          $a,<@$xx$b,<$xx${a}E\\\\$xx$b%%\\\\.$xx   "
+    LOGO[2]="        $a,<@$xx$b,<$xx${a}ENDE\\\\$xx$b%%\\\\\\\\$xx  "
+    LOGO[3]="      $a,<@$xx$b,<$xx${a}ENDEAVO\\\\$xx$b%%\\\\\\\\$xx "
+    LOGO[4]="    $a,<@$xx$b,<$xx${a}ENDEAVOUR:D$xx$b%%\\\\\`$xx"
+    LOGO[5]="   $a.__$xx$b<$xx${a}____#####_,P$xx$b%%%%%%D$xx"
+    LOGO[6]="    $b<EFGJKX\`\`\`\`\`%%H%%_,P$xx "
+    LOGO[7]="  $b<-------------\`\`\`$xx    "
     ;;
   fedora*)
     motif=${colors[b]} # blue
     a=${colors[b]}     # blue
-    LOGO[0]="        $a.,*,.$r      "
-    LOGO[1]="     $a.'$r   $l,fff$r$a'.$r   "
-    LOGO[2]="   $a.'$r     ${l}H$r     $a'.$r "
-    LOGO[3]="  ${a}4$r   $l....H....$r   ${a}L$r"
-    LOGO[4]="  ${a}h$r   $l\`\`\`\`H\`\`\`\`$r   ${a}7$r"
-    LOGO[5]="  ${a}h$r       ${l}H$r     $a,\`$r "
-    LOGO[6]="  ${a}c$r    ${l}fff'$r   $a,\`$r   "
-    LOGO[7]="   $a\`zxjklfo'\`$r      "
+    LOGO[0]="        $a.,*,.$xx      "
+    LOGO[1]="     $a.'$xx   $zz,fff$xx$a'.$xx   "
+    LOGO[2]="   $a.'$xx     ${zz}H$xx     $a'.$xx "
+    LOGO[3]="  ${a}4$xx   $zz....H....$xx   ${a}L$xx"
+    LOGO[4]="  ${a}h$xx   $zz\`\`\`\`H\`\`\`\`$xx   ${a}7$xx"
+    LOGO[5]="  ${a}h$xx       ${zz}H$xx     $a,\`$xx "
+    LOGO[6]="  ${a}c$xx    ${zz}fff'$xx   $a,\`$xx   "
+    LOGO[7]="   $a\`zxjklfo'\`$xx      "
     ;;
   manjaro*)
     motif=${colors[g]} # green
     a=${colors[g]}     # green
-    LOGO[0]="  $a[][][][][][]|$r $a[][][]$r"
-    LOGO[1]="  $a[][][][][][]|$r $a[][][]$r"
-    LOGO[2]="  $a[][][]\"\"\"\"\"\"\"$r $a[][][]$r"
-    LOGO[3]="  $a[][][]$r $a[][][]$r $a[][][]$r"
-    LOGO[4]="  $a[][][]$r $a[][][]$r $a[][][]$r"
-    LOGO[5]="  $a[][][]$r $a[][][]$r $a[][][]$r"
-    LOGO[6]="  $a[][][]$r $a[][][]$r $a[][][]$r"
-    LOGO[7]="  $a[][][]$r $a[][][]$r $a[][][]$r"
+    LOGO[0]="  $a[][][][][][]|$xx $a[][][]$xx"
+    LOGO[1]="  $a[][][][][][]|$xx $a[][][]$xx"
+    LOGO[2]="  $a[][][]\"\"\"\"\"\"\"$xx $a[][][]$xx"
+    LOGO[3]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
+    LOGO[4]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
+    LOGO[5]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
+    LOGO[6]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
+    LOGO[7]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
     ;;
   *mint*)
     motif=${colors[gg]} # bright green
     a=${colors[g]}      # green
-    LOGO[0]="  ${a}MM$r   $a.*^*..*^*.$r "
-    LOGO[1]="  $a\$\$$r  $a\$\$'$r $a'\$\$'$r $a'\$\$$r"
-    LOGO[2]="  $a\$\$$r  $a\$\$$r   $a\$\$$r   $a\$\$$r"
-    LOGO[3]="  $a\$\$$r  $a\$\$$r   $a\$\$$r   $a\$\$$r"
-    LOGO[4]="  $a\$\$$r  $a\$\$$r   $a\$\$$r   $a\$\$$r"
-    LOGO[5]="  $a\$\$.$r $a\`\`$r   $a\`\`$r  $a.\$\$$r"
-    LOGO[6]="  $a'Q\$\$\$\$\$\$\$\$\$\$\$\$Q'$r"
-    LOGO[7]="    $a\`\`\`\`\`\`\`\`\`\`\`\`$r  "
+    LOGO[0]="  ${a}MM$xx   $a.*^*..*^*.$xx "
+    LOGO[1]="  $a\$\$$xx  $a\$\$'$xx $a'\$\$'$xx $a'\$\$$xx"
+    LOGO[2]="  $a\$\$$xx  $a\$\$$xx   $a\$\$$xx   $a\$\$$xx"
+    LOGO[3]="  $a\$\$$xx  $a\$\$$xx   $a\$\$$xx   $a\$\$$xx"
+    LOGO[4]="  $a\$\$$xx  $a\$\$$xx   $a\$\$$xx   $a\$\$$xx"
+    LOGO[5]="  $a\$\$.$xx $a\`\`$xx   $a\`\`$xx  $a.\$\$$xx"
+    LOGO[6]="  $a'Q\$\$\$\$\$\$\$\$\$\$\$\$Q'$xx"
+    LOGO[7]="    $a\`\`\`\`\`\`\`\`\`\`\`\`$xx  "
     ;;
   mx*)
     motif=${colors[dd]} # bright black
@@ -364,160 +380,160 @@ case $OS_LOGO in
     LOGO[2]="           \\\\\\\\\\\\//        "
     LOGO[3]="            \\\\\\\\\\\\         "
     LOGO[4]="       *    /\\\\\\\\\\\\        "
-    LOGO[5]="     <\`$a~$r\`> // \\\\\\\\\\\\  *    "
-    LOGO[6]="   <\`$a~~~~~$r//   \\\\\\\\\\\\\`$a~$r\`>  "
-    LOGO[7]=" <\`$a~~~~~~$r//$a~$r\`> <\\\\\\\\\\\\$a~~~$r\`>"
+    LOGO[5]="     <\`$a~$xx\`> // \\\\\\\\\\\\  *    "
+    LOGO[6]="   <\`$a~~~~~$xx//   \\\\\\\\\\\\\`$a~$xx\`>  "
+    LOGO[7]=" <\`$a~~~~~~$xx//$a~$xx\`> <\\\\\\\\\\\\$a~~~$xx\`>"
     ;;
   nixos*)
     motif=${colors[bb]} # bright blue
     a=${colors[b]}      # blue
     b=${colors[cc]}     # bright cyan
-    LOGO[0]="       $a\\\\\\\\$r    $b\\\\\\\\  //$r    "
-    LOGO[1]="        $a\\\\\\\\$r    $b\\\\\\\\//$r     "
-    LOGO[2]="    $a::::://====$r$b\\\\\\\\$r  $a//$r  "
-    LOGO[3]="       $b///$r      $b\\\\\\\\$r$a//$r   "
-    LOGO[4]="  $b\"\"\"\"//$r$a\\\\\\\\$r      $a///\"\"\"\"$r"
-    LOGO[5]="     $b//$r  $a\\\\\\\\$r$b====//:::::$r "
-    LOGO[6]="        $a//\\\\\\\\$r    $b\\\\\\\\$r     "
-    LOGO[7]="       $a//  \\\\\\\\$r    $b\\\\\\\\$r    "
+    LOGO[0]="       $a\\\\\\\\$xx    $b\\\\\\\\  //$xx    "
+    LOGO[1]="        $a\\\\\\\\$xx    $b\\\\\\\\//$xx     "
+    LOGO[2]="    $a::::://====$xx$b\\\\\\\\$xx  $a//$xx  "
+    LOGO[3]="       $b///$xx      $b\\\\\\\\$xx$a//$xx   "
+    LOGO[4]="  $b\"\"\"\"//$xx$a\\\\\\\\$xx      $a///\"\"\"\"$xx"
+    LOGO[5]="     $b//$xx  $a\\\\\\\\$xx$b====//:::::$xx "
+    LOGO[6]="        $a//\\\\\\\\$xx    $b\\\\\\\\$xx     "
+    LOGO[7]="       $a//  \\\\\\\\$xx    $b\\\\\\\\$xx    "
     ;;
   opensuse*)
     motif=${colors[gg]} # bright green
     a=${colors[g]}      # green
     b=${colors[c]}      # cyan
-    LOGO[0]="        $a.,*,.$r      "
-    LOGO[1]="     $a.'$r  ${a}___$r  $a'.$r   "
-    LOGO[2]="   $a.'--<'($r${b}o$r$a)\`,$r  $a'.$r "
-    LOGO[3]="  ${a}4$r     $b'_____$r$a\`$r   ${a}L$r"
-    LOGO[4]="  ${a}V$r       ${a}___'$r    ${a}7$r"
-    LOGO[5]="   $a\`,---->$r      $a,\`$r "
-    LOGO[6]="     $a\`,$r       $a,\`$r   "
-    LOGO[7]="        $a\`'*'\`$r      "
+    LOGO[0]="        $a.,*,.$xx      "
+    LOGO[1]="     $a.'$xx  ${a}___$xx  $a'.$xx   "
+    LOGO[2]="   $a.'--<'($xx${b}o$xx$a)\`,$xx  $a'.$xx "
+    LOGO[3]="  ${a}4$xx     $b'_____$xx$a\`$xx   ${a}L$xx"
+    LOGO[4]="  ${a}V$xx       ${a}___'$xx    ${a}7$xx"
+    LOGO[5]="   $a\`,---->$xx      $a,\`$xx "
+    LOGO[6]="     $a\`,$xx       $a,\`$xx   "
+    LOGO[7]="        $a\`'*'\`$xx      "
     ;;
   postmarket*)
     motif=${colors[gg]} # bright green
     a=${colors[g]}      # green
     b=${colors[dd]}     # bright black
-    LOGO[0]="         $a,/^\,$r       "
-    LOGO[1]="         $a\L$r $a\\\\\\\\\\\\$r      "
-    LOGO[2]="       $a>_$r    $a\\\\\\\\\\\\$r     "
-    LOGO[3]="      $a///$r $b/$r $b\\\\$r $a\\\\\\\\\\\\$r    "
-    LOGO[4]="     $a///$r $b/_$r ${b}_\\\\$r $a\KL$r   "
-    LOGO[5]="    $a///$r        $a/$r ${a}__$r  "
-    LOGO[6]="   $a///__\\\\$r $a\_____/\\\\\\\\\\\\$r "
-    LOGO[7]="  $a/=====/$r $a/=========\\\\$r"
+    LOGO[0]="         $a,/^\,$xx       "
+    LOGO[1]="         $a\L$xx $a\\\\\\\\\\\\$xx      "
+    LOGO[2]="       $a>_$xx    $a\\\\\\\\\\\\$xx     "
+    LOGO[3]="      $a///$xx $b/$xx $b\\\\$xx $a\\\\\\\\\\\\$xx    "
+    LOGO[4]="     $a///$xx $b/_$xx ${b}_\\\\$xx $a\KL$xx   "
+    LOGO[5]="    $a///$xx        $a/$xx ${a}__$xx  "
+    LOGO[6]="   $a///__\\\\$xx $a\_____/\\\\\\\\\\\\$xx "
+    LOGO[7]="  $a/=====/$xx $a/=========\\\\$xx"
     ;;
   qubes*)
     motif=${colors[bb]} # bright blue
     a=${colors[b]}      # blue
-    LOGO[0]="       $a.<>.$r     "
-    LOGO[1]="    $a.<^>''<^>.$r  "
-    LOGO[2]="  $a<^><$r      $a><^>$r"
-    LOGO[3]="  $a[:]$r        $a[:]$r"
-    LOGO[4]="  $a[:]$r        $a[:]$r"
-    LOGO[5]="  $a<:><$r      $a><:>$r"
-    LOGO[6]="     $a<.>..<.>>$r  "
-    LOGO[7]="       $a\`<>\`$r  $a</>$r"
+    LOGO[0]="       $a.<>.$xx     "
+    LOGO[1]="    $a.<^>''<^>.$xx  "
+    LOGO[2]="  $a<^><$xx      $a><^>$xx"
+    LOGO[3]="  $a[:]$xx        $a[:]$xx"
+    LOGO[4]="  $a[:]$xx        $a[:]$xx"
+    LOGO[5]="  $a<:><$xx      $a><:>$xx"
+    LOGO[6]="     $a<.>..<.>>$xx  "
+    LOGO[7]="       $a\`<>\`$xx  $a</>$xx"
     ;;
   raspbian*)
     motif=${colors[r]} # red
     a=${colors[r]}     # red
     b=${colors[g]}     # green
-    LOGO[0]="  ${b}_,_$r       ${b}_,_$r  "
-    LOGO[1]="  $b\_$r $b,\\\\$r   $b/,$r ${b}_/$r  "
-    LOGO[2]="    $b\\\\$r $b,\Y/,$r $b/$r    "
-    LOGO[3]="      $a($r $a+$r $a)      "
-    LOGO[4]="   $a(+$r $a($r $a+$r $a)$r $a+)$r   "
-    LOGO[5]="  $a(+$r $a(+)x(+)$r $a+)$r  "
-    LOGO[6]="   $a(+$r $a($r $a+$r $a)$r $a+)$r   "
-    LOGO[7]="      $a($r $a+$r $a)$r      "
+    LOGO[0]="  ${b}_,_$xx       ${b}_,_$xx  "
+    LOGO[1]="  $b\_$xx $b,\\\\$xx   $b/,$xx ${b}_/$xx  "
+    LOGO[2]="    $b\\\\$xx $b,\Y/,$xx $b/$xx    "
+    LOGO[3]="      $a($xx $a+$xx $a)      "
+    LOGO[4]="   $a(+$xx $a($xx $a+$xx $a)$xx $a+)$xx   "
+    LOGO[5]="  $a(+$xx $a(+)x(+)$xx $a+)$xx  "
+    LOGO[6]="   $a(+$xx $a($xx $a+$xx $a)$xx $a+)$xx   "
+    LOGO[7]="      $a($xx $a+$xx $a)$xx      "
     ;;
   slack*)
     motif=${colors[bb]} # bright blue
     a=${colors[b]}      # blue
-    LOGO[0]="     $a,sSSSSSs,$r $a##$r"
-    LOGO[1]="    ${a}SS$r       ${a}SS##$r"
-    LOGO[2]="    ${a}Ss$r         $a\"\"$r"
-    LOGO[3]="     $a\`sSS,.$r      "
-    LOGO[4]="         $a\"SSs,$r   "
-    LOGO[5]="  $a##$r         ${a}sS$r  "
-    LOGO[6]="  $a##Ss$r       ${a}SS$r  "
-    LOGO[7]="  $a\"\"$r $a\`sSSSSSs\`$r   "
+    LOGO[0]="     $a,sSSSSSs,$xx $a##$xx"
+    LOGO[1]="    ${a}SS$xx       ${a}SS##$xx"
+    LOGO[2]="    ${a}Ss$xx         $a\"\"$xx"
+    LOGO[3]="     $a\`sSS,.$xx      "
+    LOGO[4]="         $a\"SSs,$xx   "
+    LOGO[5]="  $a##$xx         ${a}sS$xx  "
+    LOGO[6]="  $a##Ss$xx       ${a}SS$xx  "
+    LOGO[7]="  $a\"\"$xx $a\`sSSSSSs\`$xx   "
     ;;
   ubuntu*)
     motif=${colors[yy]} # bright yellow
     a=${colors[yy]}     # bright yellow
     b=${colors[rr]}     # bright red
-    LOGO[0]="           $a.,*,.$r  $b/**\\\\$r"
-    LOGO[1]="          $a\`.\`=\`.\`$r $b\\\\**/$r"
-    LOGO[2]="      $a.'.$r        $a'. .$r "
-    LOGO[3]="  $b/**\\\\$r $a'$r            $a'\`$r"
-    LOGO[4]="  $b\\\\**/$r $a.$r            $a.,$r"
-    LOGO[5]="      $a\`,\`$r        $a,\` \`$r "
-    LOGO[6]="          $a,\`,=,\`,$r $b/**\\\\$r"
-    LOGO[7]="           $a\`'*'\`$r  $b\\\\**/$r"
+    LOGO[0]="           $a.,*,.$xx  $b/**\\\\$xx"
+    LOGO[1]="          $a\`.\`=\`.\`$xx $b\\\\**/$xx"
+    LOGO[2]="      $a.'.$xx        $a'. .$xx "
+    LOGO[3]="  $b/**\\\\$xx $a'$xx            $a'\`$xx"
+    LOGO[4]="  $b\\\\**/$xx $a.$xx            $a.,$xx"
+    LOGO[5]="      $a\`,\`$xx        $a,\` \`$xx "
+    LOGO[6]="          $a,\`,=,\`,$xx $b/**\\\\$xx"
+    LOGO[7]="           $a\`'*'\`$xx  $b\\\\**/$xx"
     ;;
   void*)
     motif=${colors[g]} # green
     a=${colors[g]}     # green
     b=${colors[gg]}    # bright green
-    LOGO[0]="        $b.,*,.$r      "
-    LOGO[1]="          $b'$r $b','.$r   "
-    LOGO[2]="   $a.'.$r        $b\`.'.$r "
-    LOGO[3]="  ${a}4$r $a/$r   $b/:+:\\\\$r   $b\\\\$r ${b}L$r"
-    LOGO[4]="  ${a}V$r $a\\\\$r   $b\:+:/$r   $b/$r ${b}7$r"
-    LOGO[5]="   $a\`,',$r        $b',\`$r "
-    LOGO[6]="     $a\`,\`.$r $a.$r        "
-    LOGO[7]="        $a\`'*'\`$r      "
+    LOGO[0]="        $b.,*,.$xx      "
+    LOGO[1]="          $b'$xx $b','.$xx   "
+    LOGO[2]="   $a.'.$xx        $b\`.'.$xx "
+    LOGO[3]="  ${a}4$xx $a/$xx   $b/:+:\\\\$xx   $b\\\\$xx ${b}L$xx"
+    LOGO[4]="  ${a}V$xx $a\\\\$xx   $b\:+:/$xx   $b/$xx ${b}7$xx"
+    LOGO[5]="   $a\`,',$xx        $b',\`$xx "
+    LOGO[6]="     $a\`,\`.$xx $a.$xx        "
+    LOGO[7]="        $a\`'*'\`$xx      "
     ;;
   zorin*)
     motif=${colors[bb]}  # bright blue
     a=${colors[bb]}      # bright blue
-    LOGO[0]="     $a//ZZZZZZZZZZZ\\\\\\\\$r   "
-    LOGO[1]="    $l//\`\`\`\`\`\`\`\`\`\`\`\`\`\\\\\\\\$r  "
-    LOGO[2]="   $l//......$r$l.     ...\\\\\\\\$r "
-    LOGO[3]="  $a//ZZZZZZZ$r$l>    <$r${a}ZZZZ\\\\\\\\$r"
-    LOGO[4]="  $a\\\\\\\\ZZZZ$r$l>    <$r${a}ZZZZZZZ//$r"
-    LOGO[5]="   $l\\\\\\\\\`\`$r$l\`     \`\`\`\`\`\`\`//$r "
-    LOGO[6]="    $l\\\\\\\\.............//$r  "
-    LOGO[7]="     $a\\\\\\\\ZZZZZZZZZZZ//$r   "
+    LOGO[0]="     $a//ZZZZZZZZZZZ\\\\\\\\$xx   "
+    LOGO[1]="    $zz//\`\`\`\`\`\`\`\`\`\`\`\`\`\\\\\\\\$xx  "
+    LOGO[2]="   $zz//......$xx$zz.     ...\\\\\\\\$xx "
+    LOGO[3]="  $a//ZZZZZZZ$xx$zz>    <$xx${a}ZZZZ\\\\\\\\$xx"
+    LOGO[4]="  $a\\\\\\\\ZZZZ$xx$zz>    <$xx${a}ZZZZZZZ//$xx"
+    LOGO[5]="   $zz\\\\\\\\\`\`$xx$zz\`     \`\`\`\`\`\`\`//$xx "
+    LOGO[6]="    $zz\\\\\\\\.............//$xx  "
+    LOGO[7]="     $a\\\\\\\\ZZZZZZZZZZZ//$xx   "
     ;;
   *)
     motif=${colors[yy]} # bright yellow
     a=${colors[dd]}     # bright black
     b=${colors[y]}      # yellow
-    LOGO[0]="        ${a}XXXX$r      "
-    LOGO[1]="       ${a}X$r${l}^$r${a}XX$r${l}^$r${a}X$r     "
-    LOGO[2]="       ${a}X$r${b}<XX>$r${a}X$r     "
-    LOGO[3]="     ${a}XX${r}X${a}XXXX${r}X${a}XX$r   "
-    LOGO[4]="    ${a}XX${r}XXXXXXXX${a}XX$r  "
-    LOGO[5]="   ${a}XX${r}XXXXXXXXXX${a}XX$r "
-    LOGO[6]="  ${b}I$r${a}XXX${r}XXXXXXXX${a}XXX$r${b}I$r"
-    LOGO[7]="  ${b}IL>$r${a}XX${r}XXXXXX$r${a}XX$r${b}<JI$r"
+    LOGO[0]="        ${a}XXXX$xx      "
+    LOGO[1]="       ${a}X$xx${zz}^$xx${a}XX$xx${zz}^$xx${a}X$xx     "
+    LOGO[2]="       ${a}X$xx${b}<XX>$xx${a}X$xx     "
+    LOGO[3]="     ${a}XX${xx}X${a}XXXX${xx}X${a}XX$xx   "
+    LOGO[4]="    ${a}XX${xx}XXXXXXXX${a}XX$xx  "
+    LOGO[5]="   ${a}XX${xx}XXXXXXXXXX${a}XX$xx "
+    LOGO[6]="  ${b}I$xx${a}XXX${xx}XXXXXXXX${a}XXX$xx${b}I$xx"
+    LOGO[7]="  ${b}IL>$xx${a}XX${xx}XXXXXX$xx${a}XX$xx${b}<JI$xx"
     ;;
 esac
 
 ###########################################
 # adding only existing layers to info     #
 ###########################################
-INFO+=("$motif$USER$r @ $motif$HOSTNAME$r")
-[[ $OS ]]             && INFO+=("${motif}OS:$r        $OS")
-[[ $KERNEL ]]         && INFO+=("${motif}KERNEL:$r    $KERNEL")
-[[ $ARCH ]]           && INFO+=("${motif}ARCH:$r      $ARCH")
-[[ $UPTIME ]]         && INFO+=("${motif}UPTIME:$r    $UPTIME")
+INFO+=("$motif$USER$xx @ $motif$HOSTNAME$xx")
+[[ $OS ]]             && INFO+=("${motif}OS:$xx        $OS")
+[[ $KERNEL ]]         && INFO+=("${motif}KERNEL:$xx    $KERNEL")
+[[ $ARCH ]]           && INFO+=("${motif}ARCH:$xx      $ARCH")
+[[ $UPTIME ]]         && INFO+=("${motif}UPTIME:$xx    $UPTIME")
 [[ $PACKAGES ]]       &&
-  [[ 0 -ne $PACKAGES ]] && INFO+=("${motif}PACKAGES:$r  $PACKAGES")
-  [[ $SHELL ]]          && INFO+=("${motif}SHELL:$r     $SHELL")
-  [[ $DESKTOP ]]        && INFO+=("${motif}DESKTOP:$r   $DESKTOP")
+[[ 0 -ne $PACKAGES ]] && INFO+=("${motif}PACKAGES:$xx  $PACKAGES")
+[[ $SHELL ]]          && INFO+=("${motif}SHELL:$xx     $SHELL")
+[[ $DESKTOP ]]        && INFO+=("${motif}DESKTOP:$xx   $DESKTOP")
 
 ###########################################
 # yielding everything                     #
 ###########################################
-printf "${LOGO[0]}  \x1B[37mW\x1B[97mE$r | ${INFO[0]}\n" # user@hostname
-printf "${LOGO[1]}  \x1B[31mR\x1B[91mD$r | ${INFO[1]}\n" # OS
-printf "${LOGO[2]}  \x1B[32mG\x1B[92mN$r | ${INFO[2]}\n" # kernel
-printf "${LOGO[3]}  \x1B[33mY\x1B[93mW$r | ${INFO[3]}\n" # arch
-printf "${LOGO[4]}  \x1B[34mB\x1B[94mE$r | ${INFO[4]}\n" # uptime
-printf "${LOGO[5]}  \x1B[35mM\x1B[95mA$r | ${INFO[5]}\n" # packages
-printf "${LOGO[6]}  \x1B[36mC\x1B[96mN$r | ${INFO[6]}\n" # shell
-printf "${LOGO[7]}  \x1B[30mB\x1B[90mK$r | ${INFO[7]}\n" # desktops
+printf "${LOGO[0]}  ${PALETTE[0]}| ${INFO[0]}\n" # user@hostname
+printf "${LOGO[1]}  ${PALETTE[1]}| ${INFO[1]}\n" # OS
+printf "${LOGO[2]}  ${PALETTE[2]}| ${INFO[2]}\n" # kernel
+printf "${LOGO[3]}  ${PALETTE[3]}| ${INFO[3]}\n" # arch
+printf "${LOGO[4]}  ${PALETTE[4]}| ${INFO[4]}\n" # uptime
+printf "${LOGO[5]}  ${PALETTE[5]}| ${INFO[5]}\n" # packages
+printf "${LOGO[6]}  ${PALETTE[6]}| ${INFO[6]}\n" # shell
+printf "${LOGO[7]}  ${PALETTE[7]}| ${INFO[7]}\n" # desktops
