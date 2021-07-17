@@ -22,6 +22,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+Help() {
+   echo "Disfetcg is a CLI system information tool written in BASH"
+   echo
+   echo "Syntax: scriptTemplate [options]"
+   echo "options:"
+   echo "h     Print this message"
+   echo "l     Set distro logo to print"
+   echo
+}
+
+while [[ -n $1 && ! $1 == '--' ]]; do
+  case $1 in
+    -h | --help)
+      Help; exit 0;;
+    -l | --logo)
+      OS_LOGO=$2
+  esac
+  shift
+done
 
 ###########################################
 # global stuff needed everywhere          #
@@ -34,22 +53,24 @@ l="\x1B[1m" # bold text
 # getting needed information              #
 ###########################################
 # getting hostname
-if [ -f /etc/hostname ];
-then
+if [ -f /etc/hostname ]; then
   HOSTNAME=$(cat /etc/hostname)
 else
   HOSTNAME=$(uname -n)
 fi
 # getting OS name
-if [ -f /etc/os-release ];
-then
+
+if [ -f /etc/os-release ]; then
   OS=$(cat /etc/os-release | grep "PRETTY_NAME" | tr '"' " " | awk '{ $1=""; print tolower($0) }' | xargs)
-elif type lsb_release &>/dev/null;
-then
+elif type lsb_release &>/dev/null; then
   OS=$(lsb_release -si | awk '{print tolower($0)}')
 else
   OS=$(uname -o | awk '{ print tolower($0) }')
 fi
+
+OS=$(echo $OS | awk '{ print $1; }')
+OS_LOGO=${OS_LOGO:-$OS}
+
 # getting kernel version
 KERNEL=$(uname -r)
 # getting kernel architecture
@@ -112,10 +133,8 @@ SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF; }')
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
 # DESKTOP_SESSION is a full path so removing garbage
 de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | tr "/" " " | awk '{ print tolower($NF); }')
-if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]];
-then
-  if [[ $WAYLAND_DISPLAY ]];
-  then
+if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]]; then
+  if [[ $WAYLAND_DISPLAY ]]; then
     wm=$(ps -A | grep -m 1 -F -o -e "cage"       -e "cagebreak"     -e "cardboard" \
                                  -e "dwl"        -e "enlightenment" -e "grefsen"   \
                                  -e "hikari"     -e "kwin"          -e "labwc"     \
@@ -142,7 +161,33 @@ fi
 # defining distro logo and packages count #
 ###########################################
 # note for nixos: display only current user installed packages
-case $OS in
+
+declare -A packages
+packages[android]='apk info | wc -l'
+packages[astra]='dpkg -l | grep -c "^ii"'
+packages[arch]='pacman -Qq | wc -l'
+packages[artix]='pacman -Qq | wc -l'
+packages[cent]='rpm -qa | wc -l'
+packages[debian]='dpkg -l | grep -c "^ii"'
+packages[elementary]='dpkg -l | grep -c "^ii"'
+packages[endeavour]='pacman -Qq | wc -l'
+packages[fedora]='rpm -qa | wc -l'
+packages[manjaro]='pacman -Qq | wc -l'
+packages[linuxmint]='dpkg -l | grep -c "^ii"'
+packages[mx]='dpkg -l | grep -c "^ii"'
+packages[nixos]='nix-store -q --requisites ~/.nix-profile | wc -l'
+packages[opensuse]='zypper se --installed-only | wc -l'
+packages[postmarket]='apk info | wc -l'
+packages[qubes]='rpm -qa | wc -l'
+packages[raspbian]='dpkg -l | grep -c "^ii"'
+packages[slack]='ls /var/log/packages | wc -l'
+packages[ubuntu]='dpkg -l | grep -c "^ii"'
+packages[void]='xbps-query -l | wc -l'
+packages[zorin]='dpkg -l | grep -c "^ii"'
+
+PACKAGES=$(sh -c "${packages[$OS]}")
+
+case $OS_LOGO in
 alpine*)
   motif="\x1B[34m$l" # blue
   a="\x1B[34m$l"     # blue
@@ -154,7 +199,6 @@ alpine*)
   LOGO[5]="   $a\\\\\\\\$r$l</$r $l/J$r    $l\>$r   $l\\\\$r$a//$r "
   LOGO[6]="    $a\\\\\\\\$r             $a//$r  "
   LOGO[7]="     $a\\\\\\\\AAAAAAAAAAA//$r   "
-  PACKAGES=$(apk info | wc -l)
   ;;
 android*)
   motif="\x1B[92m$l" # bright green
@@ -167,7 +211,6 @@ android*)
   LOGO[5]="  ${a}U$r ${a}H######H$r ${a}U$r"
   LOGO[6]="    ${a}GHHHHHHB$r  "
   LOGO[7]="      ${a}U$r  ${a}U$r    "
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 astra*)
   motif="\x1B[94m$l" # bright blue
@@ -180,7 +223,6 @@ astra*)
   LOGO[5]="     $a<$r,$a'$r,$a>^<$r,$a'$r,$a>$r   "
   LOGO[6]="    $a<,>       <,>$r  "
   LOGO[7]="   $a\`             \`$r "
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 arc*|artix*)
   motif="\x1B[94m$l" # bright blue
@@ -194,7 +236,6 @@ arc*|artix*)
   LOGO[5]="    $a/,$r $a>   $a<$r $a,\\\\$r  "
   LOGO[6]="   $a/.>$r       $a<.\\\\$r "
   LOGO[7]="  $a/>$r           $a<\\\\$r"
-  PACKAGES=$(pacman -Qq | wc -l)
   ;;
 cent*)
   motif="\x1B[93m$l" # bright yellow
@@ -210,7 +251,6 @@ cent*)
   LOGO[5]="    ${d}F33N$r $a$l#$r ${c}F22N$r  "
   LOGO[6]="    ${d}L33X$r $a$l#$r ${c}L22X$r  "
   LOGO[7]="        $a$l\-/$r      "
-  PACKAGES=$(rpm -qa | wc -l)
   ;;
 debian*)
   motif="\x1B[95m$l" # bright magenta
@@ -223,7 +263,6 @@ debian*)
   LOGO[5]="    $a'6$r        "
   LOGO[6]="      $a'6$r      "
   LOGO[7]="        $a'6.$r   "
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 elementary*)
   motif="\x1B[96m$l" # bright cyan
@@ -236,7 +275,6 @@ elementary*)
   LOGO[5]="   $a\`,$r e$r       ,$r $a,\`$r "
   LOGO[6]="     $a\`, ${r}eeeee$r $a,\`$r   "
   LOGO[7]="        $a\`'*'\`$r      "
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 endeavour*)
   motif="\x1B[94m$l" # bright blue
@@ -250,7 +288,6 @@ endeavour*)
   LOGO[5]="   $a.__$r$b<$r${a}____#####_,P$r$b%%%%%%D$r"
   LOGO[6]="    $b<EFGJKX\`\`\`\`\`%%H%%_,P$r "
   LOGO[7]="  $b<-------------\`\`\`$r    "
-  PACKAGES=$(pacman -Qq | wc -l)
   ;;
 fedora*)
   motif="\x1B[34m$l" # blue
@@ -263,7 +300,6 @@ fedora*)
   LOGO[5]="  ${a}h$r       ${l}H$r     $a,\`$r "
   LOGO[6]="  ${a}c$r    ${l}fff'$r   $a,\`$r   "
   LOGO[7]="   $a\`zxjklfo'\`$r      "
-  PACKAGES=$(rpm -qa | wc -l)
   ;;
 manjaro*)
   motif="\x1B[32m$l" # green
@@ -276,7 +312,6 @@ manjaro*)
   LOGO[5]="  $a[][][]$r $a[][][]$r $a[][][]$r"
   LOGO[6]="  $a[][][]$r $a[][][]$r $a[][][]$r"
   LOGO[7]="  $a[][][]$r $a[][][]$r $a[][][]$r"
-  PACKAGES=$(pacman -Qq | wc -l)
   ;;
 *mint*)
   motif="\x1B[92m$l" # bright green
@@ -289,7 +324,6 @@ manjaro*)
   LOGO[5]="  $a\$\$.$r $a\`\`$r   $a\`\`$r  $a.\$\$$r"
   LOGO[6]="  $a'Q\$\$\$\$\$\$\$\$\$\$\$\$Q'$r"
   LOGO[7]="    $a\`\`\`\`\`\`\`\`\`\`\`\`$r  "
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 mx*)
   motif="\x1B[90m$l" # bright black
@@ -302,7 +336,6 @@ mx*)
   LOGO[5]="     <\`$a~$r\`> // \\\\\\\\\\\\  *    "
   LOGO[6]="   <\`$a~~~~~$r//   \\\\\\\\\\\\\`$a~$r\`>  "
   LOGO[7]=" <\`$a~~~~~~$r//$a~$r\`> <\\\\\\\\\\\\$a~~~$r\`>"
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 nixos*)
   motif="\x1B[94m$l" # bright blue
@@ -316,7 +349,6 @@ nixos*)
   LOGO[5]="     $b//$r  $a\\\\\\\\$r$b====//:::::$r "
   LOGO[6]="        $a//\\\\\\\\$r    $b\\\\\\\\$r     "
   LOGO[7]="       $a//  \\\\\\\\$r    $b\\\\\\\\$r    "
-  PACKAGES=$(nix-store -q --requisites ~/.nix-profile | wc -l)
   ;;
 opensuse*)
   motif="\x1B[92m$l" # bright green
@@ -330,7 +362,6 @@ opensuse*)
   LOGO[5]="   $a\`,---->$r      $a,\`$r "
   LOGO[6]="     $a\`,$r       $a,\`$r   "
   LOGO[7]="        $a\`'*'\`$r      "
-  PACKAGES=$(zypper se --installed-only | wc -l)
   ;;
 postmarket*)
   motif="\x1B[92m$l" # bright green
@@ -344,7 +375,6 @@ postmarket*)
   LOGO[5]="    $a///$r        $a/$r ${a}__$r  "
   LOGO[6]="   $a///__\\\\$r $a\_____/\\\\\\\\\\\\$r "
   LOGO[7]="  $a/=====/$r $a/=========\\\\$r"
-  PACKAGES=$(apk info | wc -l)
   ;;
 qubes*)
   motif="\x1B[94m$l" # bright blue
@@ -357,7 +387,6 @@ qubes*)
   LOGO[5]="  $a<:><$r      $a><:>$r"
   LOGO[6]="     $a<.>..<.>>$r  "
   LOGO[7]="       $a\`<>\`$r  $a</>$r"
-  PACKAGES=$(rpm -qa | wc -l)
   ;;
 raspbian*)
   motif="\x1B[31m$l" # red
@@ -371,7 +400,6 @@ raspbian*)
   LOGO[5]="  $a(+$r $a(+)x(+)$r $a+)$r  "
   LOGO[6]="   $a(+$r $a($r $a+$r $a)$r $a+)$r   "
   LOGO[7]="      $a($r $a+$r $a)$r      "
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 slack*)
   motif="\x1B[94m$l" # bright blue
@@ -384,7 +412,6 @@ slack*)
   LOGO[5]="  $a##$r         ${a}sS$r  "
   LOGO[6]="  $a##Ss$r       ${a}SS$r  "
   LOGO[7]="  $a\"\"$r $a\`sSSSSSs\`$r   "
-  PACKAGES=$(ls /var/log/packages | wc -l)
   ;;
 ubuntu*)
   motif="\x1B[93m$l" # bright yellow
@@ -398,7 +425,6 @@ ubuntu*)
   LOGO[5]="      $a\`,\`$r        $a,\` \`$r "
   LOGO[6]="          $a,\`,=,\`,$r $b/**\\\\$r"
   LOGO[7]="           $a\`'*'\`$r  $b\\\\**/$r"
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 void*)
   motif="\x1B[32m$l" # green
@@ -412,7 +438,6 @@ void*)
   LOGO[5]="   $a\`,',$r        $b',\`$r "
   LOGO[6]="     $a\`,\`.$r $a.$r        "
   LOGO[7]="        $a\`'*'\`$r      "
-  PACKAGES=$(xbps-query -l | wc -l)
   ;;
 zorin*)
   motif="\x1B[94m$l" # bright blue
@@ -425,7 +450,6 @@ zorin*)
   LOGO[5]="   $l\\\\\\\\\`\`$r$l\`     \`\`\`\`\`\`\`//$r "
   LOGO[6]="    $l\\\\\\\\.............//$r  "
   LOGO[7]="     $a\\\\\\\\ZZZZZZZZZZZ//$r   "
-  PACKAGES=$(dpkg -l | grep -c "^ii")
   ;;
 *)
   motif="\x1B[93m$l" # bright yellow
@@ -465,4 +489,4 @@ printf "${LOGO[3]}  \x1B[33mY\x1B[93mW$r | ${INFO[3]}\n" # arch
 printf "${LOGO[4]}  \x1B[34mB\x1B[94mE$r | ${INFO[4]}\n" # uptime
 printf "${LOGO[5]}  \x1B[35mM\x1B[95mA$r | ${INFO[5]}\n" # packages
 printf "${LOGO[6]}  \x1B[36mC\x1B[96mN$r | ${INFO[6]}\n" # shell
-printf "${LOGO[7]}  \x1B[30mB\x1B[90mK$r | ${INFO[7]}\n" # desktop
+printf "${LOGO[7]}  \x1B[30mB\x1B[90mK$r | ${INFO[7]}\n" # desktops
