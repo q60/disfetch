@@ -39,14 +39,14 @@ help() {
 # parse arguments
 while [[ -n $1 && ! $1 == '--' ]]; do
   case $1 in
+    -h | --help)
+      help; exit 0
+      ;;
     -l | --logo)
       OS_LOGO=$2
       ;;
     -m | --mono | --monochrome)
       MONO=1
-      ;;
-    *)
-      help; exit 0
       ;;
   esac
   shift
