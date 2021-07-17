@@ -45,9 +45,27 @@ done
 ###########################################
 # global stuff needed everywhere          #
 ###########################################
+
 INFO=()     # info array
+
+declare -A colors
 r="\x1B[0m" # reset color
 l="\x1B[1m" # bold text
+
+colors[b]="\x1B[34m$l"  # blue
+colors[bb]="\x1B[94m$l" # bright blue
+colors[c]="\x1B[36m"    # cyan
+colors[cc]="\x1B[96m$l" # bright cyan
+colors[d]="\x1B[30m$l"  # black
+colors[dd]="\x1B[90m$l" # bright black
+colors[r]="\x1B[31m$l"  # red
+colors[rr]="\x1B[91m$l" # bright red
+colors[y]="\x1B[33m"    # yellow
+colors[yy]="\x1B[93m$l" # bright yellow
+colors[m]="\x1B[35m"    # magenta
+colors[mm]="\x1B[95m$l" # bright magenta
+colors[g]="\x1B[32m$l"  # green
+colors[gg]="\x2B[92m$l" # brignt green
 
 ###########################################
 # getting needed information              #
@@ -189,8 +207,8 @@ PACKAGES=$(sh -c "${packages[$OS]}")
 
 case $OS_LOGO in
 alpine*)
-  motif="\x1B[34m$l" # blue
-  a="\x1B[34m$l"     # blue
+  motif=${colors[b]} # blue
+  a=${colors[b]}     # blue
   LOGO[0]="     $a//AAAAAAAAAAA\\\\\\\\$r   "
   LOGO[1]="    $a//$r             $a\\\\\\\\$r  "
   LOGO[2]="   $a//$r    $l<^>$r        $a\\\\\\\\$r "
@@ -201,8 +219,8 @@ alpine*)
   LOGO[7]="     $a\\\\\\\\AAAAAAAAAAA//$r   "
   ;;
 android*)
-  motif="\x1B[92m$l" # bright green
-  a="\x1B[32m$l"     # green
+  motif=${colors[gg]} # bright green
+  a=${colors[g]}      # green
   LOGO[0]="     $a\..../$r   "
   LOGO[1]="     ${a}d${r}o${a}HH${r}o${a}b$r   "
   LOGO[2]="    $a''''''''$r  "
@@ -213,8 +231,8 @@ android*)
   LOGO[7]="      ${a}U$r  ${a}U$r    "
   ;;
 astra*)
-  motif="\x1B[94m$l" # bright blue
-  a="\x1B[34m$l"     # blue
+  motif=${colors[bb]} # bright blue
+  a=${colors[b]}      # blue
   LOGO[0]="          $a.$r        "
   LOGO[1]="        $a.'$r.$a'.$r      "
   LOGO[2]="  $a.....<$r.$a:::$r.$a>.....$r"
@@ -225,9 +243,9 @@ astra*)
   LOGO[7]="   $a\`             \`$r "
   ;;
 arc*|artix*)
-  motif="\x1B[94m$l" # bright blue
-  a="\x1B[34m$l"     # blue
-  b="\x1B[36m"       # cyan
+  motif=${colors[bb]}  # bright blue
+  a=${colors[b]}       # blue
+  b=${colors[c]}       # cyan
   LOGO[0]="         $a.$r       "
   LOGO[1]="        $a/^\\\\$r      "
   LOGO[2]="       $a/, ,\\\\$r     "
@@ -238,11 +256,11 @@ arc*|artix*)
   LOGO[7]="  $a/>$r           $a<\\\\$r"
   ;;
 cent*)
-  motif="\x1B[93m$l" # bright yellow
-  a="\x1B[32m"       # green
-  b="\x1B[35m"       # magenta
-  c="\x1B[33m"       # yellow
-  d="\x1B[34m"       # blue
+  motif=${colors[yy]}  # bright yellow
+  a=${colors[g]}       # green
+  b=${colors[m]}       # magenta
+  c=${colors[y]}       # yellow
+  d=${colors[b]}       # blue
   LOGO[0]="        $c$l/-\\\\$r      "
   LOGO[1]="    ${a}F44N$r $c$l#$r ${b}F11N$r  "
   LOGO[2]="    ${a}L44X$r $c$l#$r ${b}L11X$r  "
@@ -253,8 +271,8 @@ cent*)
   LOGO[7]="        $a$l\-/$r      "
   ;;
 debian*)
-  motif="\x1B[95m$l" # bright magenta
-  a="\x1B[95m$l"     # bright magenta
+  motif=${colors[mm]} # bright magenta
+  a=${colors[mm]}     # bright magenta
   LOGO[0]="      $a,6tt6,$r  "
   LOGO[1]="    $a,6$r      ${a}6$r "
   LOGO[2]="   ${a}6$r    $a,6.$r  ${a}6$r"
@@ -265,8 +283,8 @@ debian*)
   LOGO[7]="        $a'6.$r   "
   ;;
 elementary*)
-  motif="\x1B[96m$l" # bright cyan
-  a="\x1B[94m$l"     # bright blue
+  motif=${colors[cc]} # bright cyan
+  a=${colors[bb]}     # bright blue
   LOGO[0]="        $a.,*,.$r      "
   LOGO[1]="     $a.'$r eeeee$r $a'.$r   "
   LOGO[2]="   $a.'$r e$r       e$r $a'.$r "
@@ -277,9 +295,9 @@ elementary*)
   LOGO[7]="        $a\`'*'\`$r      "
   ;;
 endeavour*)
-  motif="\x1B[94m$l" # bright blue
-  a="\x1B[93m$l"     # bright yellow
-  b="\x1B[95m"       # bright magenta
+  motif=${colors[bb]} # bright blue
+  a=${colors[yy]}     # bright yellow
+  b=${colors[mm]}       # bright magenta
   LOGO[0]="            $a,<\`$r$b^<\\\\$r     "
   LOGO[1]="          $a,<@$r$b,<$r${a}E\\\\$r$b%%\\\\.$r   "
   LOGO[2]="        $a,<@$r$b,<$r${a}ENDE\\\\$r$b%%\\\\\\\\$r  "
@@ -290,8 +308,8 @@ endeavour*)
   LOGO[7]="  $b<-------------\`\`\`$r    "
   ;;
 fedora*)
-  motif="\x1B[34m$l" # blue
-  a="\x1B[34m$l"     # blue
+  motif=${colors[b]} # blue
+  a=${colors[b]}     # blue
   LOGO[0]="        $a.,*,.$r      "
   LOGO[1]="     $a.'$r   $l,fff$r$a'.$r   "
   LOGO[2]="   $a.'$r     ${l}H$r     $a'.$r "
@@ -302,8 +320,8 @@ fedora*)
   LOGO[7]="   $a\`zxjklfo'\`$r      "
   ;;
 manjaro*)
-  motif="\x1B[32m$l" # green
-  a="\x1B[32m$l"     # green
+  motif=${colors[g]} # green
+  a=${colors[g]}     # green
   LOGO[0]="  $a[][][][][][]|$r $a[][][]$r"
   LOGO[1]="  $a[][][][][][]|$r $a[][][]$r"
   LOGO[2]="  $a[][][]\"\"\"\"\"\"\"$r $a[][][]$r"
@@ -314,8 +332,8 @@ manjaro*)
   LOGO[7]="  $a[][][]$r $a[][][]$r $a[][][]$r"
   ;;
 *mint*)
-  motif="\x1B[92m$l" # bright green
-  a="\x1B[32m"       # green
+  motif=${colors[gg]} # bright green
+  a=${colors[g]}      # green
   LOGO[0]="  ${a}MM$r   $a.*^*..*^*.$r "
   LOGO[1]="  $a\$\$$r  $a\$\$'$r $a'\$\$'$r $a'\$\$$r"
   LOGO[2]="  $a\$\$$r  $a\$\$$r   $a\$\$$r   $a\$\$$r"
@@ -326,8 +344,8 @@ manjaro*)
   LOGO[7]="    $a\`\`\`\`\`\`\`\`\`\`\`\`$r  "
   ;;
 mx*)
-  motif="\x1B[90m$l" # bright black
-  a="\x1B[90m"       # bright black
+  motif=${colors[dd]} # bright black
+  a=${colors[dd]}     # bright black
   LOGO[0]="         \\\\\\\\\\\\    //      "
   LOGO[1]="          \\\\\\\\\\\\  //       "
   LOGO[2]="           \\\\\\\\\\\\//        "
@@ -338,9 +356,9 @@ mx*)
   LOGO[7]=" <\`$a~~~~~~$r//$a~$r\`> <\\\\\\\\\\\\$a~~~$r\`>"
   ;;
 nixos*)
-  motif="\x1B[94m$l" # bright blue
-  a="\x1B[34m$l"     # blue
-  b="\x1B[96m"       # bright cyan
+  motif=${colors[bb]} # bright blue
+  a=${colors[b]}      # blue
+  b=${colors[cc]}     # bright cyan
   LOGO[0]="       $a\\\\\\\\$r    $b\\\\\\\\  //$r    "
   LOGO[1]="        $a\\\\\\\\$r    $b\\\\\\\\//$r     "
   LOGO[2]="    $a::::://====$r$b\\\\\\\\$r  $a//$r  "
@@ -351,9 +369,9 @@ nixos*)
   LOGO[7]="       $a//  \\\\\\\\$r    $b\\\\\\\\$r    "
   ;;
 opensuse*)
-  motif="\x1B[92m$l" # bright green
-  a="\x1B[32m$l"     # green
-  b="\x1B[36m"       # cyan
+  motif=${colors[gg]} # bright green
+  a=${colors[g]}      # green
+  b=${colors[c]}      # cyan
   LOGO[0]="        $a.,*,.$r      "
   LOGO[1]="     $a.'$r  ${a}___$r  $a'.$r   "
   LOGO[2]="   $a.'--<'($r${b}o$r$a)\`,$r  $a'.$r "
@@ -364,9 +382,9 @@ opensuse*)
   LOGO[7]="        $a\`'*'\`$r      "
   ;;
 postmarket*)
-  motif="\x1B[92m$l" # bright green
-  a="\x1B[32m$l"     # green
-  b="\x1B[90m"       # bright black
+  motif=${colors[gg]} # bright green
+  a=${colors[g]}      # green
+  b=${colors[dd]}     # bright black
   LOGO[0]="         $a,/^\,$r       "
   LOGO[1]="         $a\L$r $a\\\\\\\\\\\\$r      "
   LOGO[2]="       $a>_$r    $a\\\\\\\\\\\\$r     "
@@ -377,8 +395,8 @@ postmarket*)
   LOGO[7]="  $a/=====/$r $a/=========\\\\$r"
   ;;
 qubes*)
-  motif="\x1B[94m$l" # bright blue
-  a="\x1B[34m$l"     # blue
+  motif=${colors[bb]} # bright blue
+  a=${colors[b]}      # blue
   LOGO[0]="       $a.<>.$r     "
   LOGO[1]="    $a.<^>''<^>.$r  "
   LOGO[2]="  $a<^><$r      $a><^>$r"
@@ -389,9 +407,9 @@ qubes*)
   LOGO[7]="       $a\`<>\`$r  $a</>$r"
   ;;
 raspbian*)
-  motif="\x1B[31m$l" # red
-  a="\x1B[31m$l"     # red
-  b="\x1B[32m"       # green
+  motif=${colors[r]} # red
+  a=${colors[r]}     # red
+  b=${colors[g]}     # green
   LOGO[0]="  ${b}_,_$r       ${b}_,_$r  "
   LOGO[1]="  $b\_$r $b,\\\\$r   $b/,$r ${b}_/$r  "
   LOGO[2]="    $b\\\\$r $b,\Y/,$r $b/$r    "
@@ -402,8 +420,8 @@ raspbian*)
   LOGO[7]="      $a($r $a+$r $a)$r      "
   ;;
 slack*)
-  motif="\x1B[94m$l" # bright blue
-  a="\x1B[34m$l"     # blue
+  motif=${colors[bb]} # bright blue
+  a=${colors[b]}      # blue
   LOGO[0]="     $a,sSSSSSs,$r $a##$r"
   LOGO[1]="    ${a}SS$r       ${a}SS##$r"
   LOGO[2]="    ${a}Ss$r         $a\"\"$r"
@@ -414,9 +432,9 @@ slack*)
   LOGO[7]="  $a\"\"$r $a\`sSSSSSs\`$r   "
   ;;
 ubuntu*)
-  motif="\x1B[93m$l" # bright yellow
-  a="\x1B[93m$l"     # bright yellow
-  b="\x1B[91m$l"     # bright red
+  motif=${colors[yy]} # bright yellow
+  a=${colors[yy]}     # bright yellow
+  b=${colors[rr]}     # bright red
   LOGO[0]="           $a.,*,.$r  $b/**\\\\$r"
   LOGO[1]="          $a\`.\`=\`.\`$r $b\\\\**/$r"
   LOGO[2]="      $a.'.$r        $a'. .$r "
@@ -427,9 +445,9 @@ ubuntu*)
   LOGO[7]="           $a\`'*'\`$r  $b\\\\**/$r"
   ;;
 void*)
-  motif="\x1B[32m$l" # green
-  a="\x1B[32m$l"     # green
-  b="\x1B[92m$l"     # bright green
+  motif=${colors[g]} # green
+  a=${colors[g]}     # green
+  b=${colors[gg]}    # bright green
   LOGO[0]="        $b.,*,.$r      "
   LOGO[1]="          $b'$r $b','.$r   "
   LOGO[2]="   $a.'.$r        $b\`.'.$r "
@@ -440,8 +458,8 @@ void*)
   LOGO[7]="        $a\`'*'\`$r      "
   ;;
 zorin*)
-  motif="\x1B[94m$l" # bright blue
-  a="\x1B[94m"       # bright blue
+  motif=${colors[bb]}  # bright blue
+  a=${colors[bb]}      # bright blue
   LOGO[0]="     $a//ZZZZZZZZZZZ\\\\\\\\$r   "
   LOGO[1]="    $l//\`\`\`\`\`\`\`\`\`\`\`\`\`\\\\\\\\$r  "
   LOGO[2]="   $l//......$r$l.     ...\\\\\\\\$r "
@@ -452,9 +470,9 @@ zorin*)
   LOGO[7]="     $a\\\\\\\\ZZZZZZZZZZZ//$r   "
   ;;
 *)
-  motif="\x1B[93m$l" # bright yellow
-  a="\x1B[90m"       # bright black
-  b="\x1B[33m$l"     # yellow
+  motif=${colors[yy]} # bright yellow
+  a=${colors[dd]}     # bright black
+  b=${colors[y]}      # yellow
   LOGO[0]="        ${a}XXXX$r      "
   LOGO[1]="       ${a}X$r${l}^$r${a}XX$r${l}^$r${a}X$r     "
   LOGO[2]="       ${a}X$r${b}<XX>$r${a}X$r     "
