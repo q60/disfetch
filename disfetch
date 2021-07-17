@@ -25,27 +25,28 @@
 
 # help message
 help() {
-  echo "disfetch is a CLI system information tool written in bash"
-  echo
-  echo "syntax: disfetch [options]"
-  echo "options:"
-  echo -e "\t-h, --help                    prints this message"
-  echo -e "\t-l, --logo                    sets distro logo to print"
-  echo -e "\t-m, --mono, --monochrome      enables monochrome mode"
-  echo
+  printf "\x1B[93mdisfetch is a CLI system information tool written in bash\x1B[0m
+
+  \x1B[1msyntax\x1B[0m:
+  \tdisfetch \x1B[92m[options]\x1B[0m
+  \x1B[1moptions\x1B[0m:
+  \t\x1B[92m-h, --help\x1B[0m                    \x1B[93mprints this message\x1B[0m
+  \t\x1B[92m-l, --logo\x1B[0m                    \x1B[93msets distro logo to print\x1B[0m
+  \t\x1B[92m-m, --mono, --monochrome\x1B[0m      \x1B[93menables monochrome mode\x1B[0m
+  \n"
 }
 
 # parse arguments
 while [[ -n $1 && ! $1 == '--' ]]; do
   case $1 in
-    -h | --help)
-      help; exit 0
-      ;;
     -l | --logo)
       OS_LOGO=$2
       ;;
     -m | --mono | --monochrome)
       MONO=1
+      ;;
+    *)
+      help; exit 0
       ;;
   esac
   shift
@@ -54,7 +55,6 @@ done
 ###########################################
 # global stuff needed everywhere          #
 ###########################################
-
 # info array
 INFO=()
 
@@ -126,7 +126,7 @@ ARCH=$(uname -m | awk '{print tolower($0)}')
 uptime -p >/dev/null 2>&1
 [ $? -eq 0 ] && UPTIME=$(uptime -p | awk '{ $1=""; print }' | tr -d "," | xargs) \
   || UPTIME=$(
-  awk '{
+awk '{
   uptime = $1;
   if (uptime >= 604800) {
     if (uptime >= 1209600) {
