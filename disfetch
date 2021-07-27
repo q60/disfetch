@@ -519,7 +519,7 @@ esac
 ###########################################
 # adding only existing layers to info     #
 ###########################################
-INFO+=("$motif${USER:-$USERNAME}$xx @ $motif$HOSTNAME$xx")
+INFO+=("$motif${USERNAME:-${USER:-$LOGNAME}}$xx @ $motif$HOSTNAME$xx")
 [[ $OS ]]             && INFO+=("${motif}OS:$xx        $OS")
 [[ $KERNEL ]]         && INFO+=("${motif}KERNEL:$xx    $KERNEL")
 [[ $ARCH ]]           && INFO+=("${motif}ARCH:$xx      $ARCH")
