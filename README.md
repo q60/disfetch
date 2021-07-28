@@ -7,6 +7,8 @@ Yet another **\*nix** distro fetching program, but less complex. Written in **ba
 
 ![screenshot](https://i.imgur.com/dO88my5.jpg)
 
+![screenshot](https://i.imgur.com/TTSCQhk.jpg)
+
 ![screenshot](https://i.imgur.com/ylr0G1U.jpg)
 
 ![screenshot](https://i.imgur.com/HmZu33J.jpg)
