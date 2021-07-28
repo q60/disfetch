@@ -12,9 +12,11 @@ Yet another **\*nix** distro fetching program, but less complex. Written in **ba
 ![screenshot](https://i.imgur.com/HmZu33J.jpg)
 
 <p float="left">
-  <img src="https://i.imgur.com/oFW80wV.jpg" width="40%" /> 
+  <img src="https://i.imgur.com/edUSx5n.jpg" width="40%" /> 
   <img src="https://i.imgur.com/ssqm7G3.jpg" width="40%" />
 </p>
+
+![screenshot](https://i.imgur.com/vS4GmTw.jpg)
 
 ![screenshot](https://i.imgur.com/bsxtnBf.jpg)
 
