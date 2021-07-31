@@ -112,7 +112,6 @@ else
   OS=$(uname -o | awk '{ print tolower($0) }')
 fi
 
-OS=$(echo $OS | awk '{ print $1; }')
 OS_LOGO=${OS_LOGO:-$OS}
 
 # getting kernel version
@@ -175,7 +174,7 @@ if (uptime >= 1 && 59 >= uptime) {
   || UPTIME=$(uptime | cut -f1 -d "," | sed -E 's/^[^,]*up *//; s/, *[[:digit:]]* users.*//; s/min/minutes/; s/([[:digit:]]+):0?([[:digit:]]+)/\1 hours \2 minutes/' | xargs)
 
 # getting current shell name
-SHELL=$(echo $SHELL | tr "/" " " | awk '{ print $NF; }')
+SHELL=$(awk -F "/" '{ print $NF; }' <<< $SHELL)
 
 # getting DE and WM
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
@@ -197,9 +196,9 @@ if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]]; then
           wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null) &&
             wm=$(xprop -id ${wm_id##* } _NET_WM_NAME | awk '{ print tolower($NF); }' | xargs) ||
             wm=$(ps -A | grep -m 1 -F -o \
-            -e "2bwm" -e "catwm" \
-            -e "dwm"       -e "fvwm"  \
-            -e "monsterwm" -e "sowm"  \
+            -e "2bwm"      -e "catwm"  \
+            -e "dwm"       -e "fvwm"   \
+            -e "monsterwm" -e "sowm"   \
             -e "tinywm"    -e "wmaker" | awk '{ print tolower($1); }')
   fi
   DESKTOP="$wm"
@@ -211,31 +210,33 @@ fi
 # defining distro logo and packages count #
 ###########################################
 # note for nixos: display only current user installed packages
-declare -A packages
-packages[alpine]='apk info | wc -l'
-packages[android]='dpkg -l | grep -c "^ii"'
-packages[astra]='dpkg -l | grep -c "^ii"'
-packages[arch]='pacman -Qq | wc -l'
-packages[artix]='pacman -Qq | wc -l'
-packages[cent]='rpm -qa | wc -l'
-packages[debian]='dpkg -l | grep -c "^ii"'
-packages[elementary]='dpkg -l | grep -c "^ii"'
-packages[endeavour]='pacman -Qq | wc -l'
-packages[fedora]='rpm -qa | wc -l'
-packages[manjaro]='pacman -Qq | wc -l'
-packages[linuxmint]='dpkg -l | grep -c "^ii"'
-packages[mx]='dpkg -l | grep -c "^ii"'
-packages[nixos]='nix-store -q --requisites ~/.nix-profile | wc -l'
-packages[opensuse]='zypper se --installed-only | wc -l'
-packages[postmarket]='apk info | wc -l'
-packages[qubes]='rpm -qa | wc -l'
-packages[raspbian]='dpkg -l | grep -c "^ii"'
-packages[slack]='ls /var/log/packages | wc -l'
-packages[ubuntu]='dpkg -l | grep -c "^ii"'
-packages[void]='xbps-query -l | wc -l'
-packages[zorin]='dpkg -l | grep -c "^ii"'
+declare -A pm
+pm[apk]='apk info | wc -l'
+pm[dpkg]='dpkg -l | grep -c "^ii"'
+pm[nix]='nix-store -q --requisites ~/.nix-profile | wc -l'
+pm[pacman]='pacman -Qq | wc -l'
+pm[rpm]='rpm -qa | wc -l'
+pm[zypper]='zypper se --installed-only | wc -l'
+pm[slack]='ls /var/log/packages | wc -l'
+pm[void]='xbps-query -l | wc -l'
 
-PACKAGES=$(sh -c "${packages[$OS]}")
+case $OS in
+    alpine*|postm*)      PACKAGES=$(sh -c "${pm[apk]}")    ;;
+    android*|astra*)     PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
+    debian*|elementary*) PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
+    *mint*|mx*)          PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
+    raspbian*|*ubuntu*)  PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
+    arc*|artix*)         PACKAGES=$(sh -c "${pm[pacman]}") ;;
+    endeavour*|manjaro*) PACKAGES=$(sh -c "${pm[pacman]}") ;;
+    fedora*|qubes*)      PACKAGES=$(sh -c "${pm[rpm]}")    ;;
+    zorin*)    PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
+    nixos*)    PACKAGES=$(sh -c "${pm[nix]}")    ;;
+    garuda*)   PACKAGES=$(sh -c "${pm[pacman]}") ;;
+    cent*)     PACKAGES=$(sh -c "${pm[rpm]}")    ;;
+    slack*)    PACKAGES=$(sh -c "${pm[slack]}")  ;;
+    void*)     PACKAGES=$(sh -c "${pm[void]}")   ;;
+    opensuse*) PACKAGES=$(sh -c "${pm[zypper]}") ;;
+esac
 
 case $OS_LOGO in
   alpine*)
@@ -329,7 +330,7 @@ case $OS_LOGO in
   endeavour*)
     motif=${colors[bb]} # bright blue
     a=${colors[yy]}     # bright yellow
-    b=${colors[mm]}       # bright magenta
+    b=${colors[mm]}     # bright magenta
     LOGO[0]="            $a,<\`$xx$b^<\\\\$xx     "
     LOGO[1]="          $a,<@$xx$b,<$xx${a}E\\\\$xx$b%%\\\\.$xx   "
     LOGO[2]="        $a,<@$xx$b,<$xx${a}ENDE\\\\$xx$b%%\\\\\\\\$xx  "
@@ -350,6 +351,20 @@ case $OS_LOGO in
     LOGO[5]="  ${a}h$xx       ${zz}H$xx     $a,\`$xx "
     LOGO[6]="  ${a}c$xx    ${zz}fff'$xx   $a,\`$xx   "
     LOGO[7]="   $a\`zxjklfo'\`$xx      "
+    ;;
+  garuda*)
+    motif=${colors[rr]} # bright red
+    a=${colors[y]}      # yellow
+    b=${colors[yy]}     # bright yellow
+    c=${colors[rr]}$zz  # bold bright red
+    LOGO[0]="          $b<< << >> << >>$xx   "
+    LOGO[1]="        $b<<$xx     $a$zz<$xx        $c\\\\\\\\$xx "
+    LOGO[2]="      $b<<$xx     $a$zz< I:::::::::$xx$c\\\\\\\\$xx"
+    LOGO[3]="    $b<<$xx                     "
+    LOGO[4]="  $b<<$xx    $a$zz<<$xx  $b<<  <<  <<  <<.$xx"
+    LOGO[5]="   $c\\\\\\\\$xx    $a$zz\\\\\\  >>  >>  <<$xx $b>>$xx "
+    LOGO[6]="    $c\\\\\\\\$xx             $a$zz<<$xx $b>>$xx   "
+    LOGO[7]="     $c\\\\\\\\$xx $b\\\\\\ \\\\\\ // // //$xx     "
     ;;
   manjaro*)
     motif=${colors[g]} # green
@@ -515,6 +530,8 @@ case $OS_LOGO in
     LOGO[7]="  ${b}IL>$xx${a}XX${xx}XXXXXX$xx${a}XX$xx${b}<JI$xx"
     ;;
 esac
+
+motif=$motif$zz
 
 ###########################################
 # adding only existing layers to info     #
