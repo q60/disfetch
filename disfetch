@@ -25,31 +25,31 @@
 
 # help message
 help() {
-  printf "\x1B[93mdisfetch is a CLI system information tool written in bash\x1B[0m
+    printf "\x1B[93mdisfetch is a CLI system information tool written in bash\x1B[0m
 
-  \x1B[1msyntax\x1B[0m:
-  \tdisfetch \x1B[92m[options]\x1B[0m
-  \x1B[1moptions\x1B[0m:
-  \t\x1B[92m-h, --help\x1B[0m                    \x1B[93mprints this message\x1B[0m
-  \t\x1B[92m-l, --logo\x1B[0m                    \x1B[93msets distro logo to print\x1B[0m
-  \t\x1B[92m-m, --mono, --monochrome\x1B[0m      \x1B[93menables monochrome mode\x1B[0m
-  \n"
+    \x1B[1msyntax\x1B[0m:
+    \tdisfetch \x1B[92m[options]\x1B[0m
+    \x1B[1moptions\x1B[0m:
+    \t\x1B[92m-h, --help\x1B[0m                    \x1B[93mprints this message\x1B[0m
+    \t\x1B[92m-l, --logo\x1B[0m                    \x1B[93msets distro logo to print\x1B[0m
+    \t\x1B[92m-m, --mono, --monochrome\x1B[0m      \x1B[93menables monochrome mode\x1B[0m
+    \n"
 }
 
 # parse arguments
 while [[ -n $1 && ! $1 == '--' ]]; do
-  case $1 in
-    -h | --help)
-      help; exit 0
-      ;;
-    -l | --logo)
-      OS_LOGO=$2
-      ;;
-    -m | --mono | --monochrome)
-      MONO=1
-      ;;
-  esac
-  shift
+    case $1 in
+        -h|--help)
+            help; exit 0
+            ;;
+        -l|--logo)
+            OS_LOGO=$2
+            ;;
+        -m|--mono|--monochrome)
+            MONO=1
+            ;;
+    esac
+    shift
 done
 
 ###########################################
@@ -59,37 +59,37 @@ done
 INFO=()
 
 if [ -e $MONO ]; then
-  # all colors
-  declare -A colors
-  colors[b]="\x1B[34m$zz"  # blue
-  colors[bb]="\x1B[94m$zz" # bright blue
-  colors[c]="\x1B[36m"     # cyan
-  colors[cc]="\x1B[96m$zz" # bright cyan
-  colors[d]="\x1B[30m$zz"  # black
-  colors[dd]="\x1B[90m$zz" # bright black
-  colors[r]="\x1B[31m$zz"  # red
-  colors[rr]="\x1B[91m$zz" # bright red
-  colors[y]="\x1B[33m"     # yellow
-  colors[yy]="\x1B[93m$zz" # bright yellow
-  colors[m]="\x1B[35m"     # magenta
-  colors[mm]="\x1B[95m$zz" # bright magenta
-  colors[g]="\x1B[32m$zz"  # green
-  colors[gg]="\x1B[92m$zz" # brignt green
-  colors[xx]="\x1B[0m"     # reset
-  colors[zz]="\x1B[1m"     # bold
-  xx=${colors[xx]}
-  zz=${colors[zz]}
+    # all colors
+    declare -A colors
+    colors[b]="\x1B[34m$zz"  # blue
+    colors[bb]="\x1B[94m$zz" # bright blue
+    colors[c]="\x1B[36m"     # cyan
+    colors[cc]="\x1B[96m$zz" # bright cyan
+    colors[d]="\x1B[30m$zz"  # black
+    colors[dd]="\x1B[90m$zz" # bright black
+    colors[r]="\x1B[31m$zz"  # red
+    colors[rr]="\x1B[91m$zz" # bright red
+    colors[y]="\x1B[33m"     # yellow
+    colors[yy]="\x1B[93m$zz" # bright yellow
+    colors[m]="\x1B[35m"     # magenta
+    colors[mm]="\x1B[95m$zz" # bright magenta
+    colors[g]="\x1B[32m$zz"  # green
+    colors[gg]="\x1B[92m$zz" # brignt green
+    colors[xx]="\x1B[0m"     # reset
+    colors[zz]="\x1B[1m"     # bold
+    xx=${colors[xx]}
+    zz=${colors[zz]}
 
-  # system colors palette
-  PALETTE=()
-  PALETTE[0]="\x1B[37mW\x1B[97mE$xx "
-  PALETTE[1]="\x1B[31mR\x1B[91mD$xx "
-  PALETTE[2]="\x1B[32mG\x1B[92mN$xx "
-  PALETTE[3]="\x1B[33mY\x1B[93mW$xx "
-  PALETTE[4]="\x1B[34mB\x1B[94mE$xx "
-  PALETTE[5]="\x1B[35mM\x1B[95mA$xx "
-  PALETTE[6]="\x1B[36mC\x1B[96mN$xx "
-  PALETTE[7]="\x1B[30mB\x1B[90mK$xx "
+    # system colors palette
+    PALETTE=()
+    PALETTE[0]="\x1B[37mW\x1B[97mE$xx "
+    PALETTE[1]="\x1B[31mR\x1B[91mD$xx "
+    PALETTE[2]="\x1B[32mG\x1B[92mN$xx "
+    PALETTE[3]="\x1B[33mY\x1B[93mW$xx "
+    PALETTE[4]="\x1B[34mB\x1B[94mE$xx "
+    PALETTE[5]="\x1B[35mM\x1B[95mA$xx "
+    PALETTE[6]="\x1B[36mC\x1B[96mN$xx "
+    PALETTE[7]="\x1B[30mB\x1B[90mK$xx "
 fi
 
 ###########################################
@@ -98,18 +98,18 @@ fi
 
 # getting hostname
 if [ -f /etc/hostname ]; then
-  HOSTNAME=$(cat /etc/hostname)
+    HOSTNAME=$(cat /etc/hostname)
 else
-  HOSTNAME=$(uname -n)
+    HOSTNAME=$(uname -n)
 fi
 
 # getting OS name
 if [ -f /etc/os-release ]; then
-  OS=$(cat /etc/os-release | grep "PRETTY_NAME" | tr '"' " " | awk '{ $1=""; print tolower($0) }' | xargs)
+    OS=$(cat /etc/os-release | grep "PRETTY_NAME" | tr '"' " " | awk '{ $1=""; print tolower($0) }' | xargs)
 elif type lsb_release &>/dev/null; then
-  OS=$(lsb_release -si | awk '{print tolower($0)}')
+    OS=$(lsb_release -si | awk '{print tolower($0)}')
 else
-  OS=$(uname -o | awk '{ print tolower($0) }')
+    OS=$(uname -o | awk '{ print tolower($0) }')
 fi
 
 OS_LOGO=${OS_LOGO:-$OS}
