@@ -105,11 +105,11 @@ fi
 
 # getting OS name
 if [ -f /etc/os-release ]; then
-    OS=$(cat /etc/os-release | grep "PRETTY_NAME" | tr '"' " " | awk '{ $1=""; print tolower($0) }' | xargs)
+    OS=$(cat /etc/os-release | grep "PRETTY_NAME" | tr '"' " " | awk '{ $1=""; print tolower($0); }' | xargs)
 elif type lsb_release &>/dev/null; then
-    OS=$(lsb_release -si | awk '{print tolower($0)}')
+    OS=$(lsb_release -si | awk '{ print tolower($0); }')
 else
-    OS=$(uname -o | awk '{ print tolower($0) }')
+    OS=$(uname -o | awk '{ print tolower($0); }')
 fi
 
 OS_LOGO=${OS_LOGO:-$OS}
@@ -119,13 +119,13 @@ OS_LOGO=${OS_LOGO:-$OS}
 KERNEL=$(uname -r)
 
 # getting kernel architecture
-ARCH=$(uname -m | awk '{print tolower($0)}')
+ARCH=$(uname -m | awk '{ print tolower($0); }')
 
 # finding out if OS has uptime with prerrifying option
 # or hardcoding prettified uptime
 uptime -p >/dev/null 2>&1
 if [ $? -eq 0 ]; then
-    UPTIME=$(uptime -p | awk '{ $1=""; print }' | tr -d "," | xargs)
+    UPTIME=$(uptime -p | awk '{ $1 = ""; print; }' | tr -d "," | xargs)
 elif [[ -f /proc/uptime ]]; then
     UPTIME=$(
         awk '{
@@ -185,7 +185,7 @@ SHELL=$(awk -F "/" '{ print $NF; }' <<< $SHELL)
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
 # DESKTOP_SESSION is a full path so removing garbage
 if [[ ! $OS = 'haiku' ]]; then
-    de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | tr "/" " " | awk '{ print tolower($NF); }')
+    de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | awk -F "/" '{ print tolower($NF); }')
     if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]]; then
         if [[ $WAYLAND_DISPLAY ]]; then
             wm=$(ps -A | grep -m 1 -F -o \
@@ -380,14 +380,14 @@ case $OS_LOGO in
         a=${colors[bb]}$zz  # bold bright blue
         b=${colors[b]}$zz   # bold blue
         c=${colors[yy]}     # bright yellow
-        LOGO[0]="                      $a, , m H$xx  "
-        LOGO[1]="           $a,$xx ${b}v$xx $a''\` L$xx ${b}V$xx      $a/$xx  "
-        LOGO[2]="  $a,      ?                 x$xx   "
-        LOGO[3]="   $a=_ _=-,$xx              $b<$xx      "
-        LOGO[4]="           $a''K k s  \`\`$xx         "
-        LOGO[5]="  ${c}H   H   / \   I  K  /  U  U$xx  "
-        LOGO[6]="  ${c}H H H  /=-=\  I  K++   U  U$xx  "
-        LOGO[7]="  ${c}H   H  A   A  I  K  \   UU$xx   "
+        LOGO[0]="                      $a, , m H$xx"
+        LOGO[1]="           $a,$xx ${b}v$xx $a''\` L$xx ${b}V$xx      $a/$xx"
+        LOGO[2]="  $a,      ?                 x$xx "
+        LOGO[3]="   $a=_ _=-,$xx              $b<$xx    "
+        LOGO[4]="           $a''K k s  \`\`$xx       "
+        LOGO[5]="  ${c}H   H   / \   I  K  /  U  U$xx"
+        LOGO[6]="  ${c}H H H  /=-=\  I  K++   U  U$xx"
+        LOGO[7]="  ${c}H   H  A   A  I  K  \   UU$xx "
         ;;
     manjaro*)
         motif=${colors[g]} # green
