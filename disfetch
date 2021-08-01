@@ -116,7 +116,7 @@ OS_LOGO=${OS_LOGO:-$OS}
 
 # getting kernel version
 [[ ! $OS = 'haiku' ]] &&
-KERNEL=$(uname -r)
+KERNEL=$(uname -r | awk '{ print tolower($0); }')
 
 # getting kernel architecture
 ARCH=$(uname -m | awk '{ print tolower($0); }')
