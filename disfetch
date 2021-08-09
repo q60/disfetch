@@ -237,10 +237,10 @@ case $OS in
     arc*|artix*)         PACKAGES=$(sh -c "${pm[pacman]}") ;;
     endeavour*|manjaro*) PACKAGES=$(sh -c "${pm[pacman]}") ;;
     fedora*|qubes*)      PACKAGES=$(sh -c "${pm[rpm]}")    ;;
+    garuda*|msys2*)      PACKAGES=$(sh -c "${pm[pacman]}") ;;
     zorin*)    PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
     haiku*)    PACKAGES=$(sh -c "${pm[haiku]}")  ;;
     nixos*)    PACKAGES=$(sh -c "${pm[nix]}")    ;;
-    garuda*)   PACKAGES=$(sh -c "${pm[pacman]}") ;;
     cent*)     PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     slack*)    PACKAGES=$(sh -c "${pm[slack]}")  ;;
     void*)     PACKAGES=$(sh -c "${pm[void]}")   ;;
@@ -412,6 +412,21 @@ case $OS_LOGO in
         LOGO[5]="  $a\$\$.$xx $a\`\`$xx   $a\`\`$xx  $a.\$\$$xx"
         LOGO[6]="  $a'Q\$\$\$\$\$\$\$\$\$\$\$\$Q'$xx"
         LOGO[7]="    $a\`\`\`\`\`\`\`\`\`\`\`\`$xx  "
+        ;;
+    msys2*)
+        motif=${colors[yy]} # bright yellow
+        a=${colors[m]}      # magenta
+        b=${colors[yy]}     # bright yellow
+        c=${colors[ww]}$zz  # bright bold white
+        d=${colors[dd]}$zz  # bright bold black
+        LOGO[0]="  $a/* * * * * * * * * * * */$xx"
+        LOGO[1]="  $a//$xx    ${c}mWm$xx   ${c}c2c$xx ${b}___    $a//$xx"
+        LOGO[2]="  $a//$xx   ${c}G   G Z  2$xx$b(__ \\\\$xx   $a//$xx"
+        LOGO[3]="  $a//$xx  ${c}K     H$xx     $b/ _/$xx   $a//$xx"
+        LOGO[4]="  $a//$xx  ${c}I     T$xx    $b(____)$xx  $a//$xx"
+        LOGO[5]="  $a//$xx  ${c}A     v     P$xx      $a//$xx"
+        LOGO[6]="  $a//$xx           ${d}S Y S$xx     $a//$xx"
+        LOGO[7]="  $a/* * * * * * * * * * * */$xx"
         ;;
     mx*)
         motif=${colors[dd]} # bright black
