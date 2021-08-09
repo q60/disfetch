@@ -188,7 +188,7 @@ if [[ ! $OS = 'haiku' ]]; then
     de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | awk -F "/" '{ print tolower($NF); }')
     if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]]; then
         if [[ $WAYLAND_DISPLAY ]]; then
-            wm=$(ps -A | grep -m 1 -F -o \
+            wm=$(ps -e | grep -m 1 -F -o \
                 -e "cage"       -e "cagebreak"     -e "cardboard" \
                 -e "dwl"        -e "enlightenment" -e "grefsen"   \
                 -e "hikari"     -e "kwin"          -e "labwc"     \
@@ -201,7 +201,7 @@ if [[ ! $OS = 'haiku' ]]; then
             # this workaround allows to detect such WM
             wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null) &&
             wm=$(xprop -id ${wm_id##* } _NET_WM_NAME | awk '{ print tolower($NF); }' | xargs) ||
-            wm=$(ps -A | grep -m 1 -F -o \
+            wm=$(ps -e | grep -m 1 -F -o \
                 -e "2bwm"      -e "catwm" \
                 -e "dwm"       -e "fvwm"  \
                 -e "monsterwm" -e "sowm"  \
