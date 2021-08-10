@@ -4,8 +4,13 @@ disfetch
 Yet another **\*nix** distro fetching program, but less complex. Written
 in **bash**.
 
+Table of contents
+-----------------
+
+.. contents:: \
+
 Some examples
-=============
+-------------
 
 |screenshot 0|
 
@@ -26,8 +31,43 @@ Some examples
 
 |screenshot 5|
 
+Supported operating systems
+---------------------------
+
+Here's the list of currently supported operating systems. "Supported" means having OS logo and packages layer available. Otherwise, **disfetch** will show default tux logo with no packages count.
+
+- Alpine Linux
+- Android
+- Astra Linux
+- ArchBang Linux
+- ArchLabs Linux
+- Arch Linux
+- Arco Linux
+- CentOS
+- Debian
+- Elementary OS
+- EndeavourOS
+- Fedora
+- Garuda Linux
+- Haiku OS
+- Kubuntu - **only packages**
+- Linux Mint
+- lubuntu - **only packages**
+- Manjaro
+- MSYS2
+- MX Linux
+- NixOS
+- openSUSE
+- postmarketOS
+- Qubes OS
+- Raspbian
+- Slackware Linux
+- Ubuntu
+- Void Linux
+- Zorin OS
+
 Installation
-============
+------------
 
 Cloning the repository then copying **disfetch** file to your ``$PATH``
 would be enough. There is a `package in AUR
@@ -38,7 +78,7 @@ Feel free to contribute, create and maintain packages for disfetch in
 your favorite package managers.
 
 Usage
-=====
+-----
 
 ::
 
