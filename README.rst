@@ -103,6 +103,6 @@ Usage
 .. |lang| image:: https://img.shields.io/badge/-bash-4CAA20?style=for-the-badge&logo=windowsterminal
 .. |aur| image:: https://img.shields.io/aur/version/disfetch?logo=archlinux&style=for-the-badge
   :target: https://aur.archlinux.org/packages/disfetch/
-.. |nix| image:: https://img.shields.io/badge/Nix-disfetch-F7F7F7?style=for-the-badge&logo=nixos
+.. |nix| image:: https://img.shields.io/badge/Nix-disfetch-4F73BC?style=for-the-badge&logo=nixos
   :target: https://search.nixos.org/packages?channel=21.05&from=0&size=50&sort=relevance&query=disfetch
 .. |date| date:: %d.%m.%Y
