@@ -62,6 +62,7 @@ Here's the list of currently supported operating systems. "Supported" means havi
 - postmarketOS
 - Qubes OS
 - Raspbian
+- Red Hat Enterprise Linux
 - Slackware Linux
 - Ubuntu
 - Void Linux

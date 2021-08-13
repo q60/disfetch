@@ -238,10 +238,10 @@ case $OS in
     endeavour*|manjaro*) PACKAGES=$(sh -c "${pm[pacman]}") ;;
     fedora*|qubes*)      PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     garuda*|msys2*)      PACKAGES=$(sh -c "${pm[pacman]}") ;;
+    cent*|redhat*)       PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     zorin*)    PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
     haiku*)    PACKAGES=$(sh -c "${pm[haiku]}")  ;;
     nixos*)    PACKAGES=$(sh -c "${pm[nix]}")    ;;
-    cent*)     PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     slack*)    PACKAGES=$(sh -c "${pm[slack]}")  ;;
     void*)     PACKAGES=$(sh -c "${pm[void]}")   ;;
     opensuse*) PACKAGES=$(sh -c "${pm[zypper]}") ;;
@@ -503,6 +503,19 @@ case $OS_LOGO in
         LOGO[5]="  $a(+$xx $a(+)x(+)$xx $a+)$xx  "
         LOGO[6]="   $a(+$xx $a($xx $a+$xx $a)$xx $a+)$xx   "
         LOGO[7]="      $a($xx $a+$xx $a)$xx      "
+        ;;
+    redhat*)
+        motif=${colors[rr]} # bright red
+        a=${colors[r]}$zz   # red
+        b=${colors[dd]}     # green
+        LOGO[0]="          $a,,.___,,.$xx        "
+        LOGO[1]="         $a<BwW5TZPdi\\\\$xx       "
+        LOGO[2]="        $a<ZvCVQpnkGUy\\\\$xx      "
+        LOGO[3]="   $a,<=\"Z$xx$b\" : _ _ _ : :$xx$a=__$xx   "
+        LOGO[4]="  $a(/1Rc6Deh5cb1KsgJ6zKXD\`j$xx "
+        LOGO[5]="   $a\`n,YC4kWzhusgyeZ4tkLy2Lk$xx"
+        LOGO[6]="      $a\`ss ss_YWBPEmmxp__,\`$xx "
+        LOGO[7]="             $a\`\'\"\"\'\" \`$xx      "
         ;;
     slack*)
         motif=${colors[bb]} # bright blue
