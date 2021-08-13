@@ -1,5 +1,6 @@
-disfetch
+disfetch |lang| |aur| |nix|
 ========
+
 
 Yet another **\*nix** distro fetching program, but less complex. Written
 in **bash**.
@@ -99,4 +100,9 @@ Usage
 .. |screenshot 3| image:: https://i.imgur.com/HmZu33J.jpg
 .. |screenshot 4| image:: https://i.imgur.com/vS4GmTw.jpg
 .. |screenshot 5| image:: https://i.imgur.com/bsxtnBf.jpg
+.. |lang| image:: https://img.shields.io/badge/-bash-4CAA20?style=for-the-badge&logo=windowsterminal
+.. |aur| image:: https://img.shields.io/aur/version/disfetch?logo=archlinux&style=for-the-badge
+  :target: https://aur.archlinux.org/packages/disfetch/
+.. |nix| image:: https://img.shields.io/badge/Nix-disfetch-F7F7F7?style=for-the-badge&logo=nixos
+  :target: https://search.nixos.org/packages?channel=21.05&from=0&size=50&sort=relevance&query=disfetch
 .. |date| date:: %d.%m.%Y
