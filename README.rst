@@ -44,6 +44,7 @@ Here's the list of currently supported operating systems. "Supported" means havi
 - ArchLabs Linux
 - Arch Linux
 - Arco Linux
+- Artix Linux
 - CentOS
 - Debian
 - Elementary OS

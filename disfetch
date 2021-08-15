@@ -284,7 +284,7 @@ case $OS_LOGO in
         LOGO[6]="    $a<,>       <,>$xx  "
         LOGO[7]="   $a\`             \`$xx "
         ;;
-    arc*|artix*)
+    arc*)
         motif=${colors[bb]}  # bright blue
         a=${colors[b]}       # blue
         b=${colors[c]}       # cyan
@@ -296,6 +296,19 @@ case $OS_LOGO in
         LOGO[5]="    $a/,$xx $a>   $a<$xx $a,\\\\$xx  "
         LOGO[6]="   $a/.>$xx       $a<.\\\\$xx "
         LOGO[7]="  $a/>$xx           $a<\\\\$xx"
+        ;;
+    artix*)
+        motif=${colors[b]}  # blue
+        a=${colors[bb]}$zz  # bright bold blue
+        b=${colors[b]}      # blue
+        LOGO[0]="         $b.$xx       "
+        LOGO[1]="        $b/$a#\\\\$xx      "
+        LOGO[2]="       $b/,$a+,\\\\$xx     "
+        LOGO[3]="        $b\`<${a}n,\\\\$xx    "
+        LOGO[4]="     $a/$xx$b,    $b\`$a,\\\\$xx   "
+        LOGO[5]="    $a/,hK$xx$b+>    $b,$xx  "
+        LOGO[6]="   $a/.b$xx${b}>\`    $b<H$a.\\\\$xx "
+        LOGO[7]="  $a/$xx$b>\`         $b\`<$a\\\\$xx"
         ;;
     cent*)
         motif=${colors[yy]}  # bright yellow
