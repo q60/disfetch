@@ -256,13 +256,13 @@ case $OS_LOGO in
         LOGO[2]="   $a//$xx    $zz<^>$xx        $a\\\\\\\\$xx "
         LOGO[3]="  $a//$xx   $zz,</$xx $zz\>,,$zz<^>,$xx  $a\\\\\\\\$xx"
         LOGO[4]="  $a\\\\\\\\$xx  $zz</$xx     $zz\>$xx   $zz\>$xx $a//$xx"
-        LOGO[5]="   $a\\\\\\\\$xx$zz</$xx $zz/J$xx    $zz\>$xx   $zz\\\\$xx$a//$xx "
+        LOGO[5]="   $a\\\\\\\\$xx$zz</$xx $zz/\\\\$xx    $zz\>$xx   $zz\\\\$xx$a//$xx "
         LOGO[6]="    $a\\\\\\\\$xx             $a//$xx  "
         LOGO[7]="     $a\\\\\\\\AAAAAAAAAAA//$xx   "
         ;;
     android*)
         motif=${colors[gg]} # bright green
-        a=${colors[g]}      # green
+        a=${colors[g]}$zz   # bold green
         LOGO[0]="     $a\..../$xx   "
         LOGO[1]="     ${a}d${xx}o${a}HH${xx}o${a}b$xx   "
         LOGO[2]="    $a''''''''$xx  "
@@ -274,7 +274,7 @@ case $OS_LOGO in
         ;;
     astra*)
         motif=${colors[bb]} # bright blue
-        a=${colors[b]}      # blue
+        a=${colors[b]}$zz   # bold blue
         LOGO[0]="          $a.$xx        "
         LOGO[1]="        $a.'$xx.$a'.$xx      "
         LOGO[2]="  $a.....<$xx.$a:::$xx.$a>.....$xx"
@@ -326,8 +326,8 @@ case $OS_LOGO in
         LOGO[7]="        $a$zz\-/$xx      "
         ;;
     debian*)
-        motif=${colors[mm]} # bright magenta
-        a=${colors[mm]}     # bright magenta
+        motif=${colors[m]}  # magenta
+        a=${colors[mm]}$zz  # bright bold magenta
         LOGO[0]="      $a,6tt6,$xx  "
         LOGO[1]="    $a,6$xx      ${a}6$xx "
         LOGO[2]="   ${a}6$xx    $a,6.$xx  ${a}6$xx"
@@ -339,7 +339,7 @@ case $OS_LOGO in
         ;;
     elementary*)
         motif=${colors[cc]} # bright cyan
-        a=${colors[bb]}     # bright blue
+        a=${colors[bb]}$zz  # bright bold blue
         LOGO[0]="        $a.,*,.$xx      "
         LOGO[1]="     $a.'$xx eeeee$xx $a'.$xx   "
         LOGO[2]="   $a.'$xx e$xx       e$xx $a'.$xx "
@@ -416,7 +416,7 @@ case $OS_LOGO in
         ;;
     *mint*)
         motif=${colors[gg]} # bright green
-        a=${colors[g]}      # green
+        a=${colors[g]}$zz   # bold green
         LOGO[0]="  ${a}MM$xx   $a.*^*..*^*.$xx "
         LOGO[1]="  $a\$\$$xx  $a\$\$'$xx $a'\$\$'$xx $a'\$\$$xx"
         LOGO[2]="  $a\$\$$xx  $a\$\$$xx   $a\$\$$xx   $a\$\$$xx"
@@ -455,7 +455,7 @@ case $OS_LOGO in
         ;;
     nixos*)
         motif=${colors[bb]} # bright blue
-        a=${colors[b]}      # blue
+        a=${colors[b]}$zz   # bold blue
         b=${colors[cc]}     # bright cyan
         LOGO[0]="       $a\\\\\\\\$xx    $b\\\\\\\\  //$xx    "
         LOGO[1]="        $a\\\\\\\\$xx    $b\\\\\\\\//$xx     "
@@ -468,7 +468,7 @@ case $OS_LOGO in
         ;;
     opensuse*)
         motif=${colors[gg]} # bright green
-        a=${colors[g]}      # green
+        a=${colors[g]}$zz   # bold green
         b=${colors[c]}      # cyan
         LOGO[0]="        $a.,*,.$xx      "
         LOGO[1]="     $a.'$xx  ${a}___$xx  $a'.$xx   "
@@ -481,7 +481,7 @@ case $OS_LOGO in
         ;;
     postmarket*)
         motif=${colors[gg]} # bright green
-        a=${colors[g]}      # green
+        a=${colors[g]}$zz   # bold green
         b=${colors[dd]}     # bright black
         LOGO[0]="         $a,/^\,$xx       "
         LOGO[1]="         $a\L$xx $a\\\\\\\\\\\\$xx      "
@@ -494,7 +494,7 @@ case $OS_LOGO in
         ;;
     qubes*)
         motif=${colors[bb]} # bright blue
-        a=${colors[b]}      # blue
+        a=${colors[b]}$zz   # bold blue
         LOGO[0]="       $a.<>.$xx     "
         LOGO[1]="    $a.<^>''<^>.$xx  "
         LOGO[2]="  $a<^><$xx      $a><^>$xx"
@@ -505,9 +505,9 @@ case $OS_LOGO in
         LOGO[7]="       $a\`<>\`$xx  $a</>$xx"
         ;;
     raspbian*)
-        motif=${colors[r]} # red
-        a=${colors[r]}     # red
-        b=${colors[g]}     # green
+        motif=${colors[rr]} # bright red
+        a=${colors[r]}$zz   # bold red
+        b=${colors[g]}      # green
         LOGO[0]="  ${b}_,_$xx       ${b}_,_$xx  "
         LOGO[1]="  $b\_$xx $b,\\\\$xx   $b/,$xx ${b}_/$xx  "
         LOGO[2]="    $b\\\\$xx $b,\Y/,$xx $b/$xx    "
@@ -544,29 +544,29 @@ case $OS_LOGO in
         ;;
     ubuntu*)
         motif=${colors[yy]} # bright yellow
-        a=${colors[yy]}     # bright yellow
-        b=${colors[rr]}     # bright red
-        LOGO[0]="           $a.,*,.$xx  $b/**\\\\$xx"
-        LOGO[1]="          $a\`.\`=\`.\`$xx $b\\\\**/$xx"
-        LOGO[2]="      $a.'.$xx        $a'. .$xx "
-        LOGO[3]="  $b/**\\\\$xx $a'$xx            $a'\`$xx"
-        LOGO[4]="  $b\\\\**/$xx $a.$xx            $a.,$xx"
-        LOGO[5]="      $a\`,\`$xx        $a,\` \`$xx "
-        LOGO[6]="          $a,\`,=,\`,$xx $b/**\\\\$xx"
-        LOGO[7]="           $a\`'*'\`$xx  $b\\\\**/$xx"
+        a=${colors[yy]}$zz  # bright bold yellow
+        b=${colors[rr]}$zz  # bright bold red
+        LOGO[0]="           $a.,C,.$xx  $b/**\\\\$xx"
+        LOGO[1]="          ${a}B>'-'<X:$xx$b\\\\**/$xx"
+        LOGO[2]="      $a.l,$xx        $a'GQ.$xx "
+        LOGO[3]="  $b/**\\\\$xx $a//$xx             "
+        LOGO[4]="  $b\\\\**/$xx $a\\\\\\\\$xx             "
+        LOGO[5]="      ${a}\`I\`$xx        $a,JS'$xx "
+        LOGO[6]="          ${a}U>,_,<N:$xx$b/**\\\\$xx"
+        LOGO[7]="           $a\`'c'\`$xx  $b\\\\**/$xx"
         ;;
     void*)
         motif=${colors[g]} # green
-        a=${colors[g]}     # green
-        b=${colors[gg]}    # bright green
-        LOGO[0]="        $b.,*,.$xx      "
-        LOGO[1]="          $b'$xx $b','.$xx   "
-        LOGO[2]="   $a.'.$xx        $b\`.'.$xx "
-        LOGO[3]="  ${a}4$xx $a/$xx   $b/:+:\\\\$xx   $b\\\\$xx ${b}L$xx"
-        LOGO[4]="  ${a}V$xx $a\\\\$xx   $b\:+:/$xx   $b/$xx ${b}7$xx"
-        LOGO[5]="   $a\`,',$xx        $b',\`$xx "
-        LOGO[6]="     $a\`,\`.$xx $a.$xx        "
-        LOGO[7]="        $a\`'*'\`$xx      "
+        a=${colors[g]}$zz  # bold green
+        b=${colors[gg]}$zz # bright bold green
+        LOGO[0]="        $b.,C,.$xx      "
+        LOGO[1]="         $b'-'<Z:.$xx   "
+        LOGO[2]="   $a.J.$xx        $b\`SO.$xx "
+        LOGO[3]="  ${a}4\$$a/$xx   $b/:+:\\\\$xx   $b\\\\@L$xx"
+        LOGO[4]="  ${a}V#$a\\\\$xx   $b\:+:/$xx   $b/?7$xx"
+        LOGO[5]="   $a\`NM,$xx        $b'v\`$xx "
+        LOGO[6]="     $a\`:F>,_,$xx       "
+        LOGO[7]="        $a\`'c'\`$xx      "
         ;;
     zorin*)
         motif=${colors[bb]}  # bright blue
