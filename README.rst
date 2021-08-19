@@ -43,7 +43,7 @@ Here's the list of currently supported operating systems. "Supported" means havi
 - ArchBang Linux
 - ArchLabs Linux
 - Arch Linux
-- Arco Linux
+- ArcoLinux
 - Artix Linux
 - CentOS
 - Debian
@@ -52,7 +52,7 @@ Here's the list of currently supported operating systems. "Supported" means havi
 - Fedora
 - Garuda Linux
 - Haiku OS
-- Kubuntu - **only packages**
+- Kubuntu
 - Linux Mint
 - lubuntu - **only packages**
 - Manjaro

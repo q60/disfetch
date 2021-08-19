@@ -284,6 +284,31 @@ case $OS_LOGO in
         LOGO[6]="    $a<,>       <,>$xx  "
         LOGO[7]="   $a\`             \`$xx "
         ;;
+    archbang*)
+        motif=${colors[bb]}  # bright blue
+        a=${colors[b]}       # blue
+        b=${colors[ww]}$zz   # bright bold white
+        LOGO[0]="        ${b}_____$xx    "
+        LOGO[1]="        ${b}IG#LI$xx    "
+        LOGO[2]="       $a/$xx${b}IMGBI$xx    "
+        LOGO[3]="      $a/,$xx$b\\\\l1k/$xx    "
+        LOGO[4]="     $a/,):$xx${b}IJl$xx$a,\\\\$xx   "
+        LOGO[5]="    $a/,yC}$xx$b,=,${xx}${a}U,\\\\$xx  "
+        LOGO[6]="   $a/,peZ$xx$b:BcK:$xx$a!,\\\\$xx "
+        LOGO[7]="  $a/LL.\"\"\"$xx$b\`=\`$xx$a\".JJ\\\\$xx"
+        ;;
+    arco*)
+        motif=${colors[b]}   # blue
+        a=${colors[bb]}$zz   # bright bold blue
+        LOGO[0]="         $a.$xx       "
+        LOGO[1]="        $a/y\\\\$xx      "
+        LOGO[2]="       $a/o^a\\\\$xx     "
+        LOGO[3]="      $a/b/ \\\\b\\\\$xx    "
+        LOGO[4]="     $a/b/   \\\\a\\\\$xx   "
+        LOGO[5]="    $a/i/     \\\\g\\\\$xx  "
+        LOGO[6]="   $a/z/  .___ \\\\w\\\\$xx "
+        LOGO[7]="  $a/x/      \"TH\\\\c\\\\$xx"
+        ;;
     arc*)
         motif=${colors[bb]}  # bright blue
         a=${colors[b]}       # blue
@@ -401,6 +426,18 @@ case $OS_LOGO in
         LOGO[5]="  ${c}H   H   / \   I  K  /  U  U$xx"
         LOGO[6]="  ${c}H H H  /=-=\  I  K++   U  U$xx"
         LOGO[7]="  ${c}H   H  A   A  I  K  \   UU$xx "
+        ;;
+    kubuntu*)
+        motif=${colors[ww]} # bright white
+        a=${colors[bb]}$zz  # bright bold blue
+        LOGO[0]="       $a;\\\\.   ,/.$xx     "
+        LOGO[1]="        ${a}B>'-'<:;  .>.$xx"
+        LOGO[2]="   ${a}Y<.,        'GQ:'$xx "
+        LOGO[3]="  ${a}__j//$xx              "
+        LOGO[4]="  $a\"\"z\\\\\\\\$xx              "
+        LOGO[5]="   ${a}L<'\`        ,JS:.$xx "
+        LOGO[6]="        ${a}U>,_,<:;  '>'$xx"
+        LOGO[7]="       $a;/'   \"\\\\'$xx     "
         ;;
     manjaro*)
         motif=${colors[g]} # green
