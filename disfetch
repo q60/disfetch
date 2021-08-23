@@ -246,6 +246,12 @@ case $OS in
     opensuse*) PACKAGES=$(sh -c "${pm[zypper]}") ;;
 esac
 
+# Bedrock linux workaround
+if [[ $(brl 2>/dev/null) ]]; then
+    OS_LOGO=bedrock
+    OS=$(brl version | awk '{ print tolower($0); }')
+fi
+
 case $OS_LOGO in
     alpine*)
         motif=${colors[b]} # blue
@@ -333,6 +339,19 @@ case $OS_LOGO in
         LOGO[5]="    $a/,hK$xx$b+>    $b,$xx  "
         LOGO[6]="   $a/.b$xx${b}>\`    $b<H$a.\\\\$xx "
         LOGO[7]="  $a/$xx$b>\`         $b\`<$a\\\\$xx"
+        ;;
+    bedrock*)
+        motif=${colors[dd]} # bright black
+        a=${colors[dd]}     # bright black
+        b=${colors[w]}$zz   # bold white
+        LOGO[0]="  $a=================$xx"
+        LOGO[1]="  $a==$xx$b\\\\\ \\\\\\\\$xx$a==========$xx"
+        LOGO[2]="  $a===$xx$b\\\\\ \\\\\\\\$xx$a=========$xx"
+        LOGO[3]="  $a====$xx$b\\\\\ \`<<>>>$xx$a====$xx"
+        LOGO[4]="  $a=====$xx$b\\\\\\\\$xx  ${a}__$xx  $b\\\\\\\\$xx$a==$xx"
+        LOGO[5]="  $a======$xx$b\\\\\     //$xx$a==$xx"
+        LOGO[6]="  $a=======$xx$b<<<<>>$xx$a====$xx"
+        LOGO[7]="  $a=================$xx"
         ;;
     cent*)
         motif=${colors[yy]}  # bright yellow
