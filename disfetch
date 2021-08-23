@@ -123,8 +123,7 @@ ARCH=$(uname -m | awk '{ print tolower($0); }')
 
 # finding out if OS has uptime with prerrifying option
 # or hardcoding prettified uptime
-uptime -p >/dev/null 2>&1
-if [ $? -eq 0 ]; then
+if [[ $(uptime -p 2>/dev/null) ]]; then
     UPTIME=$(uptime -p | awk '{ $1 = ""; print; }' | tr -d "," | xargs)
 elif [[ -f /proc/uptime ]]; then
     UPTIME=$(
