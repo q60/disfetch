@@ -226,6 +226,7 @@ pm[rpm]='rpm -qa | wc -l'
 pm[zypper]='zypper se --installed-only | wc -l'
 pm[slack]='ls /var/log/packages | wc -l'
 pm[void]='xbps-query -l | wc -l'
+pm[emerge]='ls -d /var/db/pkg/*/* | wc -l'
 
 case $OS in
     alpine*|postm*)      PACKAGES=$(sh -c "${pm[apk]}")    ;;
@@ -238,6 +239,7 @@ case $OS in
     fedora*|qubes*)      PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     garuda*|msys2*)      PACKAGES=$(sh -c "${pm[pacman]}") ;;
     cent*|redhat*)       PACKAGES=$(sh -c "${pm[rpm]}")    ;;
+    gentoo*)   PACKAGES=$(sh -c "${pm[emerge]}") ;;
     zorin*)    PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
     haiku*)    PACKAGES=$(sh -c "${pm[haiku]}")  ;;
     nixos*)    PACKAGES=$(sh -c "${pm[nix]}")    ;;
@@ -430,6 +432,18 @@ case $OS_LOGO in
         LOGO[5]="   $c\\\\\\\\$xx    $a$zz\\\\\\  >>  >>  <<$xx $b>>$xx "
         LOGO[6]="    $c\\\\\\\\$xx             $a$zz<<$xx $b>>$xx   "
         LOGO[7]="     $c\\\\\\\\$xx $b\\\\\\ \\\\\\ // // //$xx     "
+        ;;
+    gentoo*)
+        motif=${colors[mm]} # bright magenta
+        a=${colors[m]}$zz   # bold magenta
+        LOGO[0]="     $a.ggg.$xx     "
+        LOGO[1]="   $a.dGGGGG\$b.$xx  "
+        LOGO[2]="   $a\$GGG( )GGGb$xx "
+        LOGO[3]="   ${a}Q\$GGGGGGGGG)$xx"
+        LOGO[4]="     $a\'GGGGGGGP$xx "
+        LOGO[5]="    ${a}dGGGGG\$P\'$xx  "
+        LOGO[6]="  $a\$\$GGGG\$P$xx     "
+        LOGO[7]="  $a\`qG\$\$P'$xx      "
         ;;
     haiku*)
         motif=${colors[yy]} # bright yellow
