@@ -1,7 +1,6 @@
 disfetch |lang| |aur| |nix|
 ========
 
-
 Yet another **\*nix** distro fetching program, but less complex. Written
 in **bash**.
 
@@ -23,10 +22,10 @@ Some examples
 
 .. raw:: html
 
-  <p float="left">
-    <img src="https://i.imgur.com/edUSx5n.jpg" width="40%" />
-    <img src="https://i.imgur.com/ssqm7G3.jpg" width="40%" />
-  </p>
+    <p float="left">
+        <img src="https://i.imgur.com/edUSx5n.jpg" width="40%" />
+        <img src="https://i.imgur.com/ssqm7G3.jpg" width="40%" />
+    </p>
 
 |screenshot 4|
 
@@ -45,12 +44,14 @@ Here's the list of currently supported operating systems. "Supported" means havi
 - Arch Linux
 - ArcoLinux
 - Artix Linux
+- Bedrock Linux
 - CentOS
 - Debian
 - Elementary OS
 - EndeavourOS
 - Fedora
 - Garuda Linux
+- Gentoo Linux
 - Haiku OS
 - Kubuntu
 - Linux Mint
