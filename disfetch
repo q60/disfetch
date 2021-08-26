@@ -239,6 +239,7 @@ case $OS in
     fedora*|qubes*)      PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     garuda*|msys2*)      PACKAGES=$(sh -c "${pm[pacman]}") ;;
     cent*|redhat*)       PACKAGES=$(sh -c "${pm[rpm]}")    ;;
+    parabola*) PACKAGES=$(sh -c "${pm[pacman]}") ;;
     gentoo*)   PACKAGES=$(sh -c "${pm[emerge]}") ;;
     zorin*)    PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
     haiku*)    PACKAGES=$(sh -c "${pm[haiku]}")  ;;
@@ -547,6 +548,18 @@ case $OS_LOGO in
         LOGO[5]="   $a\`,---->$xx      $a,\`$xx "
         LOGO[6]="     $a\`,$xx       $a,\`$xx   "
         LOGO[7]="        $a\`'*'\`$xx      "
+        ;;
+    parabola*)
+        motif=${colors[bb]} # bright blue
+        a=${colors[b]}$zz   # bold blue
+        LOGO[0]="           ${a}_.__$xx   "
+        LOGO[1]="     ${a}_.,;\"[ZAMW:+$xx "
+        LOGO[2]="  $a,;\"\'\`       @#;:$xx"
+        LOGO[3]="            $a.\$#;/$xx "
+        LOGO[4]="           $a,/;/$xx   "
+        LOGO[5]="          $a/;/$xx     "
+        LOGO[6]="        $a;/>$xx       "
+        LOGO[7]="      $a,/$xx          "
         ;;
     postmarket*)
         motif=${colors[gg]} # bright green

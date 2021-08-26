@@ -61,6 +61,7 @@ Here's the list of currently supported operating systems. "Supported" means havi
 - MX Linux
 - NixOS
 - openSUSE
+- Parabola Linux-libre
 - postmarketOS
 - Qubes OS
 - Raspbian
