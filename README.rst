@@ -74,16 +74,15 @@ Here's the list of currently supported operating systems. "Supported" means havi
 Installation
 ------------
 
-There is a `package in AUR
-available <https://aur.archlinux.org/packages/disfetch/>`__.
+- There is a `package in AUR available <https://aur.archlinux.org/packages/disfetch/>`__.
 
-And a `package in
-Nixpkgs <https://search.nixos.org/packages?from=0&size=50&sort=relevance&query=disfetch>`__.
+- `A package in MPR <https://mpr.hunterwittenborn.com/packages/disfetch/>`__.
 
-You can also find a `.deb` package for Debian, Ubuntu and derivatives from `releases <https://github.com/q60/disfetch/releases>`__.
+- And a `package in nixpkgs <https://search.nixos.org/packages?from=0&size=50&sort=relevance&query=disfetch>`__.
 
-Grabbing the latest `release tarball <https://github.com/q60/disfetch/releases>`__ then installing **disfetch** file to your ``$PATH``
-would be enough for any other OS.
+- You can also find a `.deb` package for Debian, Ubuntu and derivatives from `releases <https://github.com/q60/disfetch/releases>`__.
+
+- Grabbing the latest `release tarball <https://github.com/q60/disfetch/releases>`__ then installing **disfetch** file to your ``$PATH`` would be enough for any other OS.
 
 Feel free to contribute, create and maintain packages for disfetch in
 your favorite package managers.
