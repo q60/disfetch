@@ -112,7 +112,8 @@ else
     OS=$(uname -o | awk '{ print tolower($0); }')
 fi
 
-OS_LOGO=${OS_LOGO:-$OS}
+OS_TMP=$(tr ' ' '_' <<< $OS)
+OS_LOGO=${OS_LOGO:-$OS_TMP}
 
 # getting kernel version
 [[ ! $OS = 'haiku' ]] &&
@@ -228,7 +229,7 @@ pm[slack]='ls /var/log/packages | wc -l'
 pm[void]='xbps-query -l | wc -l'
 pm[emerge]='ls -d /var/db/pkg/*/* | wc -l'
 
-case $OS in
+case $OS_TMP in
     alpine*|postm*)      PACKAGES=$(sh -c "${pm[apk]}")    ;;
     android*|astra*)     PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
     debian*|elementary*) PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
@@ -238,7 +239,7 @@ case $OS in
     endeavour*|manjaro*) PACKAGES=$(sh -c "${pm[pacman]}") ;;
     fedora*|qubes*)      PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     garuda*|msys2*)      PACKAGES=$(sh -c "${pm[pacman]}") ;;
-    cent*|redhat*)       PACKAGES=$(sh -c "${pm[rpm]}")    ;;
+    cent*|red_hat*)    PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     parabola*) PACKAGES=$(sh -c "${pm[pacman]}") ;;
     gentoo*)   PACKAGES=$(sh -c "${pm[emerge]}") ;;
     zorin*)    PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
@@ -599,7 +600,7 @@ case $OS_LOGO in
         LOGO[6]="   $a(+$xx $a($xx $a+$xx $a)$xx $a+)$xx   "
         LOGO[7]="      $a($xx $a+$xx $a)$xx      "
         ;;
-    redhat*)
+    red_hat*)
         motif=${colors[rr]} # bright red
         a=${colors[r]}$zz   # red
         b=${colors[dd]}     # green
