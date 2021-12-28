@@ -53,6 +53,7 @@ Here's the list of currently supported operating systems. "Supported" means havi
 - Garuda Linux
 - Gentoo Linux
 - Haiku OS
+- Kali Linux
 - Kubuntu
 - Linux Mint
 - lubuntu - **only packages**
