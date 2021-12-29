@@ -112,8 +112,7 @@ else
     OS=$(uname -o | awk '{ print tolower($0); }')
 fi
 
-OS_TMP=$(tr ' ' '_' <<< $OS)
-OS_LOGO=${OS_LOGO:-$OS_TMP}
+OS_LOGO=${OS_LOGO:-$OS}
 
 # getting kernel version
 [[ ! $OS = 'haiku' ]] &&
@@ -229,7 +228,7 @@ pm[slack]='ls /var/log/packages | wc -l'
 pm[void]='xbps-query -l | wc -l'
 pm[emerge]='ls -d /var/db/pkg/*/* | wc -l'
 
-case $OS_TMP in
+case $OS in
     alpine*|postm*)      PACKAGES=$(sh -c "${pm[apk]}")    ;;
     android*|astra*)     PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
     debian*|elementary*) PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
@@ -239,10 +238,11 @@ case $OS_TMP in
     endeavour*|manjaro*) PACKAGES=$(sh -c "${pm[pacman]}") ;;
     fedora*|qubes*)      PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     garuda*|msys2*)      PACKAGES=$(sh -c "${pm[pacman]}") ;;
-    cent*|red_hat*)    PACKAGES=$(sh -c "${pm[rpm]}")    ;;
+    cent*|redhat*)       PACKAGES=$(sh -c "${pm[rpm]}")    ;;
     parabola*) PACKAGES=$(sh -c "${pm[pacman]}") ;;
     gentoo*)   PACKAGES=$(sh -c "${pm[emerge]}") ;;
     zorin*)    PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
+    kali*)     PACKAGES=$(sh -c "${pm[dpkg]}")   ;;
     haiku*)    PACKAGES=$(sh -c "${pm[haiku]}")  ;;
     nixos*)    PACKAGES=$(sh -c "${pm[nix]}")    ;;
     slack*)    PACKAGES=$(sh -c "${pm[slack]}")  ;;
@@ -383,6 +383,17 @@ case $OS_LOGO in
         LOGO[5]="    $a'6$xx        "
         LOGO[6]="      $a'6$xx      "
         LOGO[7]="        $a'6.$xx   "
+        ;;
+    kali*)
+        a=${colors[b]}
+        LOGO[0]="  ${a}gggg$xx       "
+        LOGO[1]="      ${a}888$xx    "
+        LOGO[2]="  ${a}qqqq88888o$xx "
+        LOGO[3]="     ${a}88    ee$xx"
+        LOGO[4]="    ${a}88$xx       "
+        LOGO[5]="     ${a}88$xx      "
+        LOGO[6]="      ${a}888$xx    "
+        LOGO[7]="         ${a}888$xx "
         ;;
     elementary*)
         motif=${colors[cc]} # bright cyan
@@ -600,7 +611,7 @@ case $OS_LOGO in
         LOGO[6]="   $a(+$xx $a($xx $a+$xx $a)$xx $a+)$xx   "
         LOGO[7]="      $a($xx $a+$xx $a)$xx      "
         ;;
-    red_hat*)
+    redhat*)
         motif=${colors[rr]} # bright red
         a=${colors[r]}$zz   # red
         b=${colors[dd]}     # green
