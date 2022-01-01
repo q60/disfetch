@@ -37,7 +37,7 @@ help() {
 }
 
 # parse arguments
-while [[ -n $1 && ! $1 == '--' ]]; do
+while [ -n "$1" ] && [ "$1" != -- ]; do
     case $1 in
         -h|--help)
             help; exit 0
@@ -105,11 +105,12 @@ fi
 
 # getting OS name
 if [ -f /etc/os-release ]; then
-    OS=$(grep "PRETTY_NAME" </etc/os-release | tr '"' " " | awk '{ $1=""; print tolower($0); }' | xargs)
+    # shellcheck source=/dev/null
+    OS=$(. /etc/os-release && echo "$PRETTY_NAME" | tr '[:upper:]' '[:lower:]')
 elif type lsb_release &>/dev/null; then
-    OS=$(lsb_release -si | awk '{ print tolower($0); }')
+    OS=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
 else
-    OS=$(uname -o | awk '{ print tolower($0); }')
+    OS=$(uname -o | tr '[:upper:]' '[:lower:]')
 fi
 
 OS_LOGO=${OS_LOGO:-$OS}
@@ -117,18 +118,18 @@ OS_LOGO=${OS_LOGO:-$OS}
 # getting kernel version
 # shellcheck disable=SC2034 # actually used in eval
 [ "$OS" != haiku ] &&
-    KERNEL=$(uname -r | awk '{ print tolower($0); }')
+    KERNEL=$(uname -r | tr '[:upper:]' '[:lower:]')
 
 # getting kernel architecture
 # shellcheck disable=SC2034 # actually used in eval
-ARCH=$(uname -m | awk '{ print tolower($0); }')
+ARCH=$(uname -m | tr '[:upper:]' '[:lower:]')
 
 # finding out if OS has uptime with prerrifying option
 # or hardcoding prettified uptime
 # shellcheck disable=SC2034 # actually used in eval
 UPTIME="$(
     if [ "$(uptime -p 2>/dev/null)" ]; then
-        uptime -p | awk '{ $1 = ""; print; }' | tr -d "," | xargs
+        uptime -p | sed 's/up //; s/,//g'
     elif [ -f /proc/uptime ]; then
         awk '{
             uptime = $1;
@@ -186,7 +187,7 @@ UPTIME="$(
 
 # getting current shell name
 # shellcheck disable=SC2034 # actually used in eval
-SHELL=$(awk -F "/" '{ print $NF; }' <<< "$SHELL")
+SHELL="$(basename "$SHELL")"
 
 # getting DE and WM
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
@@ -194,9 +195,9 @@ SHELL=$(awk -F "/" '{ print $NF; }' <<< "$SHELL")
 # shellcheck disable=SC2034 # actually used in eval
 DESKTOP="$(
     if [ "$OS" != haiku ]; then
-        de=$(echo "${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION}" | awk -F "/" '{ print tolower($NF); }')
-        if [[ $de ]] && grep "none" <<< "$de" >/dev/null 2>&1 || [[ -z $de ]]; then
-            if [[ $WAYLAND_DISPLAY ]]; then
+        de=$(echo "${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION}" | awk -F/ '{ print tolower($NF) }')
+        if [ "$de" ] && echo "$de" | grep -Fq "none" || [ -z "$de" ]; then
+            if [ "$WAYLAND_DISPLAY" ]; then
                 wm="$(pgrep -lox "cage.*|cardboard|dwl|enlightenment|grefsen|
                         |hikari|kwin|mutter|river|sway|velox|wayfire|waymonad|
                         |weston|wio" | cut -d' ' -f2)"
@@ -207,7 +208,7 @@ DESKTOP="$(
                 wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null) &&
                 wm="$(
                     xprop -id "${wm_id##* }" _NET_WM_NAME |
-                            awk '{ print tolower($NF); }' | xargs ||
+                            awk '{ print tolower($NF) }' | xargs ||
                         pgrep -lox "(2b|cat|d|fv|monster|so|tiny)wm|wmaker" |
                             cut -d' ' -f2
                 )"
@@ -226,7 +227,7 @@ DESKTOP="$(
 declare -A pm
 pm[apk]='apk info | wc -l'
 pm[dpkg]='dpkg -l | grep -c "^ii"'
-pm[haiku]="pkgman search -ia | awk 'FNR > 2 { print; }' | wc -l"
+pm[haiku]="pkgman search -ia | awk 'FNR > 2 { print }' | wc -l"
 pm[nix]='nix-store -q --requisites ~/.nix-profile | wc -l'
 pm[pacman]='pacman -Qq | wc -l'
 pm[rpm]='rpm -qa | wc -l'
@@ -256,9 +257,9 @@ PACKAGES="$(
 )"
 
 # Bedrock linux workaround
-if [[ $(brl 2>/dev/null) ]]; then
+if [ "$(brl 2>/dev/null)" ]; then
     OS_LOGO=bedrock
-    OS=$(brl version | awk '{ print tolower($0); }')
+    OS=$(brl version | tr '[:upper:]' '[:lower:]')
 fi
 
 case $OS_LOGO in
