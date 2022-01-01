@@ -231,7 +231,7 @@ pm[pacman]='pacman -Qq | wc -l'
 pm[rpm]='rpm -qa | wc -l'
 pm[zypper]='zypper se --installed-only | wc -l'
 pm[slack]='ls /var/log/packages | wc -l'
-pm[void]='xbps-query -l | wc -l'
+pm[xbps]='xbps-query -l | wc -l'
 pm[emerge]='ls -d /var/db/pkg/*/* | wc -l'
 
 PACKAGES="$(
@@ -247,7 +247,7 @@ PACKAGES="$(
             haiku*) echo haiku;;
             nixos*) echo nix;;
             slack*) echo slack;;
-            void*) echo void;;
+            void*) echo xbps;;
             opensuse*) echo zypper;;
         esac
     )"]}"
