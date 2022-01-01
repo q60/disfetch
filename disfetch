@@ -105,7 +105,7 @@ fi
 
 # getting OS name
 if [ -f /etc/os-release ]; then
-    OS=$(cat /etc/os-release | grep "PRETTY_NAME" | tr '"' " " | awk '{ $1=""; print tolower($0); }' | xargs)
+    OS=$(grep "PRETTY_NAME" </etc/os-release | tr '"' " " | awk '{ $1=""; print tolower($0); }' | xargs)
 elif type lsb_release &>/dev/null; then
     OS=$(lsb_release -si | awk '{ print tolower($0); }')
 else
@@ -115,16 +115,19 @@ fi
 OS_LOGO=${OS_LOGO:-$OS}
 
 # getting kernel version
-[[ ! $OS = 'haiku' ]] &&
-KERNEL=$(uname -r | awk '{ print tolower($0); }')
+# shellcheck disable=SC2034 # actually used in eval
+[ "$OS" != haiku ] &&
+    KERNEL=$(uname -r | awk '{ print tolower($0); }')
 
 # getting kernel architecture
+# shellcheck disable=SC2034 # actually used in eval
 ARCH=$(uname -m | awk '{ print tolower($0); }')
 
 # finding out if OS has uptime with prerrifying option
 # or hardcoding prettified uptime
+# shellcheck disable=SC2034 # actually used in eval
 UPTIME="$(
-    if [ $(uptime -p 2>/dev/null) ]; then
+    if [ "$(uptime -p 2>/dev/null)" ]; then
         uptime -p | awk '{ $1 = ""; print; }' | tr -d "," | xargs
     elif [ -f /proc/uptime ]; then
         awk '{
@@ -182,34 +185,32 @@ UPTIME="$(
 )"
 
 # getting current shell name
-SHELL=$(awk -F "/" '{ print $NF; }' <<< $SHELL)
+# shellcheck disable=SC2034 # actually used in eval
+SHELL=$(awk -F "/" '{ print $NF; }' <<< "$SHELL")
 
 # getting DE and WM
 # trying XDG_CURRENT_DESKTOP, if it doesn't exists, use DESKTOP_SESSION
 # DESKTOP_SESSION is a full path so removing garbage
+# shellcheck disable=SC2034 # actually used in eval
 DESKTOP="$(
-    if [[ ! $OS = 'haiku' ]]; then
-        de=$(echo ${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION} | awk -F "/" '{ print tolower($NF); }')
-        if [[ $de ]] && grep "none" <<< $de >/dev/null 2>&1 || [[ -z $de ]]; then
+    if [ "$OS" != haiku ]; then
+        de=$(echo "${XDG_CURRENT_DESKTOP:-$DESKTOP_SESSION}" | awk -F "/" '{ print tolower($NF); }')
+        if [[ $de ]] && grep "none" <<< "$de" >/dev/null 2>&1 || [[ -z $de ]]; then
             if [[ $WAYLAND_DISPLAY ]]; then
-                wm=$(ps -e | grep -m 1 -F -o \
-                    -e "cage"       -e "cagebreak"     -e "cardboard" \
-                    -e "dwl"        -e "enlightenment" -e "grefsen"   \
-                    -e "hikari"     -e "kwin"          -e "labwc"     \
-                    -e "liri-shell" -e "mutter"        -e "river"     \
-                    -e "sway"       -e "velox"         -e "wayfire"   \
-                    -e "waymonad"   -e "weston"        -e "wio")
+                wm="$(pgrep -lox "cage.*|cardboard|dwl|enlightenment|grefsen|
+                        |hikari|kwin|mutter|river|sway|velox|wayfire|waymonad|
+                        |weston|wio" | cut -d' ' -f2)"
             else
                 # firstly getting root window id (WM) and then getting WM name, ignoring unimportant stuff
                 # some WM do not have proper set atoms like _NET_SUPPORTING_WM_CHECK and _NET_WM_NAME
                 # this workaround allows to detect such WM
                 wm_id=$(xprop -root -notype _NET_SUPPORTING_WM_CHECK 2>/dev/null) &&
-                wm=$(xprop -id ${wm_id##* } _NET_WM_NAME | awk '{ print tolower($NF); }' | xargs) ||
-                wm=$(ps -e | grep -m 1 -F -o \
-                    -e "2bwm"      -e "catwm" \
-                    -e "dwm"       -e "fvwm"  \
-                    -e "monsterwm" -e "sowm"  \
-                    -e "tinywm"    -e "wmaker" | awk '{ print tolower($1); }')
+                wm="$(
+                    xprop -id "${wm_id##* }" _NET_WM_NAME |
+                            awk '{ print tolower($NF); }' | xargs ||
+                        pgrep -lox "(2b|cat|d|fv|monster|so|tiny)wm|wmaker" |
+                            cut -d' ' -f2
+                )"
             fi
             echo "$wm"
         else
@@ -234,6 +235,7 @@ pm[slack]='ls /var/log/packages | wc -l'
 pm[xbps]='xbps-query -l | wc -l'
 pm[emerge]='ls -d /var/db/pkg/*/* | wc -l'
 
+# shellcheck disable=SC2034 # actually used in eval
 PACKAGES="$(
     eval "${pm["$(
         case $OS in
@@ -490,14 +492,14 @@ case $OS_LOGO in
     manjaro*)
         motif=${colors[g]} # green
         a=${colors[g]}     # green
-        LOGO[0]="  $a[][][][][][]|$xx $a[][][]$xx"
-        LOGO[1]="  $a[][][][][][]|$xx $a[][][]$xx"
-        LOGO[2]="  $a[][][]\"\"\"\"\"\"\"$xx $a[][][]$xx"
-        LOGO[3]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
-        LOGO[4]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
-        LOGO[5]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
-        LOGO[6]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
-        LOGO[7]="  $a[][][]$xx $a[][][]$xx $a[][][]$xx"
+        LOGO[0]="  ${a}[][][][][][]|$xx ${a}[][][]$xx"
+        LOGO[1]="  ${a}[][][][][][]|$xx ${a}[][][]$xx"
+        LOGO[2]="  ${a}[][][]\"\"\"\"\"\"\"$xx ${a}[][][]$xx"
+        LOGO[3]="  ${a}[][][]$xx ${a}[][][]$xx ${a}[][][]$xx"
+        LOGO[4]="  ${a}[][][]$xx ${a}[][][]$xx ${a}[][][]$xx"
+        LOGO[5]="  ${a}[][][]$xx ${a}[][][]$xx ${a}[][][]$xx"
+        LOGO[6]="  ${a}[][][]$xx ${a}[][][]$xx ${a}[][][]$xx"
+        LOGO[7]="  ${a}[][][]$xx ${a}[][][]$xx ${a}[][][]$xx"
         ;;
     *mint*)
         motif=${colors[gg]} # bright green
@@ -595,8 +597,8 @@ case $OS_LOGO in
         LOGO[0]="       $a.<>.$xx     "
         LOGO[1]="    $a.<^>''<^>.$xx  "
         LOGO[2]="  $a<^><$xx      $a><^>$xx"
-        LOGO[3]="  $a[:]$xx        $a[:]$xx"
-        LOGO[4]="  $a[:]$xx        $a[:]$xx"
+        LOGO[3]="  ${a}[:]$xx        ${a}[:]$xx"
+        LOGO[4]="  ${a}[:]$xx        ${a}[:]$xx"
         LOGO[5]="  $a<:><$xx      $a><:>$xx"
         LOGO[6]="     $a<.>..<.>>$xx  "
         LOGO[7]="       $a\`<>\`$xx  $a</>$xx"
@@ -712,5 +714,6 @@ done
 ###########################################
 # order: user@hostname, OS, kernel, arch, uptime, packages, shell, desktop
 for i in $(seq 0 7); do
+    # shellcheck disable=SC2059 # can't do anything about it
     printf "${LOGO[i]}  ${PALETTE[i]}| ${INFO[i]}\n"
 done
