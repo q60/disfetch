@@ -228,16 +228,19 @@ DESKTOP="$(
 # defining distro logo and packages count #
 ###########################################
 # note for nixos: display only current user installed packages
-packages_apk() { apk info | wc -l; }
-packages_dpkg() { dpkg -l | grep -c "^li"; }
-packages_haiku() { pkgman search -ia | awk 'FNR > 2 { print }' | wc -l; }
-packages_nix() { nix-store -q --requisites ~/.nix-profile | wc -l; }
-packages_pacman() { pacman -Qq | wc -l; }
-packages_rpm() { rpm -qa | wc -l; }
-packages_zypper() { zypper se --installed-only | wc -l; }
-packages_slack() { find /var/log/packages -mindepth 1 -maxdepth 1 | wc -l; }
-packages_xbps() { xbps-query -l | wc -l; }
-packages_emerge() { find /var/db/pkg -mindepth 2 -maxdepth 2 | wc -l; }
+packages_apk() { apk info 2>/dev/null | wc -l; }
+packages_dpkg() { dpkg -l 2>/dev/null | grep -c "^li"; }
+packages_haiku() { pkgman search -ia  2>/dev/null |
+    awk 'FNR > 2 { print }' | wc -l; }
+packages_nix() { nix-store -q --requisites ~/.nix-profile 2>/dev/null | wc -l; }
+packages_pacman() { pacman -Qq 2>/dev/null | wc -l; }
+packages_rpm() { rpm -qa 2>/dev/null | wc -l; }
+packages_zypper() { zypper se --installed-only 2>/dev/null | wc -l; }
+packages_slack() { find /var/log/packages -mindepth 1 -maxdepth 1 2>/dev/null |
+    wc -l; }
+packages_xbps() { xbps-query -l 2>/dev/null | wc -l; }
+packages_emerge() { find /var/db/pkg -mindepth 2 -maxdepth 2 2>/dev/null |
+    wc -l; }
 
 # shellcheck disable=SC2034 # actually used in eval
 PACKAGES="$(
