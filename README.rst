@@ -99,14 +99,7 @@ your favorite distros.
 Usage
 -----
 
-::
-
-  syntax:
-        disfetch [options]
-  options:
-        -h, --help                    prints this message
-        -l, --logo                    sets distro logo to print
-        -m, --mono, --monochrome      enables monochrome mode
+See ``disfetch -h``.
 
 ----
 

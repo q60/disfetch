@@ -40,27 +40,24 @@ help() {
     \x1B[1msyntax\x1B[0m:
     \tdisfetch \x1B[92m[options]\x1B[0m
     \x1B[1moptions\x1B[0m:
-    \t\x1B[92m-h, --help\x1B[0m                    \x1B[93mprints this message\x1B[0m
-    \t\x1B[92m-l, --logo\x1B[0m                    \x1B[93msets distro logo to print\x1B[0m
-    \t\x1B[92m-m, --mono, --monochrome\x1B[0m      \x1B[93menables monochrome mode\x1B[0m
+    \t\x1B[92m-h\x1B[0m           \x1B[93mprint this help\x1B[0m
+    \t\x1B[92m-l <logo>\x1B[0m    \x1B[93mset distro logo\x1B[0m
+    \t\x1B[92m-m\x1B[0m           \x1B[93mdon't use colors and formatting\x1B[0m
+    \t\x1B[92m-n\x1B[0m           \x1B[93mdisable decorations, display only info\x1B[0m
     \n"
 }
 
 # parse arguments
-while [ -n "$1" ] && [ "$1" != -- ]; do
-    case $1 in
-        -h|--help)
-            help; exit 0
-            ;;
-        -l|--logo)
-            LOGO="$2"
-            ;;
-        -m|--mono|--monochrome)
-            MONO=1
-            ;;
+while getopts "hl:mn" opt; do
+    case "$opt" in
+        h) help; exit 0;;
+        l) LOGO="$OPTARG";;
+        m) MONO=1;;
+        n) INFO_ONLY=;;
+        *) exit 1;;
     esac
-    shift
 done
+shift $((OPTIND - 1))
 
 ###########################################
 # global stuff needed everywhere          #
@@ -791,5 +788,5 @@ done
 # order: user@hostname, OS, kernel, arch, uptime, packages, shell, desktop
 for i in $(seq 8); do
     # shellcheck disable=SC2059 # can't do anything about it
-    echo "$(elem "$i" "$LOGO")  $(elem "$i" "$PALETTE")| $(elem "$i" "$INFO")"
+    echo "${INFO_ONLY-"$(elem "$i" "$LOGO")  $(elem "$i" "$PALETTE")| "}$(elem "$i" "$INFO")"
 done
