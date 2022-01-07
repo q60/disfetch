@@ -40,27 +40,22 @@ help() {
     \x1B[1msyntax\x1B[0m:
     \tdisfetch \x1B[92m[options]\x1B[0m
     \x1B[1moptions\x1B[0m:
-    \t\x1B[92m-h, --help\x1B[0m                    \x1B[93mprints this message\x1B[0m
-    \t\x1B[92m-l, --logo\x1B[0m                    \x1B[93msets distro logo to print\x1B[0m
-    \t\x1B[92m-m, --mono, --monochrome\x1B[0m      \x1B[93menables monochrome mode\x1B[0m
+    \t\x1B[92m-h\x1B[0m           \x1B[93mprint this help\x1B[0m
+    \t\x1B[92m-l <logo>\x1B[0m    \x1B[93mset distro logo\x1B[0m
+    \t\x1B[92m-m\x1B[0m           \x1B[93mdon't use colors and formatting\x1B[0m
     \n"
 }
 
 # parse arguments
-while [ -n "$1" ] && [ "$1" != -- ]; do
-    case $1 in
-        -h|--help)
-            help; exit 0
-            ;;
-        -l|--logo)
-            LOGO="$2"
-            ;;
-        -m|--mono|--monochrome)
-            MONO=1
-            ;;
+while getopts "hl:mn" opt; do
+    case "$opt" in
+        h) help; exit 0;;
+        l) LOGO="$OPTARG";;
+        m) MONO=1;;
+        *) exit 1;;
     esac
-    shift
 done
+shift $((OPTIND - 1))
 
 ###########################################
 # global stuff needed everywhere          #
