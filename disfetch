@@ -43,6 +43,7 @@ help() {
     \t\x1B[92m-h\x1B[0m           \x1B[93mprint this help\x1B[0m
     \t\x1B[92m-l <logo>\x1B[0m    \x1B[93mset distro logo\x1B[0m
     \t\x1B[92m-m\x1B[0m           \x1B[93mdon't use colors and formatting\x1B[0m
+    \t\x1B[92m-n\x1B[0m           \x1B[93mdisable decorations, display only info\x1B[0m
     \n"
 }
 
@@ -52,6 +53,7 @@ while getopts "hl:mn" opt; do
         h) help; exit 0;;
         l) LOGO="$OPTARG";;
         m) MONO=1;;
+        n) INFO_ONLY=;;
         *) exit 1;;
     esac
 done
@@ -786,5 +788,5 @@ done
 # order: user@hostname, OS, kernel, arch, uptime, packages, shell, desktop
 for i in $(seq 8); do
     # shellcheck disable=SC2059 # can't do anything about it
-    echo "$(elem "$i" "$LOGO")  $(elem "$i" "$PALETTE")| $(elem "$i" "$INFO")"
+    echo "${INFO_ONLY-"$(elem "$i" "$LOGO")  $(elem "$i" "$PALETTE")| "}$(elem "$i" "$INFO")"
 done
