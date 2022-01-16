@@ -1,4 +1,4 @@
-disfetch |lang| |aur| |nix|
+disfetch |lang| |aur| |nix| |alpine|
 ========
 
 Yet another **\*nix** distro fetching program, but less complex. Written
@@ -82,12 +82,17 @@ Installation
             alt="Packaging status">
     </a></p>
 
-
-- There's also `a package in MPR
+- There's `a package in AUR
+  <https://aur.archlinux.org/packages/disfetch/>`__.
+  
+- There's `a package in MPR
   <https://mpr.hunterwittenborn.com/packages/disfetch/>`__.
 
-- You can also find a `.deb` package for Debian, Ubuntu and derivatives from
-  `releases <https://github.com/q60/disfetch/releases>`__.
+- There's `a package in Alpine
+  <https://pkgs.alpinelinux.org/packages?name=disfetch>`__.
+
+- There's also `a package in Nixpkgs
+  <https://search.nixos.org/packages?from=0&size=50&sort=relevance&query=disfetch>`__.
 
 - Grabbing the latest `release tarball
   <https://github.com/q60/disfetch/releases>`__ then running ``make install``
@@ -115,5 +120,7 @@ See ``disfetch -h``.
 .. |aur| image:: https://img.shields.io/aur/version/disfetch?logo=archlinux&style=for-the-badge
   :target: https://aur.archlinux.org/packages/disfetch/
 .. |nix| image:: https://img.shields.io/badge/Nix-disfetch-4F73BC?style=for-the-badge&logo=nixos
-  :target: https://search.nixos.org/packages?channel=21.05&from=0&size=50&sort=relevance&query=disfetch
+  :target: https://search.nixos.org/packages?from=0&size=50&sort=relevance&query=disfetch
+.. |alpine| image:: https://img.shields.io/badge/dynamic/xml?color=0D597F&label=alpine&query=%2F%2Fbody%2Fdiv%2Fmain%2Fdiv[2]%2Fdiv[1]%2Fdiv[1]%2Fdiv[1]%2Ftable%2Ftr[2]%2Ftd%2Fstrong%2Fa&url=https%3A%2F%2Fpkgs.alpinelinux.org%2Fpackage%2Fedge%2Ftesting%2Fx86_64%2Fdisfetch&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4Ij48cGF0aCBmaWxsPSIjRThFOEU4IiBkPSJNMzg0LjAyMTQ4NDQsMzQuMjc2ODg5OEgxMjcuOTc4NTA4TDAsMjU1Ljk5OTkwODRMMTI3Ljk3ODUwOCw0NzcuNzIzMTE0aDI1Ni4wNDI5Njg4TDUxMiwyNTUuOTk5OTA4NEwzODQuMDIxNDg0NCwzNC4yNzY4ODk4eiBNMTQ3LjE2MjA2MzYsMjk1LjQwMjA5OTZsMzguODQxNTgzMy0zOC44ODI4NzM1djUzLjk0MDIxNjFDMTcyLjM3NSwzMTAuMTY2NjU2NSwxNTkuMzIwODAwOCwzMDMuOTE2OTMxMiwxNDcuMTYyMDYzNiwyOTUuNDAyMDk5NnogTTI5OS43NjczMzQsMzA1Ljk3NTU4NTljLTIzLjc0Njc5NTctMjQuNDgxMjYyMi01NC4zMjcxOTQyLTU1LjE0MTcwODQtODcuNTM0NjgzMi04OC4xNzc3MzQ0bC04OC45Mzc0NTQyLDg3Ljk3NDczMTRDMTA5LjI3NjE2ODgsMzE1LjY0Mzg1OTksODUuODc1LDMwOC43NSw2Ny40NzQyMDUsMjk1LjM2NDE2NjNMMjEyLjU5MzgxMSwxNTEuODg0NzUwNGM0NS45MTQyMTUxLDQ4LjI5NDc5OTgsOTMuNTY5NDU4LDk2LjE5MzA4NDcsMTQzLjAzNTgyNzYsMTQzLjY3ODg3ODhDMzMxLjc3MjQ5MTUsMzEyLjY2NDk3OCwzMTAuMjUsMzEzLjg3NSwyOTkuNzY3MzM0LDMwNS45NzU1ODU5eiBNMzg0LjU4MTkzOTcsMzA1Ljk3NTU4NTlsLTcxLjMxODM4OTktNzEuMDc3OTQxOWwtNy4xMTQ3NzY2LDcuMTE0NzkxOWwtMzMuMjk4NDkyNC0zMi45MzQ4MTQ1bDQwLjQzMDQxOTktNDAuNDQwMjkyNGM0My4xMDYyMzE3LDQzLjQzMTY3MTEsODUuNDYxNDI1OCw4Ni4xNzY4NDk0LDEyNy4xNjM1MTMyLDEyNi45MjYzQzQxOS44NzUsMzEwLjMxMjUsMzk3LjA2MjUsMzE1LjM3NSwzODQuNTgxOTM5NywzMDUuOTc1NTg1OXoiLz48L3N2Zz4K
+  :target: https://pkgs.alpinelinux.org/packages?name=disfetch
 .. |date| date:: %d.%m.%Y
