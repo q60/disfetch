@@ -35,15 +35,14 @@ elem() {
 
 # help message
 help() {
-    printf "\x1B[93mdisfetch is a CLI system information tool written in bash\x1B[0m
+    printf "disfetch is a CLI system information tool written in bash
 
-    \x1B[1msyntax\x1B[0m:
-    \tdisfetch \x1B[92m[options]\x1B[0m
-    \x1B[1moptions\x1B[0m:
-    \t\x1B[92m-h\x1B[0m           \x1B[93mprint this help\x1B[0m
-    \t\x1B[92m-l <logo>\x1B[0m    \x1B[93mset distro logo\x1B[0m
-    \t\x1B[92m-m\x1B[0m           \x1B[93mdon't use colors and formatting\x1B[0m
-    \t\x1B[92m-n\x1B[0m           \x1B[93mdisable decorations, display only info\x1B[0m
+Usage: disfetch [options]
+Options:
+  -h\t\tprint this help
+  -l <logo>\tset distro logo
+  -m\t\tdon't use colors and formatting
+  -n\t\tdisable decorations, display only info
     \n"
 }
 
