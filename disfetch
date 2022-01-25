@@ -61,26 +61,27 @@ shift $((OPTIND - 1))
 ###########################################
 # global stuff needed everywhere          #
 ###########################################
+esc="$(printf '\033')" # escape sequence character
 if [ -z "$MONO" ]; then
     # all colors
-    blue="\x1B[34m"
-    brightblue="\x1B[94m"
-    cyan="\x1B[36m"
-    brightcyan="\x1B[96m"
-    #black="\x1B[30m" unused?
-    brightblack="\x1B[90m"
-    red="\x1B[31m"
-    brightred="\x1B[91m"
-    yellow="\x1B[33m"
-    brightyellow="\x1B[93m"
-    magenta="\x1B[35m"
-    brightmagenta="\x1B[95m"
-    green="\x1B[32m"
-    brightgreen="\x1B[92m"
-    white="\x1B[37m"
-    brightwhite="\x1B[97m"
-    xx="\x1B[0m" # reset
-    zz="\x1B[1m" # bold
+    blue="$esc[34m"
+    brightblue="$esc[94m"
+    cyan="$esc[36m"
+    brightcyan="$esc[96m"
+    #black="$esc[30m" unused?
+    brightblack="$esc[90m"
+    red="$esc[31m"
+    brightred="$esc[91m"
+    yellow="$esc[33m"
+    brightyellow="$esc[93m"
+    magenta="$esc[35m"
+    brightmagenta="$esc[95m"
+    green="$esc[32m"
+    brightgreen="$esc[92m"
+    white="$esc[37m"
+    brightwhite="$esc[97m"
+    xx="$esc[0m" # reset
+    zz="$esc[1m" # bold
 
     # system colors palette
     PALETTE="\x1B[37mW\x1B[97mE$xx
