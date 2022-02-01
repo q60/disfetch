@@ -63,34 +63,34 @@ shift $((OPTIND - 1))
 ###########################################
 if [ -z "$MONO" ]; then
     # all colors
-    blue="\x1B[34m"
-    brightblue="\x1B[94m"
-    cyan="\x1B[36m"
-    brightcyan="\x1B[96m"
-    #black="\x1B[30m" unused?
-    brightblack="\x1B[90m"
-    red="\x1B[31m"
-    brightred="\x1B[91m"
-    yellow="\x1B[33m"
-    brightyellow="\x1B[93m"
-    magenta="\x1B[35m"
-    brightmagenta="\x1B[95m"
-    green="\x1B[32m"
-    brightgreen="\x1B[92m"
-    white="\x1B[37m"
-    brightwhite="\x1B[97m"
-    xx="\x1B[0m" # reset
-    zz="\x1B[1m" # bold
+    blue="\033[34m"
+    brightblue="\033[94m"
+    cyan="\033[36m"
+    brightcyan="\033[96m"
+    #black="\033[30m" unused?
+    brightblack="\033[90m"
+    red="\033[31m"
+    brightred="\033[91m"
+    yellow="\033[33m"
+    brightyellow="\033[93m"
+    magenta="\033[35m"
+    brightmagenta="\033[95m"
+    green="\033[32m"
+    brightgreen="\033[92m"
+    white="\033[37m"
+    brightwhite="\033[97m"
+    xx="\033[0m" # reset
+    zz="\033[1m" # bold
 
     # system colors palette
-    PALETTE="\x1B[37mW\x1B[97mE$xx
-\x1B[31mR\x1B[91mD$xx
-\x1B[32mG\x1B[92mN$xx
-\x1B[33mY\x1B[93mW$xx
-\x1B[34mB\x1B[94mE$xx
-\x1B[35mM\x1B[95mA$xx
-\x1B[36mC\x1B[96mN$xx
-\x1B[30mB\x1B[90mK$xx"
+    PALETTE="\033[37mW\033[97mE$xx
+\033[31mR\033[91mD$xx
+\033[32mG\033[92mN$xx
+\033[33mY\033[93mW$xx
+\033[34mB\033[94mE$xx
+\033[35mM\033[95mA$xx
+\033[36mC\033[96mN$xx
+\033[30mB\033[90mK$xx"
 fi
 
 ###########################################
