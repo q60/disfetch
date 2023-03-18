@@ -259,7 +259,7 @@ PACKAGES="$(
         nixos*) packages_nix;;
         slack*) packages_slack;;
         void*) packages_xbps;;
-        opensuse*) packages_opensuse;;
+        opensuse*) packages_rpm;;
     esac
 )"
 
