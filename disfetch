@@ -238,7 +238,6 @@ packages_haiku() { pkgman search -ia  2>/dev/null |
 packages_nix() { nix-store -q --requisites ~/.nix-profile 2>/dev/null | wc -l; }
 packages_pacman() { pacman -Qq 2>/dev/null | wc -l; }
 packages_rpm() { rpm -qa 2>/dev/null | wc -l; }
-packages_zypper() { zypper se --installed-only 2>/dev/null | wc -l; }
 packages_slack() { find /var/log/packages -mindepth 1 -maxdepth 1 2>/dev/null |
     wc -l; }
 packages_xbps() { xbps-query -l 2>/dev/null | wc -l; }
@@ -253,13 +252,12 @@ PACKAGES="$(
             packages_dpkg;;
         arc*|artix*|endeavour*|manjaro*|garuda*|msys2*|parabola*)
             packages_pacman;;
-        fedora*|qubes*|cent*|redhat*) packages_rpm;;
+        fedora*|qubes*|cent*|redhat*|opensuse*) packages_rpm;;
         gentoo*) packages_emerge;;
         haiku*) packages_haiku;;
         nixos*) packages_nix;;
         slack*) packages_slack;;
         void*) packages_xbps;;
-        opensuse*) packages_opensuse;;
     esac
 )"
 
